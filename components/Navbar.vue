@@ -3,7 +3,7 @@
   .element-wrapper
       .element-body 
         .navbar-content
-          span Aminoneeds
+          span Aminoprofile
 </template>
 
 <style lang="scss">

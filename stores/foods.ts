@@ -20,9 +20,7 @@ export const useFoodsStore = defineStore('foods', () => {
         }
       });
       foods.value = response.foods
-      console.log(foods)
     } catch (error) {
-      console.log(error);
     } finally {
       loading.value = true;
     }

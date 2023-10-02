@@ -8,15 +8,12 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      "meta": [
-        {
-          "name": "Aminoprofile",
-          "content": "width=device-width, initial-scale=1"
-        },
-        {
-          "charset": "utf-8"
-        }
+      title: "Aminoprofile",
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
+      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
     },
   },
   modules: ['nuxt-icons', '@pinia/nuxt'],

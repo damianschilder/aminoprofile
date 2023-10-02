@@ -21,9 +21,9 @@
             span Search and add foods to compare
           .row( v-else v-for="food in foodsStore.selectedFoods")
             .icons
-              nuxt-icon(name="favorite/favorite")
+              //- nuxt-icon(name="favorite/favorite")
               nuxt-icon.delete(name="delete" @click="deleteFood(food[0])")
-              nuxt-icon(name="checkbox/checkbox empty")
+              //- nuxt-icon(name="checkbox/checkbox empty")
             span.name {{ food[1].description }}{{ food.description }}
             .acids
               span {{  findValue(food[1].foodNutrients, 1214) }}
@@ -50,7 +50,7 @@ function findValue(foodNutrients, nutrientId) {
   return nutrient.nutrientId == nutrientId
   })
   if (result) return result.value
-  return ''
+  return 'N/a'
 }
 
 function deleteFood(fdcId) {
@@ -74,7 +74,8 @@ h2 {
     justify-content: space-between;
     column-gap: 0.5rem;
     margin-bottom: 1rem;
-    margin-left: 142px;
+    // margin-left: 142px;
+    margin-left: 75px;
     padding-right: 2rem;
     > .acids {
       display: flex;

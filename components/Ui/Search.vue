@@ -1,7 +1,7 @@
 <template lang="pug">
 .component-wrapper 
   .element-wrapper
-    .element-body 
+    .element-body
       h1 Search for foods
       .search( :class="{ 'searchable': searchQuery && searchQuery.length > 0 }" )
         input(placeholder="Name..." v-model="searchQuery" @keyup.enter="searchFoods()")
@@ -9,12 +9,21 @@
         nuxt-icon( v-else name="search"   @click="searchFoods()")
       .results( v-if="foodsStore && foodsStore.foods.length > 0" )
         .headers
-          .empty
           span Name
           span Category
           .nutrients
             span Nutrients
-            nuxt-icon( name="info" )
+            nuxt-icon( name="info" @mouseover="hover = true" @mouseleave="hover = false")
+            .info( :class="{'show' : hover}")
+              .row 
+                span #
+                span Number of nutrients available.
+              .row 
+                nuxt-icon.lacking(name="minerals")
+                span Amino acids data not present.
+              .row 
+                nuxt-icon.present(name="minerals")
+                span Amino acids data present.
         .result( v-for="food in foodsStore.foods" @click="addFood(food)")
           span {{ food.description }}
           span {{ food.foodCategory }}
@@ -37,6 +46,8 @@ const foodsStore = useFoodsStore();
 const searchQuery = ref('');
 
 const loading = ref(false);
+
+const hover = ref(false);
 
 async function searchFoods() {
   loading.value = true;
@@ -64,9 +75,6 @@ function findValue(foodNutrients, nutrientId) {
   align-items: center;
   /* justify-content: center; */
 }
-/* h1 {
-  width: 30rem;
-} */
 .search {
   position: relative;
   margin: 1rem;
@@ -104,10 +112,10 @@ function findValue(foodNutrients, nutrientId) {
 
 .results {
   width: 80%;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
   > .headers {
     display: grid;
-    grid-template-columns: 200px 400px max-content auto;
+    grid-template-columns: 400px max-content auto;
     column-gap: 2rem;
     font-size: 14px;
     /* font-weight: bold; */
@@ -116,7 +124,8 @@ function findValue(foodNutrients, nutrientId) {
     margin-bottom: 1rem;
     > .nutrients {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
+      position: relative;
       column-gap: 0.25rem;
       &:deep(.nuxt-icon svg) {
         height: fit-content;
@@ -124,6 +133,41 @@ function findValue(foodNutrients, nutrientId) {
         &:hover {
           color: black;
         }
+      }
+      > .info {
+        padding: 1rem;
+        border-radius: 5px;
+        top: 24px;
+        right: 8px;
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+        width: max-content;
+        background-color: white;
+        filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.15));
+        transition: visibility 0.2s, opacity 0.2s;
+        > .row {
+          display: grid;
+          grid-template-columns: 19.2px auto;
+          column-gap: 0.5rem;
+          align-items: center;
+          > span:first-child {
+            justify-self: center;
+          }
+        }
+        &:deep(.lacking.nuxt-icon svg) {
+          color: $neutral-variant70;
+        }
+        &:deep(.present.nuxt-icon svg) {
+          color: green;
+        }
+      }
+      > .show {
+        visibility: initial;
+        opacity: 1;
       }
     }
   }
@@ -139,7 +183,7 @@ function findValue(foodNutrients, nutrientId) {
     }
     .nutrients {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       align-items: center;
       column-gap: 0.75rem;
       &:deep(.nuxt-icon svg) {
