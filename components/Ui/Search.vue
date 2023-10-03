@@ -43,7 +43,6 @@ const foodsStore = useFoodsStore();
 const runtimeConfig = useRuntimeConfig()
 const apiKey: string = runtimeConfig.public.foodDataKey
 
-
 const searchQuery = ref<string>('');
 
 const loading = ref<Boolean>(false);
