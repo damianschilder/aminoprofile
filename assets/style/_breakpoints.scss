@@ -1,0 +1,40 @@
+
+// Breakpoints based on: https://material.io/design/layout/responsive-layout-grid.html#breakpoints
+$breakpoint-mobile: 599px;
+$breakpoint-tablet: 904px;
+$breakpoint-laptop: 1239px;
+$breakpoint-desktop: 1439px;
+
+$container-width-small: 840px;
+$container-width-large: 1040px;
+$container-width-dashboard: 1440px;
+
+$container-margin-small: 16px;
+$container-margin-medium: 32px;
+$container-margin-large: 200px;
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+@mixin tablet-small {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+@mixin tablet-medium {
+  @media (max-width: $breakpoint-laptop) {
+    @content;
+  }
+}
+@mixin laptop {
+  @media (max-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
