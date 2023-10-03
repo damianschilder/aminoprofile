@@ -41,19 +41,11 @@
 
 </template>
 
-<script setup>
-import { useFoodsStore } from '@/stores/foods'
+<script setup lang="ts">
 const foodsStore = useFoodsStore();
+import findValue from '~/composables/findValue';
 
-function findValue(foodNutrients, nutrientId) {
-  const result = foodNutrients.find(nutrient => {
-  return nutrient.nutrientId == nutrientId
-  })
-  if (result) return result.value
-  return 'N/a'
-}
-
-function deleteFood(fdcId) {
+function deleteFood(fdcId: Food['fdcId']) {
   foodsStore.selectedFoods.delete(fdcId)
 }
 </script>
@@ -147,4 +139,4 @@ h2 {
     color: $neutral-variant70;
   }
 }
-</style>
+</style>~/types/FoodBankTypes

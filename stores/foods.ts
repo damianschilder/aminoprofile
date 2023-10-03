@@ -1,31 +1,32 @@
-import { defineStore, acceptHMRUpdate } from 'pinia'
-
 export const useFoodsStore = defineStore('foods', () => {
-  const loading = ref(false)
-  const searchQuery = ref();
-  const foods = ref([]);
-  const selectedFoods = ref(new Map());
+  const loading = ref<Boolean>(false)
+  const error = ref<Boolean>(false)
+  const searchQuery = ref<String>('');
+  const foods = ref<Food[]>([]);
+  const selectedFoods = ref<Map<string, Food>>(new Map());
 
-  async function searchFoods(query, key) {
+  async function searchFoods(query: string, key: string) {
     loading.value = true;
     searchQuery.value = query;
     try {
-      const response = await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
+      const response: SearchFoodDataResponse= await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
         method: 'POST',
         body: {
-          query: query, 
+          query, 
           dataType: ["Foundation"], 
           // "sortBy": "foodNutrients", 
           // "sortOrder": "desc"
         }
       });
       foods.value = response.foods
-    } catch (error) {
+      error.value = false;
+    } catch (e) {
+      error.value = true;
     } finally {
       loading.value = true;
     }
   }
-  return { loading, foods, selectedFoods, searchFoods }
+  return { loading, error, foods, selectedFoods, searchFoods }
 });
 
 if (import.meta.hot) {

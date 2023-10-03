@@ -16,7 +16,18 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
     },
   },
-  modules: ['nuxt-icons', '@pinia/nuxt'],
+  modules: [
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: ['defineStore', 'acceptHMRUpdate'],
+      },
+    ],
+    'nuxt-icons',
+  ],
+  imports: {
+    dirs: ['stores', 'types'],
+  },
   css: [
     "@/assets/style/app.scss", 
   ],
@@ -31,4 +42,4 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  })
+})

@@ -8,6 +8,7 @@
 
 <style lang="scss">
 .navbar-wrapper {
+  grid-area: 'navbar';
   height: 75px;
   background-color: white;
   filter: drop-shadow(0px 4px 1px rgba(0, 0, 0, 0.25));
@@ -20,9 +21,9 @@
 .navbar-content {
   height: 100%;
   display: flex;
-  // justify-content: center;
   align-items: center;
   font-family: "Young Serif";
   font-size: 24px;
+  color: $primary20;
 }
 </style>
