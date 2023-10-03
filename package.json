@@ -11,7 +11,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
-    "nuxt": "^3.6.1",
+    "nuxt": "^3.7.4",
     "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
     "vite-plugin-pug": "^0.3.2",

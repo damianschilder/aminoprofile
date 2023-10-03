@@ -4,7 +4,7 @@
   UiTable
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .search {
   margin-bottom: 5rem;
 }

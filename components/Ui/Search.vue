@@ -7,7 +7,8 @@
         input(placeholder="Name..." v-model="searchQuery" @keyup.enter="searchFoods()")
         UiLoader.loading( v-if="loading")
         nuxt-icon( v-else name="search"   @click="searchFoods()")
-      .results( v-if="foodsStore && foodsStore.foods.length > 0" )
+      .error( v-if="foodsStore.error") Can't connect to databank. Please try again later.
+      .results( v-if="foodsStore && !foodsStore.error && foodsStore.foods.length > 0" )
         .headers
           span Name
           span Category
@@ -27,7 +28,7 @@
         .result( v-for="food in foodsStore.foods" @click="addFood(food)")
           span {{ food.description }}
           span {{ food.foodCategory }}
-          .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== '' }")
+          .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== 'N/a' }")
             span {{ food.foodNutrients.length }}
             //- nuxt-icon(name="acids")
             nuxt-icon(name="minerals")
@@ -35,19 +36,19 @@
           span {{ foodsStore.foods.length }} {{ foodsStore.foods.length === 1 ? 'result' : 'results'}}
   </template>
 
-<script setup>
-import { useFoodsStore } from '@/stores/foods'
-
-const runtimeConfig = useRuntimeConfig()
-const apiKey = runtimeConfig.public.foodDataKey
+<script setup lang="ts">
+import findValue from '~/composables/findValue';
 
 const foodsStore = useFoodsStore();
+const runtimeConfig = useRuntimeConfig()
+const apiKey: string = runtimeConfig.public.foodDataKey
 
-const searchQuery = ref('');
 
-const loading = ref(false);
+const searchQuery = ref<string>('');
 
-const hover = ref(false);
+const loading = ref<Boolean>(false);
+
+const hover = ref<Boolean>(false);
 
 async function searchFoods() {
   loading.value = true;
@@ -55,16 +56,8 @@ async function searchFoods() {
   loading.value = false;
 }
 
-function addFood( food ) {
+function addFood( food: Food ) {
   foodsStore.selectedFoods.set(food.fdcId, food);
-}
-
-function findValue(foodNutrients, nutrientId) {
-  const result = foodNutrients.find(nutrient => {
-  return nutrient.nutrientId == nutrientId
-  })
-  if (result) return result.value
-  return ''
 }
 </script>
 
@@ -73,7 +66,6 @@ function findValue(foodNutrients, nutrientId) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
 }
 .search {
   position: relative;
@@ -112,7 +104,10 @@ function findValue(foodNutrients, nutrientId) {
 
 .results {
   width: 80%;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
+  > .error {
+    font-size: 24px;
+  }
   > .headers {
     display: grid;
     grid-template-columns: 400px max-content auto;
@@ -211,4 +206,4 @@ function findValue(foodNutrients, nutrientId) {
     }
   }
 }
-</style>
+</style>~/types/FoodBankTypes
