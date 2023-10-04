@@ -28,7 +28,6 @@ export default defineNuxtConfig({
       },
     ],
     'nuxt-icons',
-    'nuxt-gtag'
   ],
 
   imports: {
