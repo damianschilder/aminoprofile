@@ -4,7 +4,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      foodDataKey: process.env.NUXT_PUBLIC_FOODCENTRAL_API_KEY
+      foodDataKey: process.env.NUXT_PUBLIC_FOODCENTRAL_API_KEY,
+      gtagId: process.env.NUXT_PUBLIC_GTAG_ID
     }
   },
 

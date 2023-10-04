@@ -12,15 +12,18 @@
 <style lang="scss" scoped>
 .layout-wrapper {
   display: grid;
+  height: 100%;
+
   grid-template-columns: 100%;
   grid-template-areas:
     'navbar'
     'nuxt'
     'footer';
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 75px auto 112px;
   > .slot-wrapper {
     grid-area: nuxt;
     margin-bottom: 5rem;
+    height: 100%;
   }
 }
 
