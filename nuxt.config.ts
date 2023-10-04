@@ -1,11 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   pages: true,
+
   runtimeConfig: {
     public: {
       foodDataKey: process.env.NUXT_PUBLIC_FOODCENTRAL_API_KEY
     }
   },
+
   app: {
     head: {
       title: "Aminoprofile",
@@ -16,6 +18,7 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
     },
   },
+
   modules: [
     [
       '@pinia/nuxt',
@@ -24,13 +27,17 @@ export default defineNuxtConfig({
       },
     ],
     'nuxt-icons',
+    'nuxt-gtag'
   ],
+
   imports: {
     dirs: ['stores', 'types'],
   },
+
   css: [
     "@/assets/style/app.scss", 
   ],
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -41,5 +48,6 @@ export default defineNuxtConfig({
       },
     },
   },
+
   devtools: { enabled: true },
 })
