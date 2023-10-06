@@ -2,23 +2,24 @@ export const useFoodsStore = defineStore('foods', () => {
   const loading = ref<Boolean>(false)
   const error = ref<Boolean>(false)
   const searchQuery = ref<String>('');
-  const foods = ref<Food[]>([]);
-  const selectedFoods = ref<Map<string, Food>>(new Map());
+  const results = ref<Food[]>([]);
+  const shownFoods = ref<Food[]>([]);
+  const selectedFoods = ref<Array<Food['fdcId']>>([]);
+  const responseHits = ref<SearchFoodDataResponse['totalHits']>(null)
 
   async function searchFoods(query: string, key: string) {
     loading.value = true;
     searchQuery.value = query;
     try {
-      const response: SearchFoodDataResponse= await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
+      const response: SearchFoodDataResponse = await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
         method: 'POST',
         body: {
           query, 
           dataType: ["Foundation"], 
-          // "sortBy": "foodNutrients", 
-          // "sortOrder": "desc"
         }
       });
-      foods.value = response.foods
+      results.value = response.foods
+      responseHits.value = response.totalHits
       error.value = false;
     } catch (e) {
       error.value = true;
@@ -26,7 +27,7 @@ export const useFoodsStore = defineStore('foods', () => {
       loading.value = true;
     }
   }
-  return { loading, error, foods, selectedFoods, searchFoods }
+  return { loading, error, results, shownFoods, selectedFoods, responseHits, searchFoods }
 });
 
 if (import.meta.hot) {

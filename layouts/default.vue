@@ -3,6 +3,7 @@
   Navbar
   .slot-wrapper
     slot
+    UiTable.table
   Footer
   .noMobile
     h2 Aminoprofile
@@ -24,6 +25,9 @@
     grid-area: nuxt;
     margin-bottom: 5rem;
     height: 100%;
+    > .table {
+      margin-top: 5rem;
+    }
   }
 }
 

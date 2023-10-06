@@ -8,7 +8,7 @@
         UiLoader.loading( v-if="loading")
         nuxt-icon( v-else name="search"   @click="searchFoods()")
       .error( v-if="foodsStore.error") Can't connect to databank. Please try again later.
-      .results( v-if="foodsStore && !foodsStore.error && foodsStore.foods.length > 0" )
+      .results( v-if="foodsStore && !foodsStore.error && foodsStore.results.length > 0" )
         .headers
           span Name
           span Category
@@ -25,15 +25,15 @@
               .row 
                 nuxt-icon.present(name="minerals")
                 span Amino acids data present.
-        .result( v-for="food in foodsStore.foods" @click="addFood(food)")
-          span {{ food.description }}
+        .result( v-for="food in sortedResults" @click="findValue(food.foodNutrients, 1214) !== 'N/a' ? addFood(food) : null" :class="{ 'clickable': findValue(food.foodNutrients, 1214) !== 'N/a' }")
+          span(@click="addFood(food)") {{ food.description }}
           span {{ food.foodCategory }}
           .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== 'N/a' }")
             span {{ food.foodNutrients.length }}
             //- nuxt-icon(name="acids")
             nuxt-icon(name="minerals")
-        .total 
-          span {{ foodsStore.foods.length }} {{ foodsStore.foods.length === 1 ? 'result' : 'results'}}
+      .total( v-if="foodsStore.responseHits !== null") 
+        span {{ foodsStore.results.length }} {{ foodsStore.results.length === 1 ? 'result' : 'results'}}
   </template>
 
 <script setup lang="ts">
@@ -49,6 +49,26 @@ const loading = ref<Boolean>(false);
 
 const hover = ref<Boolean>(false);
 
+function sortByFindValue(foods: Food[]) {
+  const sortedFoods = [...foods];
+  sortedFoods.sort((a, b) => {
+    const aValue = findValue(a.foodNutrients, 1214);
+    const bValue = findValue(b.foodNutrients, 1214);
+    if (typeof aValue === 'number' && typeof bValue !== 'number') {
+      return -1;
+    } else if (typeof aValue !== 'number' && typeof bValue === 'number') {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return sortedFoods;
+}
+
+const sortedResults = computed(() => {
+  return sortByFindValue(foodsStore.results);
+})
+
 async function searchFoods() {
   loading.value = true;
   if (searchQuery) await foodsStore.searchFoods(searchQuery.value, apiKey);
@@ -56,7 +76,10 @@ async function searchFoods() {
 }
 
 function addFood( food: Food ) {
-  foodsStore.selectedFoods.set(food.fdcId, food);
+  if (!foodsStore.shownFoods.includes(food)) {
+    foodsStore.shownFoods.push(food);
+    foodsStore.selectedFoods.push(food.fdcId)
+  }
 }
 </script>
 
@@ -101,9 +124,9 @@ function addFood( food: Food ) {
   }
 }
 
+
 .results {
   width: 80%;
-  margin-bottom: 2rem;
   > .error {
     font-size: 24px;
   }
@@ -153,7 +176,7 @@ function addFood( food: Food ) {
           }
         }
         &:deep(.lacking.nuxt-icon svg) {
-          color: $neutral-variant70;
+          color: $neutral-variant80;
         }
         &:deep(.present.nuxt-icon svg) {
           color: green;
@@ -166,15 +189,13 @@ function addFood( food: Food ) {
     }
   }
   > .result {
-    cursor: pointer;
     display: grid;
     grid-template-columns: 400px max-content auto;
     column-gap: 2rem;
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
-    &:hover {
-      background-color: $surfaces--light--surface2;
-    }
+    text-decoration: none;
+    color: $neutral-variant80;
     .nutrients {
       display: flex;
       justify-content: flex-end;
@@ -183,7 +204,7 @@ function addFood( food: Food ) {
       &:deep(.nuxt-icon svg) {
         height: fit-content;
         width: 1.5rem;
-        color: $neutral-variant70;
+        color: $neutral-variant80;
       }
       > span {
         text-align: right;
@@ -197,12 +218,20 @@ function addFood( food: Food ) {
       
     }
   }
-  > .total {
-    padding-left: 0.5rem;
-    font-size: 13px;
-    > span {
-      color: $neutral-variant70;
+  > .clickable {
+    color: $neutral-variant20;
+    cursor: pointer;
+    &:hover {
+      background-color: $surfaces--light--surface2;
     }
+  }
+}
+.total {
+  width: 80%;
+  padding-left: 1rem;
+  font-size: 13px;
+  > span {
+    color: $neutral-variant70;
   }
 }
 </style>~/types/FoodBankTypes
