@@ -5,22 +5,21 @@ export const useFoodsStore = defineStore('foods', () => {
   const results = ref<Food[]>([]);
   const shownFoods = ref<Food[]>([]);
   const selectedFoods = ref<Array<Food['fdcId']>>([]);
-  const activeFood = ref<Food>({})
+  const responseHits = ref<SearchFoodDataResponse['totalHits']>(null)
 
   async function searchFoods(query: string, key: string) {
     loading.value = true;
     searchQuery.value = query;
     try {
-      const response: SearchFoodDataResponse= await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
+      const response: SearchFoodDataResponse = await $fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${key}`, {
         method: 'POST',
         body: {
           query, 
           dataType: ["Foundation"], 
-          // "sortBy": "foodNutrients", 
-          // "sortOrder": "desc"
         }
       });
       results.value = response.foods
+      responseHits.value = response.totalHits
       error.value = false;
     } catch (e) {
       error.value = true;
@@ -28,7 +27,7 @@ export const useFoodsStore = defineStore('foods', () => {
       loading.value = true;
     }
   }
-  return { loading, error, results, shownFoods, selectedFoods, activeFood, searchFoods }
+  return { loading, error, results, shownFoods, selectedFoods, responseHits, searchFoods }
 });
 
 if (import.meta.hot) {

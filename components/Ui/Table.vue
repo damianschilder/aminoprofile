@@ -57,22 +57,12 @@
 const foodsStore = useFoodsStore();
 import findValue from '~/composables/findValue';
 
-// function toggleFood(fdcId: Food['fdcId']) {
-//   if (foodsStore.selectedFoods.includes(fdcId)) {
-//     const index = foodsStore.selectedFoods.findIndex(obj => obj.fdcId === fdcId);
-//     foodsStore.selectedFoods.splice(index, 1)
-//   } else {
-//     foodsStore.selectedFoods.push(fdcId)
-//   }
-// }
-function toggleFood(fdcId) {
+function toggleFood(fdcId: Food['fdcId']) {
   const index = foodsStore.selectedFoods.indexOf(fdcId);
 
   if (index !== -1) {
-    // If fdcId is already in the array, remove it
     foodsStore.selectedFoods.splice(index, 1);
   } else {
-    // If fdcId is not in the array, add it
     foodsStore.selectedFoods.push(fdcId);
   }
 }
@@ -142,7 +132,7 @@ h2 {
       column-gap: 1rem;
       line-height: 1.3rem;
       height: 41.6px;
-      color: $neutral-variant70;
+      color: $neutral-variant80;
       > .icons {
         display: flex;
         column-gap: 0.4rem;
@@ -170,10 +160,10 @@ h2 {
         }
       }
       > span {
-        color: $neutral-variant50;
+        color: $neutral-variant60;
       }
       > .name {
-        color: $neutral-variant60
+        color: $neutral-variant70
       }
       > .acids {
         display: grid;
@@ -182,7 +172,7 @@ h2 {
       }
     }
     > .active {
-      color: $neutral-variant40;
+      color: $neutral-variant20;
       > .name {
         color: $light--on-surface-variant;
       }
@@ -194,6 +184,7 @@ h2 {
       padding-top: 0.5rem;
       column-gap: 1rem;
       border-top: 1px solid $neutral-variant90;
+      padding-left: 2.2rem;
       > .acids {
         display: grid;
         grid-template-columns: 46.2px 81.2667px 73.85px 56.3666px 64.7833px 72.75px 45.5333px 104.367px 81.6167px;

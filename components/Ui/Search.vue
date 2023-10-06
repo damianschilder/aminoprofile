@@ -25,14 +25,14 @@
               .row 
                 nuxt-icon.present(name="minerals")
                 span Amino acids data present.
-        .result( v-for="food in foodsStore.results" @click="addFood(food)")
+        .result( v-for="food in sortedResults" @click="findValue(food.foodNutrients, 1214) !== 'N/a' ? addFood(food) : null" :class="{ 'clickable': findValue(food.foodNutrients, 1214) !== 'N/a' }")
           span(@click="addFood(food)") {{ food.description }}
           span {{ food.foodCategory }}
           .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== 'N/a' }")
             span {{ food.foodNutrients.length }}
             //- nuxt-icon(name="acids")
             nuxt-icon(name="minerals")
-      .total 
+      .total( v-if="foodsStore.responseHits !== null") 
         span {{ foodsStore.results.length }} {{ foodsStore.results.length === 1 ? 'result' : 'results'}}
   </template>
 
@@ -49,6 +49,26 @@ const loading = ref<Boolean>(false);
 
 const hover = ref<Boolean>(false);
 
+function sortByFindValue(foods: Food[]) {
+  const sortedFoods = [...foods];
+  sortedFoods.sort((a, b) => {
+    const aValue = findValue(a.foodNutrients, 1214);
+    const bValue = findValue(b.foodNutrients, 1214);
+    if (typeof aValue === 'number' && typeof bValue !== 'number') {
+      return -1;
+    } else if (typeof aValue !== 'number' && typeof bValue === 'number') {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return sortedFoods;
+}
+
+const sortedResults = computed(() => {
+  return sortByFindValue(foodsStore.results);
+})
+
 async function searchFoods() {
   loading.value = true;
   if (searchQuery) await foodsStore.searchFoods(searchQuery.value, apiKey);
@@ -61,18 +81,6 @@ function addFood( food: Food ) {
     foodsStore.selectedFoods.push(food.fdcId)
   }
 }
-
-function goToFood( food: Food ) {
-  foodsStore.activeFood = food;
-}
-
-// watch(
-//   () => foodsStore.selectedFoods,
-//   (newValue, oldValue) => {
-//     const result = foodsStore.shownFoods.filter(obj => foodsStore.selectedFoods.includes(obj.fdcId));
-//   },
-//   { deep: true }
-// )
 </script>
 
 <style lang="scss" scoped>
@@ -168,7 +176,7 @@ function goToFood( food: Food ) {
           }
         }
         &:deep(.lacking.nuxt-icon svg) {
-          color: $neutral-variant70;
+          color: $neutral-variant80;
         }
         &:deep(.present.nuxt-icon svg) {
           color: green;
@@ -181,17 +189,13 @@ function goToFood( food: Food ) {
     }
   }
   > .result {
-    cursor: pointer;
     display: grid;
     grid-template-columns: 400px max-content auto;
     column-gap: 2rem;
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
     text-decoration: none;
-    color: black;
-    &:hover {
-      background-color: $surfaces--light--surface2;
-    }
+    color: $neutral-variant80;
     .nutrients {
       display: flex;
       justify-content: flex-end;
@@ -200,7 +204,7 @@ function goToFood( food: Food ) {
       &:deep(.nuxt-icon svg) {
         height: fit-content;
         width: 1.5rem;
-        color: $neutral-variant70;
+        color: $neutral-variant80;
       }
       > span {
         text-align: right;
@@ -212,6 +216,13 @@ function goToFood( food: Food ) {
         color: green;
       }
       
+    }
+  }
+  > .clickable {
+    color: $neutral-variant20;
+    cursor: pointer;
+    &:hover {
+      background-color: $surfaces--light--surface2;
     }
   }
 }

@@ -1,4 +1,11 @@
 export type DataType = 'Branded' | 'SR Legacy' | 'Survey (FNDDS)' | 'Foundation';
+export interface DataTypeObject {
+  Branded: number
+  "Survey (FNDDS)": number
+  "SR Legacy": number
+  Foundation: number
+  Experimental: number
+}
 
 export interface FoodNutrient {
   nutrientId: number;
@@ -42,6 +49,27 @@ export interface Food {
   foodVersionIds: any[];
 }
 
+export interface FoodSearchCriteria {
+  dataType: string[];
+  query: string;
+  generalSearchInput: string;
+  pageNumber: number;
+  numberOfResultsPerPage: number;
+  pageSize: number;
+  requireAllWords: boolean;
+  foodTypes: string[];
+}
+
+export interface Aggregations {
+  dataType: DataTypeObject;
+  nutrients: {};
+}
 export interface SearchFoodDataResponse {
-  foods: Food[];
+  totalHits: number
+  currentPage: number
+  totalPages: number
+  pageList: number[]
+  foodSearchCriteria: FoodSearchCriteria
+  foods: Food[]
+  aggregations: Aggregations
 }
