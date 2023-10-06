@@ -8,7 +8,7 @@
         UiLoader.loading( v-if="loading")
         nuxt-icon( v-else name="search"   @click="searchFoods()")
       .error( v-if="foodsStore.error") Can't connect to databank. Please try again later.
-      .results( v-if="foodsStore && !foodsStore.error && foodsStore.foods.length > 0" )
+      .results( v-if="foodsStore && !foodsStore.error && foodsStore.results.length > 0" )
         .headers
           span Name
           span Category
@@ -25,15 +25,15 @@
               .row 
                 nuxt-icon.present(name="minerals")
                 span Amino acids data present.
-        .result( v-for="food in foodsStore.foods" @click="addFood(food)")
-          span {{ food.description }}
+        .result( v-for="food in foodsStore.results" @click="addFood(food)")
+          span(@click="addFood(food)") {{ food.description }}
           span {{ food.foodCategory }}
           .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== 'N/a' }")
             span {{ food.foodNutrients.length }}
             //- nuxt-icon(name="acids")
             nuxt-icon(name="minerals")
-        .total 
-          span {{ foodsStore.foods.length }} {{ foodsStore.foods.length === 1 ? 'result' : 'results'}}
+      .total 
+        span {{ foodsStore.results.length }} {{ foodsStore.results.length === 1 ? 'result' : 'results'}}
   </template>
 
 <script setup lang="ts">
@@ -56,8 +56,23 @@ async function searchFoods() {
 }
 
 function addFood( food: Food ) {
-  foodsStore.selectedFoods.set(food.fdcId, food);
+  if (!foodsStore.shownFoods.includes(food)) {
+    foodsStore.shownFoods.push(food);
+    foodsStore.selectedFoods.push(food.fdcId)
+  }
 }
+
+function goToFood( food: Food ) {
+  foodsStore.activeFood = food;
+}
+
+// watch(
+//   () => foodsStore.selectedFoods,
+//   (newValue, oldValue) => {
+//     const result = foodsStore.shownFoods.filter(obj => foodsStore.selectedFoods.includes(obj.fdcId));
+//   },
+//   { deep: true }
+// )
 </script>
 
 <style lang="scss" scoped>
@@ -101,9 +116,9 @@ function addFood( food: Food ) {
   }
 }
 
+
 .results {
   width: 80%;
-  margin-bottom: 2rem;
   > .error {
     font-size: 24px;
   }
@@ -172,6 +187,8 @@ function addFood( food: Food ) {
     column-gap: 2rem;
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
+    text-decoration: none;
+    color: black;
     &:hover {
       background-color: $surfaces--light--surface2;
     }
@@ -197,12 +214,13 @@ function addFood( food: Food ) {
       
     }
   }
-  > .total {
-    padding-left: 0.5rem;
-    font-size: 13px;
-    > span {
-      color: $neutral-variant70;
-    }
+}
+.total {
+  width: 80%;
+  padding-left: 1rem;
+  font-size: 13px;
+  > span {
+    color: $neutral-variant70;
   }
 }
 </style>~/types/FoodBankTypes

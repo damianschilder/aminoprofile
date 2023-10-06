@@ -2,8 +2,10 @@ export const useFoodsStore = defineStore('foods', () => {
   const loading = ref<Boolean>(false)
   const error = ref<Boolean>(false)
   const searchQuery = ref<String>('');
-  const foods = ref<Food[]>([]);
-  const selectedFoods = ref<Map<string, Food>>(new Map());
+  const results = ref<Food[]>([]);
+  const shownFoods = ref<Food[]>([]);
+  const selectedFoods = ref<Array<Food['fdcId']>>([]);
+  const activeFood = ref<Food>({})
 
   async function searchFoods(query: string, key: string) {
     loading.value = true;
@@ -18,7 +20,7 @@ export const useFoodsStore = defineStore('foods', () => {
           // "sortOrder": "desc"
         }
       });
-      foods.value = response.foods
+      results.value = response.foods
       error.value = false;
     } catch (e) {
       error.value = true;
@@ -26,7 +28,7 @@ export const useFoodsStore = defineStore('foods', () => {
       loading.value = true;
     }
   }
-  return { loading, error, foods, selectedFoods, searchFoods }
+  return { loading, error, results, shownFoods, selectedFoods, activeFood, searchFoods }
 });
 
 if (import.meta.hot) {
