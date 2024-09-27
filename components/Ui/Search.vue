@@ -2,7 +2,7 @@
 .component-wrapper 
   .element-wrapper
     .element-body
-      h1 Search for foods
+      h1 Search for foods fgdfgdf
       .search( :class="{ 'searchable': searchQuery && searchQuery.length > 0 }" )
         input(placeholder="Name..." v-model="searchQuery" @keyup.enter="searchFoods()")
         UiLoader.loading( v-if="loading")
