@@ -49,7 +49,7 @@
               span {{  findValue(selectedFoodsValues, 1221) }}
               span {{  findValue(selectedFoodsValues, 1215) }}
       .disclaimer
-        span All values in grams
+        span All values in grams per 100g.
         
 </template>
 
