@@ -76,7 +76,7 @@ async function searchFoods() {
 }
 
 function addFood( food: Food ) {
-  if (!foodsStore.shownFoods.includes(food)) {
+  if (!foodsStore.shownFoods.includes(food) && findValue(food.foodNutrients, 1214) !== 'N/a') {
     foodsStore.shownFoods.push(food);
     foodsStore.selectedFoods.push(food.fdcId)
   }
