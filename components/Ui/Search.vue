@@ -231,7 +231,7 @@ function addFood( food: Food ) {
   padding-left: 1rem;
   font-size: 13px;
   > span {
-    color: $neutral-variant70;
+    color: $neutral-variant10;
   }
 }
 </style>~/types/FoodBankTypes

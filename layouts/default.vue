@@ -3,7 +3,8 @@
   Navbar
   .slot-wrapper
     slot
-    UiTable.table
+    //- UiTable.table
+    UiTableV2.table
   Footer
   .noMobile
     h2 Aminoprofile
