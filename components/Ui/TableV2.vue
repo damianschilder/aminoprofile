@@ -186,7 +186,7 @@ table {
   }
   .amino {
     white-space: nowrap;
-    padding: 0.25rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     span {
       color: $neutral-variant50;
       margin-left: 0.1rem;
@@ -224,8 +224,10 @@ table {
       align-items: flex-end;
       input {
         margin-left: 0.2rem;
+        font-size: 1rem;
         border-bottom: 1px solid $colors--primary;
-        width: 2rem; // Ensures the input starts with at least 2rem width
+        width: 1.75rem; // Ensures the input starts with at least 2rem width
+        line-height: 0.9rem;
         margin-bottom: 1px;
         &:focus {
           border-bottom: 2px solid $colors--primary;
