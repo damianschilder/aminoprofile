@@ -94,7 +94,12 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        // The sprout from the search results, filled, on the primary green (made by
+        // scripts/make-favicons.py). sizes="32x32" on the .ico keeps Chrome from preferring it to
+        // the SVG.
+        { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
       ],
     },
