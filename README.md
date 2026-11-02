@@ -11,6 +11,14 @@ you pick.
 
 ![The essential amino acids table with three foods and their total](docs/screenshots/amino-acids.png)
 
+## Why it exists
+
+Coming from competitive sport, Damian wanted to be sure he was getting complete protein: enough
+of each essential amino acid, not just enough protein in total. Foods differ in which amino acids
+they contain and how much, but the nutrition labels in the supermarket only list total protein,
+so a package could not tell him whether his meals added up. Aminoprofile looks up the amino acid
+profile of each food and adds them up across the foods you combine.
+
 ## What it does
 
 - **Search.** Type a food and press Enter. Results come from the *Foundation Foods* and
@@ -40,7 +48,8 @@ soon" screen, as it did in 2023.
   typefaces are Mulish and Young Serif.
 - **Built by hand, without any AI assistance**: 14 commits in October 2023, and a new amino acid
   table in autumn 2024. Nuxt 3, Vue, Pinia, Pug templates and SCSS.
-- It ran at aminoprofile.com until it was taken offline.
+- It ran at aminoprofile.com until October 2025, when it was taken offline. It has been back
+  online since November 2026.
 
 ### November 2026: back online, with Claude Code
 
