@@ -63,7 +63,7 @@
           v-for="food in foodsStore.results"
           :key="food.fdcId"
           role="row"
-          :class="{ 'clickable': hasAminoAcids(food.values) }"
+          :class="{ 'clickable': hasAminoAcids(food.values), 'added': foodsStore.isShown(food.fdcId) }"
           @click="hasAminoAcids(food.values) ? addFood(food) : null"
         )
           span(role="cell")
@@ -71,7 +71,7 @@
               v-if="hasAminoAcids(food.values)"
               role="button"
               tabindex="0"
-              :aria-label="`Add ${food.description} to the amino acids table`"
+              :aria-label="foodsStore.isShown(food.fdcId) ? `${food.description} is in the amino acids table` : `Add ${food.description} to the amino acids table`"
               @keydown.enter.prevent="addFood(food)"
               @keydown.space.prevent="addFood(food)"
             ) {{ food.description }}
@@ -338,6 +338,11 @@ function addFood(food: FoodResult) {
     &:hover {
       background-color: $surfaces--light--surface2;
     }
+  }
+  // A food that is in the amino acids table keeps the hover shade, so a click visibly did
+  // something even when the table is below the fold.
+  > .added {
+    background-color: $surfaces--light--surface2;
   }
 }
 .total {

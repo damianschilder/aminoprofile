@@ -139,6 +139,8 @@ table {
       }
     }
     .row {
+      // A click on the row ticks or unticks the food.
+      cursor: pointer;
       color: $neutral-variant80;
       input {
         color: $neutral-variant80;

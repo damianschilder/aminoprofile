@@ -1,9 +1,10 @@
 <template lang="pug">
 header.navbar-wrapper
   .element-wrapper
-      .element-body 
+      .element-body
         .navbar-content
-          span Aminoprofile
+          //- The name leads back to the search, also from the privacy and "not found" pages.
+          NuxtLink.home(to="/") Aminoprofile
 </template>
 
 <style lang="scss">
@@ -25,5 +26,9 @@ header.navbar-wrapper
   font-family: "Young Serif";
   font-size: 24px;
   color: $primary20;
+  > .home {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 </style>

@@ -26,12 +26,26 @@
 }
 
 // The navbar and footer were only ever shown on large screens; give them some room on phones.
+// There the source line wraps to three lines, so the footer grows with it instead of keeping
+// its 7rem and pressing the last line against the bottom edge.
 @include tablet-medium {
+  .layout-wrapper {
+    display: block;
+  }
   :deep(.navbar-content), :deep(.footer-content) {
     padding: 0 1rem;
   }
   :deep(.footer-content) {
     text-align: center;
+  }
+  .layout-wrapper :deep(.footer-wrapper) {
+    height: auto;
+    min-height: 7rem;
+    padding: 1.5rem 0;
+    box-sizing: border-box;
+  }
+  .layout-wrapper :deep(.footer-content) {
+    height: auto;
   }
 }
 </style>
