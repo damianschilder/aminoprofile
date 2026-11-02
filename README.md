@@ -17,8 +17,8 @@ and adds up the nine essential amino acids and protein of the foods you pick.
   the number next to it is how many nutrients USDA has for that food.
 - **Compare.** Click a food (or press Enter on it) to add it to the *Essential amino acids*
   table: histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine,
-  tryptophan, valine and protein, in grams. A missing value shows as N/a, which is not the same
-  as 0.
+  tryptophan, valine and protein, in grams. A missing value shows as a dash (—), which is not
+  the same as 0.
 - **Combine.** Change the amount per food (100 g by default) and tick the foods to include. Each
   row shows the grams for its amount, and the *Total* row adds up the ticked rows, so you can see
   what a combination of foods gives you. When a ticked food has no value for an amino acid, its
@@ -31,13 +31,16 @@ soon" screen, as it did in 2023.
 
 Aminoprofile was designed in Figma first and then built by hand in October 2023, without any AI
 assistance: Nuxt 3, Vue, Pinia, Pug templates and SCSS, with its own colour palette and
-typefaces (Mulish and Young Serif). It ran at aminoprofile.com until it was taken offline.
+typefaces (Mulish and Young Serif). The design closely follows Google's
+[Material Design 3](https://m3.material.io/), which inspired it: the colour roles and tonal
+palettes in `assets/style/_variables.scss`, the surfaces, and the Material Symbols icons. It
+ran at aminoprofile.com until it was taken offline.
 
 ## 2026 maintenance
 
 In November 2026 the site was prepared to go back online. This maintenance was done with
 [Claude Code](https://claude.com/claude-code). The look and the texts were deliberately left as
-they were in 2023. What changed:
+they were in 2023, apart from four small additions (the last item below). What changed:
 
 - **API key on the server.** The browser used to call FoodData Central directly, so the API key
   was shipped in the JavaScript bundle. Searches now go through a server route
@@ -86,7 +89,7 @@ they were in 2023. What changed:
   link to `https://aminoprofile.com` (`shared/site.ts`), Open Graph and Twitter card tags with a
   1200x630 picture in the site's style (`public/og-image.png`, made from
   `docs/og-image.html`), and the home page describes itself as a `WebApplication` in JSON-LD.
-  There is also a `theme-color` (white, like the header) and a small web manifest.
+  There is also a `theme-color` (white, like the header) and a web manifest with the app icons.
 - **Accessibility.** The search box has a label; the search, info, remove and tick icons are
   real buttons that work with the keyboard and have a visible focus ring; results can be added
   with Enter; a status line tells screen readers what happened; the page has `lang="en"`,
@@ -106,6 +109,18 @@ they were in 2023. What changed:
   room above and below as the amounts, so it no longer touches the next row.
 - **Dependencies.** Upgraded from Nuxt 3.7 to Nuxt 4 and Pinia 4. Unused packages were removed,
   and the build output that had been committed by accident was taken out of the repository.
+- **Four small additions**, in the Material 3 style of the rest:
+  - *Favicon.* The sprout from the search results, filled, white on a rounded tile in the
+    primary green, as SVG, ICO (16/32/48), a 180 px iPhone icon and 192/512 px manifest icons
+    (one maskable). `scripts/make-favicons.py` makes them from `assets/icons/minerals.svg`.
+  - *Full names.* Hovering *His*, *Ile* and the other abbreviations shows the full amino acid name
+    in a Material plain tooltip.
+  - *Empty values.* A value FoodData Central does not have is a dash instead of "N/a", as in
+    Material data tables; its tooltip says which amino acid is missing, and an empty or
+    incomplete total says why.
+  - *Feedback when adding.* Clicking a result shows a Material snackbar at the bottom ("… added
+    to the table.") with a *View* button that scrolls to the table, which is usually below the
+    fold. It hides itself after 4 seconds.
 
 ## Stack
 

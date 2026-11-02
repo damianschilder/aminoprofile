@@ -7,7 +7,7 @@
 - Values are in grams. USDA gives them per 100 g of food; Aminoprofile scales them to the
   amount you set (100 g by default) and adds up the foods you tick.
 - The amino acids are histidine, isoleucine, leucine, lysine, methionine, phenylalanine,
-  threonine, tryptophan and valine. A missing value shows as N/a, which is not the same as 0;
+  threonine, tryptophan and valine. A missing value shows as a dash (—), which is not the same as 0;
   a total that includes a missing value is marked "≥".
 - Results come from the Foundation Foods and SR Legacy data sets, the two with amino acid data.
   Foods that have amino acid data are listed first.

@@ -77,9 +77,9 @@ export function normaliseQuery(raw: unknown): string | null {
   return query
 }
 
-/** Grams with two decimals, as the table shows them, or 'N/a' when USDA has no value. */
+/** Grams with two decimals, as the table shows them, or a dash when USDA has no value. */
 export function formatGrams(value: number | null): string {
-  if (value === null || !Number.isFinite(value)) return 'N/a'
+  if (value === null || !Number.isFinite(value)) return '—'
   return (Math.round((value + Number.EPSILON) * 100) / 100).toFixed(2)
 }
 

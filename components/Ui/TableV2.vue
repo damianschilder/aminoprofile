@@ -9,12 +9,14 @@
             th(scope="col")
               span.visually-hidden Amount
             th(scope="col") Name
+            //- Hovering an abbreviation shows the full name in a tooltip (.tip below).
             th.amino(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
               scope="col"
               :aria-label="nutrient.name"
-              :title="nutrient.name !== nutrient.label ? nutrient.name : undefined"
+              :class="{ 'tip': nutrient.name !== nutrient.label }"
+              :data-tip="nutrient.name !== nutrient.label ? nutrient.name : undefined"
             ) {{ nutrient.label }}
         tbody
           tr.row(
@@ -51,15 +53,30 @@
                   )
                   span(aria-hidden="true") g
             td.name {{food.description}}
-            td.amino(v-for="nutrient in NUTRIENTS" :key="nutrient.key") {{ formatGrams(valueFor(food, nutrient.key)) }}
-          tr.total
-            td
-            td Total #[span (g)]
+            //- A value USDA does not have is a dash, as in Material data tables; the tooltip says why.
             td.amino(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
-              :title="incompleteNote(nutrient.key, nutrient.name)"
-            ) {{ totalText(nutrient.key) }}
+              :class="{ 'tip': valueFor(food, nutrient.key) === null }"
+              :data-tip="valueFor(food, nutrient.key) === null ? `No ${nutrient.name.toLowerCase()} data in FoodData Central` : undefined"
+            )
+              template(v-if="valueFor(food, nutrient.key) === null")
+                span.no-data(aria-hidden="true") —
+                span.visually-hidden No data
+              template(v-else) {{ formatGrams(valueFor(food, nutrient.key)) }}
+          tr.total
+            td
+            td Total #[span (g)]
+            td.amino.above(
+              v-for="nutrient in NUTRIENTS"
+              :key="nutrient.key"
+              :class="{ 'tip': !!totalNote(nutrient.key, nutrient.name) }"
+              :data-tip="totalNote(nutrient.key, nutrient.name)"
+            )
+              template(v-if="foodsStore.totals[nutrient.key].value === null")
+                span.no-data(aria-hidden="true") —
+                span.visually-hidden No data
+              template(v-else) {{ totalText(nutrient.key) }}
 
 </template>
 
@@ -99,14 +116,19 @@ function updateAmount(event: Event, fdcId: number) {
 
 function totalText(key: NutrientKey) {
   const total = foodsStore.totals[key];
-  if (total.value === null) return 'N/a';
   return `${total.complete ? '' : '≥ '}${formatGrams(total.value)}`;
 }
 
-function incompleteNote(key: NutrientKey, name: string) {
+/** The tooltip of a total that is empty or incomplete. */
+function totalNote(key: NutrientKey, name: string) {
   const total = foodsStore.totals[key];
-  if (total.value === null || total.complete) return undefined;
-  return `Not every ticked food has ${name.toLowerCase()} data, so the total is at least this much.`;
+  if (total.value === null) {
+    return foodsStore.selectedFoods.length === 0
+      ? 'Tick a food to add it to the total.'
+      : `No ticked food has ${name.toLowerCase()} data.`;
+  }
+  if (!total.complete) return `Not every ticked food has ${name.toLowerCase()} data, so the total is at least this much.`;
+  return undefined;
 }
 </script>
 
@@ -226,6 +248,54 @@ table {
     // touch the next row. One-line rows keep their height (41.6px).
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+}
+
+// Material 3 plain tooltip, on hover: the full name of an amino acid, or why a cell is empty.
+// Below the cell, above it in the Total row, and right-aligned in the last column so it stays on
+// the page. Not rendered at all until hovered, so it never widens the page.
+.tip {
+  position: relative;
+  &::after {
+    content: attr(data-tip);
+    content: attr(data-tip) / ''; // screen readers have the name or "No data" already
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: calc(100% - 2px);
+    transform: translateX(-50%);
+    z-index: 2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: $light--inverse-surface;
+    color: $light--inverse-on-surface;
+    font: 400 12px/16px $mulish;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  &:hover::after {
+    display: block;
+    animation: tip-in 150ms ease-out 300ms backwards;
+  }
+  &.above::after {
+    top: auto;
+    bottom: calc(100% - 2px);
+  }
+  &:last-child::after {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+}
+
+@keyframes tip-in {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tip:hover::after {
+    animation: none;
   }
 }
 

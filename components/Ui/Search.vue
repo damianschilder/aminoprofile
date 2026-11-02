@@ -88,6 +88,12 @@
       .total( v-if="showResults")
         span {{ countText }}
       p#search-status.visually-hidden(role="status") {{ announcement }}
+      //- Material snackbar after a click on a result: what happened, and a way to the table, which
+      //- is usually below the fold. Screen readers hear it through the status line above.
+      Transition(name="snackbar")
+        .snackbar(v-if="snackbar")
+          span.text {{ snackbar }}
+          button.action.bare-button(type="button" @click="viewTable") View
   </template>
 
 <script setup lang="ts">
@@ -165,13 +171,36 @@ const announcement = computed(() => {
   return '';
 });
 
+// The snackbar's text; it hides itself after 4 seconds, or at the next search.
+const snackbar = ref<string>('');
+let snackbarTimer: ReturnType<typeof setTimeout> | undefined;
+function showSnackbar(text: string) {
+  snackbar.value = text;
+  clearTimeout(snackbarTimer);
+  snackbarTimer = setTimeout(() => { snackbar.value = ''; }, 4000);
+}
+onBeforeUnmount(() => clearTimeout(snackbarTimer));
+
 function searchFoods() {
   added.value = '';
+  snackbar.value = '';
   foodsStore.searchFoods(searchQuery.value);
 }
 
 function addFood(food: FoodResult) {
-  if (foodsStore.addFood(food)) added.value = `${food.description} is in the amino acids table.`;
+  const wasShown = foodsStore.isShown(food.fdcId);
+  if (!foodsStore.addFood(food)) return;
+  added.value = `${food.description} is in the amino acids table.`;
+  showSnackbar(wasShown ? `${food.description} is already in the table.` : `${food.description} added to the table.`);
+}
+
+// "View" scrolls to the table and puts keyboard focus on its heading.
+function viewTable() {
+  snackbar.value = '';
+  const heading = document.getElementById('amino-heading');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  heading?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  heading?.focus({ preventScroll: true });
 }
 </script>
 
@@ -359,6 +388,67 @@ function addFood(food: FoodResult) {
   font-size: 13px;
   > span {
     color: $neutral-variant10;
+  }
+}
+
+// Material 3 snackbar: inverse surface, a text of at most two lines and one text button.
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  min-height: 48px;
+  max-width: 560px;
+  padding: 0 8px 0 16px;
+  border-radius: 4px;
+  background-color: $light--inverse-surface;
+  color: $light--inverse-on-surface;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  font: 400 14px/20px $mulish;
+  letter-spacing: 0.25px;
+  > .text {
+    margin: 14px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  > .action {
+    flex: none;
+    padding: 10px 12px;
+    border-radius: 20px;
+    color: $light--inverse-primary;
+    font: 500 14px/20px $mulish;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(163, 209, 180, 0.08);
+    }
+    &:focus-visible {
+      outline: 2px solid $light--inverse-primary;
+      outline-offset: 0;
+    }
+  }
+}
+
+.snackbar-enter-active,
+.snackbar-leave-active {
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+.snackbar-enter-from,
+.snackbar-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snackbar-enter-active,
+  .snackbar-leave-active {
+    transition: none;
   }
 }
 </style>
