@@ -1,0 +1,23 @@
+# Aminoprofile: every page may be read and indexed, by search engines and by AI crawlers and
+# assistants alike. /api/ is the search endpoint behind the page, not content: it only answers
+# searches, and each one is passed on to USDA FoodData Central.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Named so that the rules for them are explicit; they are the same as above.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://aminoprofile.com/sitemap.xml

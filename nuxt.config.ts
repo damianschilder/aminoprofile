@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { SITE_NAME, SITE_URL } from './shared/site';
+
 export default defineNuxtConfig({
   pages: true,
 
@@ -21,7 +23,7 @@ export default defineNuxtConfig({
           { pattern: 'aminoprofile.com', custom_domain: true },
           { pattern: 'www.aminoprofile.com', custom_domain: true },
         ],
-        vars: { NUXT_CANONICAL_HOST: 'aminoprofile.com' },
+        vars: { NUXT_CANONICAL_HOST: new URL(SITE_URL).host },
         // NUXT_FOODCENTRAL_API_KEY (a secret) and NUXT_PUBLIC_CF_BEACON_TOKEN are set in Cloudflare.
         keep_vars: true,
       },
@@ -72,13 +74,29 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Aminoprofile",
+      title: SITE_NAME,
       htmlAttrs: { lang: 'en' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // White like the header, so browsers that colour their toolbar (Safari) keep the look.
+        { name: 'theme-color', content: '#ffffff' },
+        // How a shared link looks. Each page sets its own title, description, URL and canonical
+        // link; the picture (public/og-image.png, made from docs/og-image.html) is the same.
+        { property: 'og:site_name', content: SITE_NAME },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'en_US' },
+        { property: 'og:image', content: `${SITE_URL}/og-image.png` },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Aminoprofile: compare the essential amino acids of foods, with data from USDA FoodData Central.' },
+        { name: 'twitter:card', content: 'summary_large_image' },
       ],
-      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
+      ],
     },
   },
 

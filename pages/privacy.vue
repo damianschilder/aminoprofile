@@ -29,14 +29,16 @@
 </template>
 
 <script setup lang="ts">
+import { SITE_NAME, SITE_URL } from '#shared/site';
+
 definePageMeta({ layout: 'plain' });
 
-useHead({
-  title: 'Privacy - Aminoprofile',
-  meta: [
-    { name: 'description', content: 'Which data Aminoprofile uses and what your rights are.' },
-  ],
-});
+const title = `Privacy - ${SITE_NAME}`;
+const description = 'Which data Aminoprofile uses and what your rights are.';
+const url = `${SITE_URL}/privacy`;
+
+useSeoMeta({ title, description, ogTitle: title, ogDescription: description, ogUrl: url });
+useHead({ link: [{ rel: 'canonical', href: url }] });
 </script>
 
 <style lang="scss" scoped>

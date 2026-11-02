@@ -1,0 +1,14 @@
+{
+  "name": "Aminoprofile",
+  "short_name": "Aminoprofile",
+  "description": "Search USDA FoodData Central for foods and compare their essential amino acids and protein side by side.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#FDFCF9",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "32x32", "type": "image/png" }
+  ]
+}

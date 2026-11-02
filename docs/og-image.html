@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- The picture shown when a link to Aminoprofile is shared (public/og-image.png, 1200x630).
+     Made from the site's own parts: the white header with the name in Young Serif, the heading
+     and the table header in Mulish, the dark green footer. To make it again, open this file in
+     Chromium at 1200x630 (device scale 1) and take a screenshot of the page. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aminoprofile share image</title>
+<style>
+  @font-face { font-family: 'Mulish'; font-weight: 400 700; src: url('../assets/fonts/Mulish/Mulish-Latin.woff2') format('woff2'); }
+  @font-face { font-family: 'Young Serif'; src: url('../assets/fonts/Young Serif/YoungSerif-Latin.woff2') format('woff2'); }
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #FDFCF9; color: rgb(27, 28, 27);
+         font-family: 'Mulish', sans-serif; display: flex; flex-direction: column; }
+  header { height: 112px; background: white; filter: drop-shadow(0 6px 1.5px rgba(0, 0, 0, 0.25));
+           display: flex; align-items: center; padding: 0 96px; position: relative; z-index: 1; }
+  header .name { font-family: 'Young Serif', serif; font-size: 40px; color: rgb(0, 56, 34); }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  h1 { margin: 0 96px; font: 700 46px/58px 'Mulish', sans-serif; white-space: nowrap; }
+  p { margin: 18px 96px 0; font-size: 28px; line-height: 38px; color: rgb(64, 73, 67); }
+  .table { margin-top: 44px; background: rgba(61, 103, 79, 0.05); padding: 22px 96px;
+           display: grid; grid-template-columns: 1.6fr repeat(9, 1fr) 1.6fr; font: 700 24px/32px 'Mulish', sans-serif; }
+  footer { height: 96px; background: rgb(0, 33, 18); color: white; display: flex; align-items: center;
+           justify-content: space-between; padding: 0 96px; }
+  footer .name { font-family: 'Young Serif', serif; font-size: 28px; }
+  footer .source { font-size: 22px; color: rgb(245, 255, 245); }
+</style>
+</head>
+<body>
+  <header><span class="name">Aminoprofile</span></header>
+  <main>
+    <h1>Compare the essential amino acids of foods</h1>
+    <p>Search a food, add it to the table, set the amount in grams.</p>
+    <div class="table">
+      <span>Name</span><span>His</span><span>Ile</span><span>Leu</span><span>Lys</span><span>Met</span><span>Phe</span><span>Thr</span><span>Trp</span><span>Val</span><span>Protein</span>
+    </div>
+  </main>
+  <footer><span class="name">aminoprofile.com</span><span class="source">Data: USDA FoodData Central</span></footer>
+</body>
+</html>

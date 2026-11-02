@@ -77,6 +77,16 @@ they were in 2023. What changed:
   component styles already were (`features.inlineStyles` in `nuxt.config.ts`), so the first
   paint waits for no CSS request. Everything under `/_nuxt/` (scripts, styles, fonts) has a
   content hash in its name and is cached for a year (`immutable`, in the generated `_headers`).
+- **Search engines, AI assistants and shared links.** `public/robots.txt` lets every crawler
+  read the pages but not `/api/`, and names the AI crawlers (GPTBot, OAI-SearchBot,
+  ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended,
+  Applebot-Extended, CCBot) with the same rules; `public/sitemap.xml` lists the two pages and
+  `public/llms.txt` ([llmstxt.org](https://llmstxt.org/)) says what the site does, where the
+  data comes from and whom to contact. Each page has its own title, description and canonical
+  link to `https://aminoprofile.com` (`shared/site.ts`), Open Graph and Twitter card tags with a
+  1200x630 picture in the site's style (`public/og-image.png`, made from
+  `docs/og-image.html`), and the home page describes itself as a `WebApplication` in JSON-LD.
+  There is also a `theme-color` (white, like the header) and a small web manifest.
 - **Accessibility.** The search box has a label; the search, info, remove and tick icons are
   real buttons that work with the keyboard and have a visible focus ring; results can be added
   with Enter; a status line tells screen readers what happened; the page has `lang="en"`,
