@@ -8,6 +8,8 @@
           span Source: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. 
           a(href="https://fdc.nal.usda.gov/") fdc.nal.usda.gov
           span .
+          span.separator ·
+          NuxtLink(to="/privacy") Privacy
 </template>
 
 <style lang="scss" scoped>
@@ -34,6 +36,9 @@
     font-size: 13px;
     > a {
       color: $primary99;
+    }
+    > .separator {
+      margin: 0 0.5rem;
     }
   }
 }

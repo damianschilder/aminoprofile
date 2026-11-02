@@ -9,6 +9,7 @@
   .noMobile
     h2 Aminoprofile
     span will be available on mobile soon.
+    NuxtLink.privacy(to="/privacy") Privacy
 </template>
 
 <style lang="scss" scoped>
@@ -44,6 +45,12 @@
   color: white;
   > h2 {
     font-family: "Young Serif";
+  }
+  > .privacy {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 13px;
+    color: $primary99;
   }
 }
 
