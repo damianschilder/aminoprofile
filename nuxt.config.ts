@@ -10,11 +10,33 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-      wrangler: { name: 'aminoprofile' },
+      wrangler: {
+        name: 'aminoprofile',
+        // Only reachable on aminoprofile.com: no *.workers.dev address and no preview URL per
+        // version. www.aminoprofile.com reaches the Worker too and is redirected by
+        // server/middleware/canonical-host.ts.
+        workers_dev: false,
+        preview_urls: false,
+        routes: [
+          { pattern: 'aminoprofile.com', custom_domain: true },
+          { pattern: 'www.aminoprofile.com', custom_domain: true },
+        ],
+        vars: { NUXT_CANONICAL_HOST: 'aminoprofile.com' },
+        // NUXT_FOODCENTRAL_API_KEY (a secret) and NUXT_PUBLIC_CF_BEACON_TOKEN are set in Cloudflare.
+        keep_vars: true,
+      },
     },
   },
 
+  experimental: {
+    // Skip the start-up fetch of /_nuxt/builds/meta/<build>.json: if it fails (a search engine's
+    // renderer, a page cached from an older deploy) Nuxt replaces the page with a 500 error.
+    appManifest: false,
+  },
+
   runtimeConfig: {
+    // NUXT_CANONICAL_HOST: the one host the site answers on; set by the Worker config above.
+    canonicalHost: '',
     // NUXT_FOODCENTRAL_API_KEY: the USDA FoodData Central API key. Server-only, never sent to the
     // browser. Empty means USDA's rate-limited DEMO_KEY (see server/api/foods/search.get.ts).
     foodcentralApiKey: '',

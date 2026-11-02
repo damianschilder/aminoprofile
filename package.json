@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "deploy": "nuxt build && wrangler deploy",
     "dev": "nuxt dev --host 127.0.0.1",
     "generate": "nuxt generate",
     "preview": "nuxt preview --host 127.0.0.1",
@@ -13,7 +14,8 @@
     "@types/node": "^24.0.0",
     "nuxt": "^4.6.3",
     "pug": "^3.0.4",
-    "sass": "^1.107.1"
+    "sass": "^1.107.1",
+    "wrangler": "^4.156.1"
   },
   "dependencies": {
     "@pinia/nuxt": "^1.0.3",
