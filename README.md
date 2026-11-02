@@ -29,9 +29,9 @@ soon" screen, as it did in 2023.
 
 ## Origin
 
-Aminoprofile was built by hand in October 2023, without any AI assistance: Nuxt 3, Vue,
-Pinia, Pug templates and SCSS, with its own colour palette and typefaces (Mulish and Young
-Serif). It ran at aminoprofile.com until it was taken offline.
+Aminoprofile was designed in Figma first and then built by hand in October 2023, without any AI
+assistance: Nuxt 3, Vue, Pinia, Pug templates and SCSS, with its own colour palette and
+typefaces (Mulish and Young Serif). It ran at aminoprofile.com until it was taken offline.
 
 ## 2026 maintenance
 
@@ -167,3 +167,9 @@ The default build targets Cloudflare Workers:
 Food data: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central,
 2019. [fdc.nal.usda.gov](https://fdc.nal.usda.gov/). FoodData Central data is in the public
 domain.
+
+## License
+
+The code is available under the [MIT License](LICENSE). The food data comes from FoodData
+Central (see above) and is not covered by this license. The typefaces in `assets/fonts`, Mulish
+and Young Serif, are under the SIL Open Font License 1.1; each folder holds its `OFL.txt`.
