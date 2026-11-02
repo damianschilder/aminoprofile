@@ -3,7 +3,6 @@
   Navbar
   main.slot-wrapper
     slot
-    //- UiTable.table
     UiTableV2.table
   Footer
   .noMobile
