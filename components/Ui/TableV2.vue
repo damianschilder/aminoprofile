@@ -222,6 +222,10 @@ table {
   .name {
     width: 100%; // Allow it to expand and fill remaining space
     word-wrap: break-word;
+    // The same room above and below as the amounts, so a name that wraps to two lines does not
+    // touch the next row. One-line rows keep their height (41.6px).
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 }
 

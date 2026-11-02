@@ -101,6 +101,9 @@ they were in 2023. What changed:
   `Permissions-Policy`, `Strict-Transport-Security` and a light `Content-Security-Policy`, set in
   `routeRules` in `nuxt.config.ts`.
 - **Privacy page** at `/privacy`, linked from the footer (and from the mobile screen).
+- **Two names that wrap.** In the search results the nutrient count now sits on the first line
+  of a two-line name, like the category; in the amino acids table a two-line name gets the same
+  room above and below as the amounts, so it no longer touches the next row.
 - **Dependencies.** Upgraded from Nuxt 3.7 to Nuxt 4 and Pinia 4. Unused packages were removed,
   and the build output that had been committed by accident was taken out of the repository.
 

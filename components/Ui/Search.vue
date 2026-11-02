@@ -320,6 +320,8 @@ function addFood(food: FoodResult) {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      // On the first line, like the name and the category, also when the name takes two lines.
+      align-self: start;
       column-gap: 0.75rem;
       &:deep(.nuxt-icon svg) {
         height: fit-content;
