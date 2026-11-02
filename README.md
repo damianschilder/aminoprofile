@@ -1,126 +1,82 @@
 # Aminoprofile
 
-Search for foods and compare their essential amino acids. Aminoprofile looks foods up in
-[USDA FoodData Central](https://fdc.nal.usda.gov/), shows which results have amino acid data,
-and adds up the nine essential amino acids and protein of the foods you pick.
+**[aminoprofile.com](https://aminoprofile.com)**: search for foods and compare their essential
+amino acids.
 
-![Search results for "chicken breast"](docs/screenshots/search.png)
+Aminoprofile looks foods up in [USDA FoodData Central](https://fdc.nal.usda.gov/), shows which
+results have amino acid data, and adds up the nine essential amino acids and protein of the foods
+you pick.
 
-![The essential amino acids table with two foods and their total](docs/screenshots/amino-acids.png)
+![Search results for "chicken breast", with a message that a food was added to the table](docs/screenshots/search.png)
+
+![The essential amino acids table with three foods and their total](docs/screenshots/amino-acids.png)
 
 ## What it does
 
 - **Search.** Type a food and press Enter. Results come from the *Foundation Foods* and
-  *SR Legacy* data sets of FoodData Central, the two that have amino acid data. Every word you
-  type must be in the food's name (if that finds nothing, any word will do), and the 25 best
-  matches are shown. Foods with amino acid data are listed first and marked with a green sprout;
-  the number next to it is how many nutrients USDA has for that food.
+  *SR Legacy* data sets of FoodData Central, the two that have amino acid data. Foods with amino
+  acid data are listed first and marked with a green sprout; the number next to it is how many
+  nutrients USDA has for that food.
 - **Compare.** Click a food (or press Enter on it) to add it to the *Essential amino acids*
-  table: histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine,
-  tryptophan, valine and protein, in grams. A missing value shows as a dash (—), which is not
-  the same as 0.
-- **Combine.** Change the amount per food (100 g by default) and tick the foods to include. Each
-  row shows the grams for its amount, and the *Total* row adds up the ticked rows, so you can see
-  what a combination of foods gives you. When a ticked food has no value for an amino acid, its
-  total is marked "≥": the real amount is at least that.
+  table. A message at the bottom confirms it, with a button that takes you to the table. The
+  columns are histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine,
+  tryptophan, valine and protein, in grams; hover an abbreviation for its full name. A value
+  USDA does not have shows as a dash (—), which is not the same as 0.
+- **Combine.** Change the amount per food (100 g by default) and tick the foods to include. The
+  *Total* row adds up the ticked rows, so you can see what a combination of foods gives you.
+  When a ticked food has no value for an amino acid, its total is marked "≥": the real amount is
+  at least that.
 
 Aminoprofile is a desktop site. Below 1240 pixels wide it shows a "will be available on mobile
 soon" screen, as it did in 2023.
 
-## Origin
+## How it was built
 
-Aminoprofile was designed in Figma first and then built by hand in October 2023, without any AI
-assistance: Nuxt 3, Vue, Pinia, Pug templates and SCSS, with its own colour palette and
-typefaces (Mulish and Young Serif). The design closely follows Google's
-[Material Design 3](https://m3.material.io/), which inspired it: the colour roles and tonal
-palettes in `assets/style/_variables.scss`, the surfaces, and the Material Symbols icons. It
-ran at aminoprofile.com until it was taken offline.
+### 2023–2024: designed in Figma, built by hand
 
-## 2026 maintenance
+- **Designed in Figma first**, closely following Google's
+  [Material Design 3](https://m3.material.io/), which inspired it: the colour roles and tonal
+  palettes (`assets/style/_variables.scss`), the surfaces, and the Material Symbols icons. The
+  typefaces are Mulish and Young Serif.
+- **Built by hand, without any AI assistance**: 14 commits in October 2023, and a new amino acid
+  table in autumn 2024. Nuxt 3, Vue, Pinia, Pug templates and SCSS.
+- It ran at aminoprofile.com until it was taken offline.
 
-In November 2026 the site was prepared to go back online. This maintenance was done with
-[Claude Code](https://claude.com/claude-code). The look and the texts were deliberately left as
-they were in 2023, apart from four small additions (the last item below). What changed:
+### November 2026: back online, with Claude Code
 
-- **API key on the server.** The browser used to call FoodData Central directly, so the API key
-  was shipped in the JavaScript bundle. Searches now go through a server route
-  (`server/api/foods/search.get.ts`) that holds the key. That route accepts only a search term
-  of 2 to 100 characters, has a 15 second timeout and passes on no upstream error details.
-- **The right numbers.** Three columns of the table showed the wrong amino acid: *His* showed
-  valine, and *Phe* and *Val* both showed histidine. The values are now picked by USDA's
-  nutrient id in one shared list (`shared/nutrients.ts`). Rows now show the grams for the amount
-  typed (the total already did), 0 g counts as 0 g instead of 100 g, removing a food no longer
-  unticks another one, and a food cannot be added twice.
-- **Search.** SR Legacy was added next to Foundation Foods: Foundation has amino acids for 118 of
-  its 424 foods, SR Legacy for about 5,100 of 7,793 (a search for lentils, tofu or salmon found
-  none before). The server picks the ten values the page uses out of USDA's answer, so the page
-  receives about 7 kB instead of the up to 0.9 MB USDA sends for 25 foods. A newer search
-  cancels an older one, pressing Enter twice asks only once, and there are messages for "too
-  short", "nothing found", "too many searches" (with the wait the server gives in
-  `Retry-After`), "no internet connection" and "database unavailable", the last two with a
-  *Try again* button. What is on screen stays until the next answer arrives; the spinner only
-  appears when an answer takes longer than 150 ms, so cached answers do not flicker.
-- **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
-  Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
-  Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).
-- **Fonts.** Mulish and Young Serif are served as WOFF2 files with only the Latin characters
-  (57 kB instead of 316 kB of TTF), are preloaded, and use `font-display: swap`. Until they
-  arrive, text shows in Arial and the name in Times New Roman, resized to take the same room
-  (`size-adjust` and the metric overrides in `assets/style/app.scss`), so the page appears at
-  once with the name in place and hardly moves when the fonts swap in. Before, the name stayed
-  invisible until its font had loaded (3.2 s on a slow connection). The `*-Latin.woff2` files
-  were made from the TTF files next to them with
-  [subset-font](https://github.com/papandreou/subset-font) 2.9 (HarfBuzz), `targetFormat:
-  'woff2'`, for the characters of Google Fonts' "latin" range (U+0020-007E, U+00A0-00FF,
-  U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD). All OpenType
-  features and the whole weight axis of Mulish are kept: text renders exactly as with the TTF
-  files. Without JavaScript the page says that search needs it.
-- **No stylesheet to wait for.** The global stylesheet (2.5 kB) is inlined in the HTML, as the
-  component styles already were (`features.inlineStyles` in `nuxt.config.ts`), so the first
-  paint waits for no CSS request. Everything under `/_nuxt/` (scripts, styles, fonts) has a
-  content hash in its name and is cached for a year (`immutable`, in the generated `_headers`).
-- **Search engines, AI assistants and shared links.** `public/robots.txt` lets every crawler
-  read the pages but not `/api/`, and names the AI crawlers (GPTBot, OAI-SearchBot,
-  ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended,
-  Applebot-Extended, CCBot) with the same rules; `public/sitemap.xml` lists the two pages and
-  `public/llms.txt` ([llmstxt.org](https://llmstxt.org/)) says what the site does, where the
-  data comes from and whom to contact. Each page has its own title, description and canonical
-  link to `https://aminoprofile.com` (`shared/site.ts`), Open Graph and Twitter card tags with a
-  1200x630 picture in the site's style (`public/og-image.png`, made from
-  `docs/og-image.html`), and the home page describes itself as a `WebApplication` in JSON-LD.
-  There is also a `theme-color` (white, like the header) and a web manifest with the app icons.
-- **Accessibility.** The search box has a label; the search, info, remove and tick icons are
-  real buttons that work with the keyboard and have a visible focus ring; results can be added
-  with Enter; a status line tells screen readers what happened; the page has `lang="en"`,
-  landmarks and a correct heading order; and the few grey texts that measured below WCAG AA
-  contrast were darkened by an invisible amount. Greyed-out results and unticked rows stay pale
-  on purpose: they are inactive.
-- **Error page.** Unknown addresses get a "Page not found" page in the site's style, with a 404.
-- **Analytics without cookies.** Google Analytics was replaced by Cloudflare Web Analytics,
-  which uses no cookies and collects no personal data. It is only loaded when a token is
-  configured. Without cookies, the site needs no cookie banner.
-- **Security headers.** `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
-  `Permissions-Policy`, `Strict-Transport-Security` and a light `Content-Security-Policy`, set in
-  `routeRules` in `nuxt.config.ts`.
-- **Privacy page** at `/privacy`, linked from the footer (and from the mobile screen).
-- **Two names that wrap.** In the search results the nutrient count now sits on the first line
-  of a two-line name, like the category; in the amino acids table a two-line name gets the same
-  room above and below as the amounts, so it no longer touches the next row.
-- **Dependencies.** Upgraded from Nuxt 3.7 to Nuxt 4 and Pinia 4. Unused packages were removed,
-  and the build output that had been committed by accident was taken out of the repository.
-- **Four small additions**, in the Material 3 style of the rest:
-  - *Favicon.* The sprout from the search results, filled, white on a rounded tile in the
-    primary green, as SVG, ICO (16/32/48), a 180 px iPhone icon and 192/512 px manifest icons
-    (one maskable). `scripts/make-favicons.py` makes them from `assets/icons/minerals.svg`.
-  - *Full names.* Hovering *His*, *Ile* and the other abbreviations shows the full amino acid name
-    in a Material plain tooltip.
-  - *Empty values.* A value FoodData Central does not have is a dash instead of "N/a", as in
-    Material data tables; its tooltip says which amino acid is missing, and an empty or
-    incomplete total says why.
-  - *Feedback when adding.* Clicking a result shows a Material snackbar at the bottom ("… added
-    to the table.") with a *View* button that scrolls to the table, which is usually below the
-    fold. It hides itself after 4 seconds.
+The site was prepared to go back online with [Claude Code](https://claude.com/claude-code). The
+look and the texts stayed as they were in 2023, apart from four small additions at the end of this
+list.
+
+- **The API key is off the page.** The browser used to call FoodData Central itself, so the key
+  was in the JavaScript. Searches now go through a server route that holds it.
+- **The right numbers.** Three columns showed the wrong amino acid (*His* showed valine; *Phe* and
+  *Val* both showed histidine). Values are now picked by USDA's nutrient id. Rows show the grams
+  for the amount typed, and 0 g counts as 0 g.
+- **More foods with amino acids.** SR Legacy was added next to Foundation Foods: about 5,100 foods
+  with amino acid data instead of 118. A search for lentils, tofu or salmon used to find none.
+- **Faster.** The page receives about 7 kB per search instead of up to 0.9 MB. Answers are cached
+  on the server, at Cloudflare and in the browser. The fonts went from 316 kB of TTF to 57 kB of
+  WOFF2, and the name no longer stays invisible while its font loads.
+- **Clear messages** for a search that is too short, finds nothing, comes too often, or fails
+  because the connection or the database is down.
+- **Accessible.** Keyboard use, visible focus, labels, a status line for screen readers,
+  landmarks, and WCAG AA contrast.
+- **Private.** Google Analytics was replaced by Cloudflare Web Analytics, which sets no cookies,
+  so there is no cookie banner. There is now a privacy page, security headers, and a 404 page in
+  the site's style.
+- **Findable.** robots.txt, a sitemap, `llms.txt`, and link previews for social media.
+- **Up to date.** Nuxt 3.7 became Nuxt 4, with Pinia 4. Unused packages and build output that had
+  been committed by accident were removed.
+- **Four small additions** in the Material 3 style of the rest:
+  - a favicon: the sprout from the search results, white on a rounded tile in the primary green;
+  - full names on hover: a Material tooltip on *His*, *Ile* and the other abbreviations;
+  - a dash instead of "N/a" for a missing value, as in Material data tables, with a tooltip that
+    says which amino acid is missing;
+  - a Material snackbar after adding a food ("… added to the table.") with a *View* button,
+    because the table is usually below the fold.
+
+The details are under [Technical notes](#technical-notes).
 
 ## Stack
 
@@ -176,6 +132,67 @@ The default build targets Cloudflare Workers:
 5. Add a WAF rate limiting rule for `/api/foods/search`, for example 10 requests per 10 seconds
    per IP address. Every search that is not cached uses the FoodData Central quota of the API
    key (1,000 requests per hour by default), so this keeps one visitor from using it all up.
+
+## Technical notes
+
+What the November 2026 work changed, in more detail.
+
+- **Search route.** `server/api/foods/search.get.ts` holds the API key, accepts only a search term
+  of 2 to 100 characters, has a 15 second timeout and passes on no upstream error details. Every
+  word typed must be in the food's name (if that finds nothing, any word will do), and the 25
+  best matches are shown. The server picks the ten values the page uses out of USDA's answer.
+- **Nutrients.** One shared list in `shared/nutrients.ts` maps each column to USDA's nutrient id.
+  Foundation Foods has amino acids for 118 of its 424 foods, SR Legacy for about 5,100 of 7,793.
+  Removing a food no longer unticks another one, and a food cannot be added twice.
+- **Searching.** A newer search cancels an older one, and pressing Enter twice asks only once.
+  "Too many searches" shows the wait the server gives in `Retry-After`; "no internet connection"
+  and "database unavailable" come with a *Try again* button. What is on screen stays until the
+  next answer arrives, and the spinner only appears when an answer takes longer than 150 ms, so
+  cached answers do not flicker.
+- **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
+  Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
+  Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).
+- **Fonts.** Mulish and Young Serif are served as WOFF2 files with only the Latin characters, are
+  preloaded, and use `font-display: swap`. Until they arrive, text shows in Arial and the name in
+  Times New Roman, resized to take the same room (`size-adjust` and the metric overrides in
+  `assets/style/app.scss`), so the page hardly moves when the fonts swap in. Before, the name
+  stayed invisible until its font had loaded (3.2 s on a slow connection). The `*-Latin.woff2`
+  files were made from the TTF files next to them with
+  [subset-font](https://github.com/papandreou/subset-font) 2.9 (HarfBuzz), `targetFormat:
+  'woff2'`, for the characters of Google Fonts' "latin" range (U+0020-007E, U+00A0-00FF,
+  U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD). All OpenType
+  features and the whole weight axis of Mulish are kept.
+- **No stylesheet to wait for.** The global stylesheet (2.5 kB) is inlined in the HTML, as the
+  component styles already were (`features.inlineStyles` in `nuxt.config.ts`). Everything under
+  `/_nuxt/` has a content hash in its name and is cached for a year (`immutable`, in the
+  generated `_headers`). Without JavaScript the page says that search needs it.
+- **Search engines, AI assistants and shared links.** `public/robots.txt` lets every crawler read
+  the pages but not `/api/`, and names the AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User,
+  ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended, Applebot-Extended,
+  CCBot) with the same rules. `public/sitemap.xml` lists the two pages, and `public/llms.txt`
+  ([llmstxt.org](https://llmstxt.org/)) says what the site does, where the data comes from and
+  whom to contact. Each page has its own title, description and canonical link
+  (`shared/site.ts`), Open Graph and Twitter card tags with a 1200x630 picture in the site's style
+  (`public/og-image.png`, made from `docs/og-image.html`), and the home page describes itself as a
+  `WebApplication` in JSON-LD. There is a `theme-color` and a web manifest with the app icons.
+- **Accessibility.** The search, info, remove and tick icons are real buttons with a visible focus
+  ring; the page has `lang="en"`, landmarks and a correct heading order. The few grey texts that
+  measured below WCAG AA contrast were darkened by an invisible amount. Greyed-out results and
+  unticked rows stay pale on purpose: they are inactive.
+- **Layout.** In the search results the nutrient count sits on the first line of a two-line
+  name, like the category; in the table a two-line name gets the same room above and below as
+  the amounts, so it no longer touches the next row.
+- **Security headers.** `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
+  `Permissions-Policy`, `Strict-Transport-Security` and a light `Content-Security-Policy`, set in
+  `routeRules` in `nuxt.config.ts`. The privacy page is at `/privacy`, linked from the footer and
+  from the mobile screen.
+- **The four additions.** The favicon set is SVG, ICO (16/32/48), a 180 px iPhone icon and
+  192/512 px manifest icons (one maskable); `scripts/make-favicons.py` makes them from
+  `assets/icons/minerals.svg`. The tooltips are CSS only (`data-tip` in
+  `components/Ui/TableV2.vue`); a dash is read out as "No data". The snackbar
+  (`components/Ui/Search.vue`) hides itself after 4 seconds or at the next search, and *View*
+  scrolls to the table and focuses its heading.
 
 ## Data
 
