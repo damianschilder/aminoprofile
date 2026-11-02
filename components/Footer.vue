@@ -27,7 +27,7 @@ footer.footer-wrapper
   justify-content: center;
   color: white;
   > .title {
-    font-family: "Young Serif";
+    font-family: $young-serif;
     font-size: 18px;
   }
   > .source {

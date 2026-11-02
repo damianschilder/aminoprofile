@@ -24,6 +24,9 @@
         //- The button stays while a search runs, so keyboard focus is not lost; the spinner covers it.
         button.search-button.bare-button(type="submit" aria-label="Search" :class="{ 'busy': foodsStore.loading }")
           nuxt-icon(name="search" aria-hidden="true")
+      //- Only shown when JavaScript is off (by the noscript style below), when searching would
+      //- just reload the page.
+      .needs-js(hidden) Search needs JavaScript.
       //- While a new search is slow, the previous message keeps its place (so nothing below jumps)
       //- but is no longer shown.
       .error( v-if="foodsStore.error" :class="{ 'stale': slowLoading }")
@@ -91,6 +94,9 @@
 import { hasAminoAcids, type FoodResult } from '#shared/nutrients';
 
 const foodsStore = useFoodsStore();
+
+// Browsers with JavaScript off apply this style and show the note that search needs it.
+useHead({ noscript: [{ innerHTML: '<style>.needs-js { display: block }</style>' }] });
 
 const searchQuery = ref<string>('');
 

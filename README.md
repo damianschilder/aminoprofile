@@ -60,6 +60,19 @@ they were in 2023. What changed:
 - **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
   Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
   Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).
+- **Fonts.** Mulish and Young Serif are served as WOFF2 files with only the Latin characters
+  (57 kB instead of 316 kB of TTF), are preloaded, and use `font-display: swap`. Until they
+  arrive, text shows in Arial and the name in Times New Roman, resized to take the same room
+  (`size-adjust` and the metric overrides in `assets/style/app.scss`), so the page appears at
+  once with the name in place and hardly moves when the fonts swap in. Before, the name stayed
+  invisible until its font had loaded (3.2 s on a slow connection). The `*-Latin.woff2` files
+  were made from the TTF files next to them with
+  [subset-font](https://github.com/papandreou/subset-font) 2.9 (HarfBuzz), `targetFormat:
+  'woff2'`, for the characters of Google Fonts' "latin" range (U+0020-007E, U+00A0-00FF,
+  U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD). All OpenType
+  features and the whole weight axis of Mulish are kept: text renders exactly as with the TTF
+  files. Without JavaScript the page says that search needs it.
 - **Accessibility.** The search box has a label; the search, info, remove and tick icons are
   real buttons that work with the keyboard and have a visible focus ring; results can be added
   with Enter; a status line tells screen readers what happened; the page has `lang="en"`,

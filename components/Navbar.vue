@@ -23,7 +23,7 @@ header.navbar-wrapper
   height: 100%;
   display: flex;
   align-items: center;
-  font-family: "Young Serif";
+  font-family: $young-serif;
   font-size: 24px;
   color: $primary20;
   > .home {

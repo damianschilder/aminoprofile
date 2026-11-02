@@ -65,7 +65,7 @@ useHead({
     row-gap: 0.25rem;
     // h2 for the heading order (h1, then h2), with the look of the h3 these were.
     > h2 {
-      font: bold 1.125rem/1.5625rem "Mulish"; // 18/25px
+      font: bold 1.125rem/1.5625rem $mulish; // 18/25px
       color: $neutral-variant30;
     }
   }

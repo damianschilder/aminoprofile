@@ -43,7 +43,7 @@
   background-color: $primary10;
   color: white;
   > .title {
-    font: bold 1.375rem/1.9375rem "Young Serif"; // as the h2 it was: 22px/31px
+    font: bold 1.375rem/1.9375rem $young-serif; // as the h2 it was: 22px/31px
   }
   > .privacy {
     position: absolute;
