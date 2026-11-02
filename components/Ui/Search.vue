@@ -40,8 +40,6 @@
 import findValue from '~/composables/findValue';
 
 const foodsStore = useFoodsStore();
-const runtimeConfig = useRuntimeConfig()
-const apiKey: string = runtimeConfig.public.foodDataKey
 
 const searchQuery = ref<string>('');
 
@@ -71,7 +69,7 @@ const sortedResults = computed(() => {
 
 async function searchFoods() {
   loading.value = true;
-  if (searchQuery) await foodsStore.searchFoods(searchQuery.value, apiKey);
+  if (searchQuery) await foodsStore.searchFoods(searchQuery.value);
   loading.value = false;
 }
 

@@ -15,8 +15,10 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    // NUXT_FOODCENTRAL_API_KEY: the USDA FoodData Central API key. Server-only, never sent to the
+    // browser. Empty means USDA's rate-limited DEMO_KEY (see server/api/foods/search.get.ts).
+    foodcentralApiKey: '',
     public: {
-      foodDataKey: process.env.NUXT_PUBLIC_FOODCENTRAL_API_KEY,
       gtagId: process.env.NUXT_PUBLIC_GTAG_ID
     }
   },
