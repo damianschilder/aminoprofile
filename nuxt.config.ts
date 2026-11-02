@@ -19,8 +19,10 @@ export default defineNuxtConfig({
     // browser. Empty means USDA's rate-limited DEMO_KEY (see server/api/foods/search.get.ts).
     foodcentralApiKey: '',
     public: {
-      gtagId: process.env.NUXT_PUBLIC_GTAG_ID
-    }
+      // NUXT_PUBLIC_CF_BEACON_TOKEN: Cloudflare Web Analytics (cookieless, no personal data).
+      // Empty means no analytics script at all.
+      cfBeaconToken: '',
+    },
   },
 
   app: {
