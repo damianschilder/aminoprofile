@@ -40,6 +40,9 @@ export default defineNuxtConfig({
     // NUXT_FOODCENTRAL_API_KEY: the USDA FoodData Central API key. Server-only, never sent to the
     // browser. Empty means USDA's rate-limited DEMO_KEY (see server/api/foods/search.get.ts).
     foodcentralApiKey: '',
+    // NUXT_FOODCENTRAL_API_URL: only for tests against a local stand-in of the API. Empty means
+    // https://api.nal.usda.gov/fdc/v1.
+    foodcentralApiUrl: '',
     public: {
       // NUXT_PUBLIC_CF_BEACON_TOKEN: Cloudflare Web Analytics (cookieless, no personal data).
       // Empty means no analytics script at all.

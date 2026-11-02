@@ -15,7 +15,7 @@
             p Nothing that identifies you. Aminoprofile uses no cookies, has no accounts and uses no advertising or tracking services. The foods you add to the table stay in your browser tab and are gone when you close or reload it.
           .question
             h3 What happens to your searches?
-            p To find results, the text you type in the search box is sent to USDA FoodData Central, the food database of the U.S. Department of Agriculture, through the Aminoprofile server. Only the search text is sent, not your IP address or anything else about you. The server keeps results in memory for at most ten minutes, so a repeated search is faster, and does not store them anywhere else.
+            p To find results, the text you type in the search box is sent to USDA FoodData Central, the food database of the U.S. Department of Agriculture, through the Aminoprofile server. Only the search text is sent, not your IP address or anything else about you. The server keeps the results of a search for at most a day, in its memory and in Cloudflare's cache, so a repeated search is faster, and does not store them anywhere else. Your browser may keep them for an hour.
           .question
             h3 Visitor statistics
             p If visitor numbers are measured, this is done with Cloudflare Web Analytics, which works without cookies and without collecting personal data.
