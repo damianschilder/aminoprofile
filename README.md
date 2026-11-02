@@ -53,39 +53,12 @@ soon" screen, as it did in 2023.
 
 ### November 2026: back online, with Claude Code
 
-The site was prepared to go back online with [Claude Code](https://claude.com/claude-code). The
-look and the texts stayed as they were in 2023, apart from four small additions at the end of this
-list.
-
-- **The API key is off the page.** The browser used to call FoodData Central itself, so the key
-  was in the JavaScript. Searches now go through a server route that holds it.
-- **The right numbers.** Three columns showed the wrong amino acid (*His* showed valine; *Phe* and
-  *Val* both showed histidine). Values are now picked by USDA's nutrient id. Rows show the grams
-  for the amount typed, and 0 g counts as 0 g.
-- **More foods with amino acids.** SR Legacy was added next to Foundation Foods: about 5,100 foods
-  with amino acid data instead of 118. A search for lentils, tofu or salmon used to find none.
-- **Faster.** The page receives about 7 kB per search instead of up to 0.9 MB. Answers are cached
-  on the server, at Cloudflare and in the browser. The fonts went from 316 kB of TTF to 57 kB of
-  WOFF2, and the name no longer stays invisible while its font loads.
-- **Clear messages** for a search that is too short, finds nothing, comes too often, or fails
-  because the connection or the database is down.
-- **Accessible.** Keyboard use, visible focus, labels, a status line for screen readers,
-  landmarks, and WCAG AA contrast.
-- **Private.** Google Analytics was replaced by Cloudflare Web Analytics, which sets no cookies,
-  so there is no cookie banner. There is now a privacy page, security headers, and a 404 page in
-  the site's style.
-- **Findable.** robots.txt, a sitemap, `llms.txt`, and link previews for social media.
-- **Up to date.** Nuxt 3.7 became Nuxt 4, with Pinia 4. Unused packages and build output that had
-  been committed by accident were removed.
-- **Four small additions** in the Material 3 style of the rest:
-  - a favicon: the sprout from the search results, white on a rounded tile in the primary green;
-  - full names on hover: a Material tooltip on *His*, *Ile* and the other abbreviations;
-  - a dash instead of "N/a" for a missing value, as in Material data tables, with a tooltip that
-    says which amino acid is missing;
-  - a Material snackbar after adding a food ("… added to the table.") with a *View* button,
-    because the table is usually below the fold.
-
-The details are under [Technical notes](#technical-notes).
+Put back online with [Claude Code](https://claude.com/claude-code). The look and the texts are
+those of 2023. Under the hood: the API key moved off the page to the server, three columns that
+showed the wrong amino acid were fixed, about 5,000 more foods have amino acid data, searches and
+fonts are faster, and Google Analytics and its cookies are gone. Four small additions in the same
+Material 3 style: a favicon, full names on hover, a dash for missing values, and a message when a
+food is added. The details are under [Technical notes](#technical-notes).
 
 ## Stack
 
