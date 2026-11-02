@@ -28,6 +28,12 @@ export default defineNuxtConfig({
     },
   },
 
+  features: {
+    // Also inline the global stylesheet (assets/style/app.scss, 2.5 kB) in the HTML, as Nuxt
+    // already does for the component styles: the first paint then waits for no CSS request.
+    inlineStyles: true,
+  },
+
   experimental: {
     // Skip the start-up fetch of /_nuxt/builds/meta/<build>.json: if it fails (a search engine's
     // renderer, a page cached from an older deploy) Nuxt replaces the page with a 500 error.

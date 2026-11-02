@@ -73,6 +73,10 @@ they were in 2023. What changed:
   U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD). All OpenType
   features and the whole weight axis of Mulish are kept: text renders exactly as with the TTF
   files. Without JavaScript the page says that search needs it.
+- **No stylesheet to wait for.** The global stylesheet (2.5 kB) is inlined in the HTML, as the
+  component styles already were (`features.inlineStyles` in `nuxt.config.ts`), so the first
+  paint waits for no CSS request. Everything under `/_nuxt/` (scripts, styles, fonts) has a
+  content hash in its name and is cached for a year (`immutable`, in the generated `_headers`).
 - **Accessibility.** The search box has a label; the search, info, remove and tick icons are
   real buttons that work with the keyboard and have a visible focus ring; results can be added
   with Enter; a status line tells screen readers what happened; the page has `lang="en"`,
