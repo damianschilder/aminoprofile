@@ -152,6 +152,9 @@ async function fetchPage(query: string, requireAllWords: boolean, apiKey: string
       const retryAfter = Number(response.headers.get('retry-after'))
       throw new FoodDataError('busy', Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter : undefined)
     }
+    // The status only (never the key or the query), so `wrangler tail` shows why a search failed:
+    // 403 means the API key is wrong.
+    console.error(`[foods/search] FoodData Central answered HTTP ${response.status}`)
     throw new FoodDataError('unavailable')
   }
   let body: any

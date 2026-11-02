@@ -24,7 +24,9 @@ export default defineEventHandler(async (event) => {
   // NUXT_FOODCENTRAL_API_KEY. Without it, USDA's shared DEMO_KEY is used, which is heavily
   // rate limited and only meant for trying things out.
   const config = useRuntimeConfig(event)
-  const apiKey = config.foodcentralApiKey || 'DEMO_KEY'
+  // Trimmed: a key pasted into `wrangler secret put` easily picks up a space or newline, and
+  // USDA answers such a key with 403 API_KEY_INVALID (seen live on 2026-11-02).
+  const apiKey = String(config.foodcentralApiKey ?? '').trim() || 'DEMO_KEY'
   const baseUrl = (config.foodcentralApiUrl || 'https://api.nal.usda.gov/fdc/v1').replace(/\/+$/, '')
 
   try {
