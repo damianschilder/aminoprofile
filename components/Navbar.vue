@@ -1,5 +1,5 @@
 <template lang="pug">
-.navbar-wrapper
+header.navbar-wrapper
   .element-wrapper
       .element-body 
         .navbar-content

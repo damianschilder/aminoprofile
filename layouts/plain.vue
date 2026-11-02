@@ -3,7 +3,7 @@
 //- for text pages such as the privacy page, which must be readable on every screen size.
 .layout-wrapper
   Navbar
-  .slot-wrapper
+  main.slot-wrapper
     slot
   Footer
 </template>

@@ -1,13 +1,13 @@
 <template lang="pug">
 .layout-wrapper 
   Navbar
-  .slot-wrapper
+  main.slot-wrapper
     slot
     //- UiTable.table
     UiTableV2.table
   Footer
   .noMobile
-    h2 Aminoprofile
+    h1.title Aminoprofile
     span will be available on mobile soon.
     NuxtLink.privacy(to="/privacy") Privacy
 </template>
@@ -43,14 +43,17 @@
   align-items: center;
   background-color: $primary10;
   color: white;
-  > h2 {
-    font-family: "Young Serif";
+  > .title {
+    font: bold 1.375rem/1.9375rem "Young Serif"; // as the h2 it was: 22px/31px
   }
   > .privacy {
     position: absolute;
     bottom: 2rem;
     font-size: 13px;
     color: $primary99;
+    &:focus-visible {
+      outline-color: $primary99;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-.footer-wrapper 
+footer.footer-wrapper
   .element-wrapper
     .element-body 
       .footer-content
@@ -36,6 +36,9 @@
     font-size: 13px;
     > a {
       color: $primary99;
+      &:focus-visible {
+        outline-color: $primary99;
+      }
     }
     > .separator {
       margin: 0 0.5rem;
