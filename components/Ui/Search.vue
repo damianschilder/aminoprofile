@@ -1,83 +1,131 @@
 <template lang="pug">
-.component-wrapper 
+.component-wrapper
   .element-wrapper
     .element-body
-      h1 Search for foods
-      .search( :class="{ 'searchable': searchQuery && searchQuery.length > 0 }" )
-        input(placeholder="Name..." v-model="searchQuery" @keyup.enter="searchFoods()")
-        UiLoader.loading( v-if="loading")
-        nuxt-icon( v-else name="search"   @click="searchFoods()")
-      .error( v-if="foodsStore.error") Can't connect to databank. Please try again later.
-      .results( v-if="foodsStore && !foodsStore.error && foodsStore.results.length > 0" )
-        .headers
-          span Name
-          span Category
-          .nutrients
+      h1#search-heading Search for foods
+      form.search(
+        role="search"
+        aria-labelledby="search-heading"
+        :class="{ 'searchable': searchQuery.length > 0 }"
+        @submit.prevent="searchFoods()"
+      )
+        label.visually-hidden(for="food-search") Food name
+        input#food-search(
+          v-model="searchQuery"
+          placeholder="Name..."
+          maxlength="100"
+          autocomplete="off"
+          enterkeyhint="search"
+        )
+        UiLoader.loading( v-if="foodsStore.loading" aria-hidden="true")
+        //- The button stays while a search runs, so keyboard focus is not lost; the spinner covers it.
+        button.search-button.bare-button(type="submit" aria-label="Search" :class="{ 'busy': foodsStore.loading }")
+          nuxt-icon(name="search" aria-hidden="true")
+      .error( v-if="foodsStore.error") {{ errorText }}
+      .error( v-else-if="noResults") No foods found for "{{ foodsStore.searchQuery }}".
+      .results( v-if="showResults" role="table" aria-label="Search results" :aria-busy="foodsStore.loading ? 'true' : 'false'")
+        .headers(role="row")
+          span(role="columnheader") Name
+          span(role="columnheader") Category
+          .nutrients(role="columnheader")
             span Nutrients
-            nuxt-icon( name="info" @mouseover="hover = true" @mouseleave="hover = false")
-            .info( :class="{'show' : hover}")
-              .row 
+            button.info-button.bare-button(
+              type="button"
+              aria-label="About the nutrients column"
+              aria-describedby="nutrients-info"
+              :aria-expanded="hover ? 'true' : 'false'"
+              @mouseenter="hover = true"
+              @mouseleave="hover = false"
+              @focus="hover = true"
+              @blur="hover = false"
+              @click="hover = !hover"
+              @keydown.esc="hover = false"
+            )
+              nuxt-icon( name="info" aria-hidden="true")
+            .info#nutrients-info( :class="{'show' : hover}" role="tooltip")
+              .row
                 span #
                 span Number of nutrients available.
-              .row 
-                nuxt-icon.lacking(name="minerals")
+              .row
+                nuxt-icon.lacking(name="minerals" aria-hidden="true")
                 span Amino acids data not present.
-              .row 
-                nuxt-icon.present(name="minerals")
+              .row
+                nuxt-icon.present(name="minerals" aria-hidden="true")
                 span Amino acids data present.
-        .result( v-for="food in sortedResults" @click="findValue(food.foodNutrients, 1214) !== 'N/a' ? addFood(food) : null" :class="{ 'clickable': findValue(food.foodNutrients, 1214) !== 'N/a' }")
-          span(@click="addFood(food)") {{ food.description }}
-          span {{ food.foodCategory }}
-          .nutrients(:class="{ 'acids': findValue(food.foodNutrients, 1214) !== 'N/a' }")
-            span {{ food.foodNutrients.length }}
+        .result(
+          v-for="food in foodsStore.results"
+          :key="food.fdcId"
+          role="row"
+          :class="{ 'clickable': hasAminoAcids(food.values) }"
+          @click="hasAminoAcids(food.values) ? addFood(food) : null"
+        )
+          span(role="cell")
+            span.name(
+              v-if="hasAminoAcids(food.values)"
+              role="button"
+              tabindex="0"
+              :aria-label="`Add ${food.description} to the amino acids table`"
+              @keydown.enter.prevent="addFood(food)"
+              @keydown.space.prevent="addFood(food)"
+            ) {{ food.description }}
+            template(v-else) {{ food.description }}
+          span(role="cell") {{ food.category }}
+          .nutrients(role="cell" :class="{ 'acids': hasAminoAcids(food.values) }")
+            span {{ food.nutrientCount }}
             //- nuxt-icon(name="acids")
-            nuxt-icon(name="minerals")
-      .total( v-if="foodsStore.responseHits !== null") 
-        span {{ foodsStore.results.length }} {{ foodsStore.results.length === 1 ? 'result' : 'results'}}
+            nuxt-icon(name="minerals" aria-hidden="true")
+            span.visually-hidden {{ hasAminoAcids(food.values) ? 'Amino acids data present.' : 'Amino acids data not present.' }}
+      .total( v-if="showResults")
+        span {{ countText }}
+      p#search-status.visually-hidden(role="status") {{ announcement }}
   </template>
 
 <script setup lang="ts">
-import findValue from '~/composables/findValue';
+import { hasAminoAcids, type FoodResult } from '#shared/nutrients';
 
 const foodsStore = useFoodsStore();
 
 const searchQuery = ref<string>('');
 
-const loading = ref<Boolean>(false);
+const hover = ref<boolean>(false);
 
-const hover = ref<Boolean>(false);
+// The last food added, for screen readers; cleared by the next search.
+const added = ref<string>('');
 
-function sortByFindValue(foods: Food[]) {
-  const sortedFoods = [...foods];
-  sortedFoods.sort((a, b) => {
-    const aValue = findValue(a.foodNutrients, 1214);
-    const bValue = findValue(b.foodNutrients, 1214);
-    if (typeof aValue === 'number' && typeof bValue !== 'number') {
-      return -1;
-    } else if (typeof aValue !== 'number' && typeof bValue === 'number') {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-  return sortedFoods;
+const ERRORS = {
+  'too-short': 'Type at least 2 characters.',
+  busy: 'Too many searches right now. Please try again in a few minutes.',
+  unavailable: "Can't connect to databank. Please try again later.",
+} as const;
+
+const errorText = computed(() => (foodsStore.errorReason ? ERRORS[foodsStore.errorReason] : ''));
+
+const showResults = computed(() => !foodsStore.error && foodsStore.results.length > 0);
+
+const noResults = computed(() => foodsStore.status === 'done' && foodsStore.results.length === 0);
+
+const countText = computed(() => {
+  const shown = foodsStore.results.length;
+  const total = foodsStore.responseHits ?? shown;
+  if (total > shown) return `${shown} of ${total.toLocaleString('en-US')} results`;
+  return `${shown} ${shown === 1 ? 'result' : 'results'}`;
+});
+
+const announcement = computed(() => {
+  if (foodsStore.loading) return 'Searching…';
+  if (foodsStore.error) return errorText.value;
+  if (noResults.value) return `No foods found for "${foodsStore.searchQuery}".`;
+  if (foodsStore.status === 'done') return added.value || `${countText.value} for "${foodsStore.searchQuery}".`;
+  return '';
+});
+
+function searchFoods() {
+  added.value = '';
+  foodsStore.searchFoods(searchQuery.value);
 }
 
-const sortedResults = computed(() => {
-  return sortByFindValue(foodsStore.results);
-})
-
-async function searchFoods() {
-  loading.value = true;
-  if (searchQuery) await foodsStore.searchFoods(searchQuery.value);
-  loading.value = false;
-}
-
-function addFood( food: Food ) {
-  if (!foodsStore.shownFoods.includes(food) && findValue(food.foodNutrients, 1214) !== 'N/a') {
-    foodsStore.shownFoods.push(food);
-    foodsStore.selectedFoods.push(food.fdcId)
-  }
+function addFood(food: FoodResult) {
+  if (foodsStore.addFood(food)) added.value = `${food.description} is in the amino acids table.`;
 }
 </script>
 
@@ -99,14 +147,20 @@ function addFood( food: Food ) {
       margin-bottom: 15px;
     }
   }
-  >:deep(.nuxt-icon svg) {
+  > .search-button {
     position: absolute;
+    right: 0;
+    top: 0;
+    &.busy {
+      opacity: 0;
+    }
+  }
+  > .search-button:deep(.nuxt-icon svg) {
+    display: block;
     height: fit-content;
     margin-bottom: 0;
     width: 1.8rem;
-    right: 0;
     color: $neutral-variant50;
-    top: 0;
   }
   > .loading {
     position: absolute;
@@ -115,7 +169,7 @@ function addFood( food: Food ) {
   }
 }
 
-.searchable {
+.searchable > .search-button {
   &:deep(.nuxt-icon svg) {
     cursor: pointer;
     color: black;
@@ -204,7 +258,7 @@ function addFood( food: Food ) {
         width: 1.5rem;
         color: $neutral-variant80;
       }
-      > span {
+      > span:not(.visually-hidden) {
         text-align: right;
         width: 28.8px;
       }
@@ -213,7 +267,7 @@ function addFood( food: Food ) {
       &:deep(.nuxt-icon svg) {
         color: green;
       }
-      
+
     }
   }
   > .clickable {
@@ -232,4 +286,4 @@ function addFood( food: Food ) {
     color: $neutral-variant10;
   }
 }
-</style>~/types/FoodBankTypes
+</style>

@@ -216,4 +216,11 @@ $amino--display--medium: 45px;
 $amino--display--large: 57px;
 $amino--title--small: 14px;
 $amino--title--medium: 16px;
-$amino--title--large: 22px
+$amino--title--large: 22px;
+
+// 2026: $neutral-variant50 a shade darker, for small grey text (the "g" units, "Last updated").
+// On the table background $neutral-variant50 measured 4.09:1, under the 4.5:1 of WCAG AA; this
+// gives 4.54:1 there and 4.86:1 on the page background. The difference cannot be seen.
+$neutral-variant50-text: rgba(105, 114, 107, 1);
+// Chrome's default placeholder grey (#757575) measured 4.19:1 on the table background.
+$placeholder-text: rgba(110, 110, 110, 1);

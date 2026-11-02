@@ -1,133 +1,113 @@
 <template lang="pug">
-.component-wrapper 
+.component-wrapper
   .element-wrapper
-    .element-body 
-      h2 Essential amino acids
-      table
+    .element-body
+      h2#amino-heading(ref="heading" tabindex="-1") Essential amino acids
+      table(ref="table" aria-labelledby="amino-heading")
         thead
           tr
-            th
-            th Name
-            th.amino His
-            th.amino Ile
-            th.amino Leu
-            th.amino Lys
-            th.amino Met
-            th.amino Phe
-            th.amino Thr
-            th.amino Trp
-            th.amino Val
-            th.amino Protein
+            th(scope="col")
+              span.visually-hidden Amount
+            th(scope="col") Name
+            th.amino(
+              v-for="nutrient in NUTRIENTS"
+              :key="nutrient.key"
+              scope="col"
+              :aria-label="nutrient.name"
+              :title="nutrient.name !== nutrient.label ? nutrient.name : undefined"
+            ) {{ nutrient.label }}
         tbody
           tr.row(
-            v-for="(food, index) in foodsStore.shownFoods" 
-            :key="food.fdcId" 
-            :class="{ 'active': foodsStore.selectedFoods.includes(food.fdcId) }" 
-            @click="toggleRow(food.fdcId)"
+            v-for="(food, index) in foodsStore.shownFoods"
+            :key="food.fdcId"
+            :class="{ 'active': foodsStore.isSelected(food.fdcId) }"
+            @click="toggleRow($event, food.fdcId)"
           )
             td
               .actions
-                nuxt-icon.delete(name="delete" @click="deleteFood(index)")
-                nuxt-icon.checkbox(:name="foodsStore.selectedFoods.includes(food.fdcId) ? 'checkbox/checkbox checked' : 'checkbox/checkbox empty'" @click="toggleFood(food.fdcId)")
+                button.remove.bare-button(
+                  type="button"
+                  :aria-label="`Remove ${food.description}`"
+                  @click="removeFood(food.fdcId, index)"
+                )
+                  nuxt-icon.delete(name="delete" aria-hidden="true")
+                button.bare-button(
+                  type="button"
+                  role="checkbox"
+                  :aria-checked="foodsStore.isSelected(food.fdcId) ? 'true' : 'false'"
+                  :aria-label="`Include ${food.description} in the total`"
+                  @click="foodsStore.toggleFood(food.fdcId)"
+                )
+                  nuxt-icon.checkbox(:name="foodsStore.isSelected(food.fdcId) ? 'checkbox/checkbox checked' : 'checkbox/checkbox empty'" aria-hidden="true")
                 .amount
-                  input(v-model.number="food.amount" maxlength="3" @input="updateFoodValues(food)" placeholder="100")
-                  span g
+                  input(
+                    :value="food.amount"
+                    maxlength="3"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    placeholder="100"
+                    :aria-label="`Amount of ${food.description} in grams`"
+                    @input="updateAmount($event, food.fdcId)"
+                  )
+                  span(aria-hidden="true") g
             td.name {{food.description}}
-            td.amino {{ findValue(food.foodNutrients, 1219) }}
-            td.amino {{ findValue(food.foodNutrients, 1212) }}
-            td.amino {{ findValue(food.foodNutrients, 1213) }}
-            td.amino {{ findValue(food.foodNutrients, 1214) }}
-            td.amino {{ findValue(food.foodNutrients, 1215) }}
-            td.amino {{ findValue(food.foodNutrients, 1221) }}
-            td.amino {{ findValue(food.foodNutrients, 1211) }}
-            td.amino {{ findValue(food.foodNutrients, 1210) }}
-            td.amino {{ findValue(food.foodNutrients, 1221) }}
-            td.amino {{ findValue(food.foodNutrients, 1003) }}
+            td.amino(v-for="nutrient in NUTRIENTS" :key="nutrient.key") {{ formatGrams(valueFor(food, nutrient.key)) }}
           tr.total
             td
-            td Total 
-              span (g)
-            td.amino {{  findValue(selectedFoodsValues, 1219) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1212) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1213) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1214) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1215) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1221) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1211) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1210) }}
-              //- span g
-            td.amino {{  findValue(selectedFoodsValues, 1221) }}
-            td.amino {{  findValue(selectedFoodsValues, 1003) }}
-              //- span g
+            td Total #[span (g)]
+            td.amino(
+              v-for="nutrient in NUTRIENTS"
+              :key="nutrient.key"
+              :title="incompleteNote(nutrient.key, nutrient.name)"
+            ) {{ totalText(nutrient.key) }}
 
 </template>
 
 <script setup lang="ts">
+import { NUTRIENTS, formatGrams, type NutrientKey } from '#shared/nutrients';
+
 const foodsStore = useFoodsStore();
-import findValue from '~/composables/findValue';
 
-function toggleFood(fdcId: Food['fdcId']) {
-  const index = foodsStore.selectedFoods.indexOf(fdcId);
+const heading = ref<HTMLElement | null>(null);
+const table = ref<HTMLTableElement | null>(null);
 
-  if (index !== -1) {
-    foodsStore.selectedFoods.splice(index, 1);
-  } else {
-    foodsStore.selectedFoods.push(fdcId);
-  }
+// A click on the row (not on its buttons or amount field) ticks or unticks the food, unless the
+// click ended a text selection.
+function toggleRow(event: MouseEvent, fdcId: number) {
+  if ((event.target as Element | null)?.closest('button, input')) return;
+  if (window.getSelection()?.toString()) return;
+  foodsStore.toggleFood(fdcId);
 }
 
-function deleteFood(index: number) {
-  foodsStore.shownFoods.splice(index, 1)
-  foodsStore.selectedFoods.splice(index, 1)
+// After a removal, keyboard focus goes to the next food's remove button (or the heading when the
+// table is empty), instead of being lost.
+async function removeFood(fdcId: number, index: number) {
+  foodsStore.removeFood(fdcId);
+  await nextTick();
+  const buttons = table.value?.querySelectorAll<HTMLButtonElement>('button.remove') ?? [];
+  const next = buttons[Math.min(index, buttons.length - 1)];
+  (next ?? heading.value)?.focus();
 }
 
-// const selectedFoodsValues = computed(() => {
-//   const mergedFoodNutrients = foodsStore.shownFoods
-//   .filter((food: Food) => foodsStore.selectedFoods.includes(food.fdcId))
-//   .map(food => food.foodNutrients)
-//   .flat()
-//   .reduce((merged, nutrient) => {
-//     const existingNutrient = merged.find((item: FoodNutrient) => item.nutrientId === nutrient.nutrientId);
-//     if (existingNutrient) {
-//       existingNutrient.value += nutrient.value;
-//     } else {
-//       merged.push({ ...nutrient });
-//     }
-//     return merged;
-//   }, []);
-//   return mergedFoodNutrients;
-// })
+// Whole grams or one decimal, up to 3 characters: "100", "50", "2.5". Empty means 100 g.
+function updateAmount(event: Event, fdcId: number) {
+  const input = event.target as HTMLInputElement;
+  const clean = input.value.replace(',', '.').replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  if (clean !== input.value) input.value = clean;
+  foodsStore.setAmount(fdcId, clean);
+}
 
-const selectedFoodsValues = computed(() => {
-  const mergedFoodNutrients = foodsStore.shownFoods
-    .filter((food: Food) => foodsStore.selectedFoods.includes(food.fdcId))
-    .map((food) => {
-      // Scale the nutrients based on the input amount (food.amount)
-      return food.foodNutrients.map((nutrient) => ({
-        ...nutrient,
-        value: (nutrient.value * (food.amount || 100)) / 100, // Adjust value by amount, default to 100 if undefined
-      }));
-    })
-    .flat()
-    .reduce((merged, nutrient) => {
-      const existingNutrient = merged.find((item: FoodNutrient) => item.nutrientId === nutrient.nutrientId);
-      if (existingNutrient) {
-        existingNutrient.value += nutrient.value;
-      } else {
-        merged.push({ ...nutrient });
-      }
-      return merged;
-    }, []);
-    
-  return mergedFoodNutrients;
-});
+function totalText(key: NutrientKey) {
+  const total = foodsStore.totals[key];
+  if (total.value === null) return 'N/a';
+  return `${total.complete ? '' : '≥ '}${formatGrams(total.value)}`;
+}
+
+function incompleteNote(key: NutrientKey, name: string) {
+  const total = foodsStore.totals[key];
+  if (total.value === null || total.complete) return undefined;
+  return `Not every ticked food has ${name.toLowerCase()} data, so the total is at least this much.`;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -138,6 +118,9 @@ const selectedFoodsValues = computed(() => {
 
 h2 {
   margin-bottom: 2rem;
+  &:focus {
+    outline: none;
+  }
 }
 
 table {
@@ -173,7 +156,7 @@ table {
         color: $neutral-variant10;
       }
       span {
-        color: $neutral-variant50;
+        color: $neutral-variant50-text;
       }
     }
   }
@@ -181,14 +164,14 @@ table {
     margin-top: 1rem;
     border-top: 1px solid $neutral-variant90;
     span {
-      color: $neutral-variant50;
+      color: $neutral-variant50-text;
     }
   }
   .amino {
     white-space: nowrap;
     padding: 0.5rem 1.2rem;
     span {
-      color: $neutral-variant50;
+      color: $neutral-variant50-text;
       margin-left: 0.1rem;
     }
   }
@@ -213,11 +196,6 @@ table {
         color: black;
       }
     }
-    > .checkbox {
-      &:hover {
-        color: red;
-      }
-    }
     .amount {
       display: flex;
       column-gap: 0.1rem;
@@ -232,6 +210,9 @@ table {
         &:focus {
           border-bottom: 2px solid $colors--primary;
           margin-bottom: 0px;
+        }
+        &::placeholder {
+          color: $placeholder-text;
         }
       }
     }
