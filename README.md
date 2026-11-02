@@ -10,14 +10,19 @@ and adds up the nine essential amino acids and protein of the foods you pick.
 
 ## What it does
 
-- **Search.** Type a food and press Enter. Results come from the *Foundation Foods* data set of
-  FoodData Central. Foods with amino acid data are listed first and marked with a green sprout;
+- **Search.** Type a food and press Enter. Results come from the *Foundation Foods* and
+  *SR Legacy* data sets of FoodData Central, the two that have amino acid data. Every word you
+  type must be in the food's name (if that finds nothing, any word will do), and the 25 best
+  matches are shown. Foods with amino acid data are listed first and marked with a green sprout;
   the number next to it is how many nutrients USDA has for that food.
-- **Compare.** Click a food to add it to the *Essential amino acids* table: histidine,
-  isoleucine, leucine, lysine, methionine, phenylalanine, threonine, tryptophan, valine and
-  protein, in grams.
-- **Combine.** Change the amount per food (100 g by default) and tick the foods to include. The
-  *Total* row adds them up, so you can see what a combination of foods gives you.
+- **Compare.** Click a food (or press Enter on it) to add it to the *Essential amino acids*
+  table: histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine,
+  tryptophan, valine and protein, in grams. A missing value shows as N/a, which is not the same
+  as 0.
+- **Combine.** Change the amount per food (100 g by default) and tick the foods to include. Each
+  row shows the grams for its amount, and the *Total* row adds up the ticked rows, so you can see
+  what a combination of foods gives you. When a ticked food has no value for an amino acid, its
+  total is marked "≥": the real amount is at least that.
 
 Aminoprofile is a desktop site. Below 1240 pixels wide it shows a "will be available on mobile
 soon" screen, as it did in 2023.
@@ -31,14 +36,34 @@ Serif). It ran at aminoprofile.com until it was taken offline.
 ## 2026 maintenance
 
 In November 2026 the site was prepared to go back online. This maintenance was done with
-[Claude Code](https://claude.com/claude-code). The look, the texts and the way the site works
-were deliberately left as they were in 2023. What changed:
+[Claude Code](https://claude.com/claude-code). The look and the texts were deliberately left as
+they were in 2023. What changed:
 
 - **API key on the server.** The browser used to call FoodData Central directly, so the API key
   was shipped in the JavaScript bundle. Searches now go through a server route
   (`server/api/foods/search.get.ts`) that holds the key. That route accepts only a search term
-  of 2 to 100 characters, has a 10 second timeout, passes on no upstream error details, and
-  keeps a small, size-capped cache for ten minutes.
+  of 2 to 100 characters, has a 15 second timeout and passes on no upstream error details.
+- **The right numbers.** Three columns of the table showed the wrong amino acid: *His* showed
+  valine, and *Phe* and *Val* both showed histidine. The values are now picked by USDA's
+  nutrient id in one shared list (`shared/nutrients.ts`). Rows now show the grams for the amount
+  typed (the total already did), 0 g counts as 0 g instead of 100 g, removing a food no longer
+  unticks another one, and a food cannot be added twice.
+- **Search.** SR Legacy was added next to Foundation Foods: Foundation has amino acids for 118 of
+  its 424 foods, SR Legacy for about 5,100 of 7,793 (a search for lentils, tofu or salmon found
+  none before). The server picks the ten values the page uses out of USDA's answer, so the page
+  receives about 7 kB instead of the up to 0.9 MB USDA sends for 25 foods. A newer search
+  cancels an older one, pressing Enter twice asks only once, and there are messages for "too
+  short", "nothing found", "too many searches" and "database unavailable".
+- **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
+  Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
+  Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).
+- **Accessibility.** The search box has a label; the search, info, remove and tick icons are
+  real buttons that work with the keyboard and have a visible focus ring; results can be added
+  with Enter; a status line tells screen readers what happened; the page has `lang="en"`,
+  landmarks and a correct heading order; and the few grey texts that measured below WCAG AA
+  contrast were darkened by an invisible amount. Greyed-out results and unticked rows stay pale
+  on purpose: they are inactive.
+- **Error page.** Unknown addresses get a "Page not found" page in the site's style, with a 404.
 - **Analytics without cookies.** Google Analytics was replaced by Cloudflare Web Analytics,
   which uses no cookies and collects no personal data. It is only loaded when a token is
   configured. Without cookies, the site needs no cookie banner.
@@ -75,6 +100,7 @@ npm run dev            # http://127.0.0.1:3000
 | --- | --- | --- |
 | `NUXT_FOODCENTRAL_API_KEY` | No | Your FoodData Central API key ([free sign-up](https://fdc.nal.usda.gov/api-key-signup)). Only the server uses it; it never reaches the browser. **When it is not set, the server falls back to USDA's shared `DEMO_KEY`**, which is heavily rate limited and only meant for trying things out. Set a real key for anything public. |
 | `NUXT_PUBLIC_CF_BEACON_TOKEN` | No | Cloudflare Web Analytics token. When it is not set, no analytics script is loaded at all. |
+| `NUXT_FOODCENTRAL_API_URL` | No | Only for testing against a local stand-in of the API. Default `https://api.nal.usda.gov/fdc/v1`. |
 
 To run a production build as a plain Node server instead of a Worker:
 
