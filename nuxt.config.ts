@@ -2,6 +2,18 @@
 export default defineNuxtConfig({
   pages: true,
 
+  // Cloudflare Workers (module syntax). The build writes .output/server/wrangler.json, so
+  // `npx wrangler deploy` works straight after `npm run build`. NITRO_PRESET=node-server builds a
+  // plain Node server instead, for running it locally.
+  nitro: {
+    preset: process.env.NITRO_PRESET || 'cloudflare-module',
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+      wrangler: { name: 'aminoprofile' },
+    },
+  },
+
   runtimeConfig: {
     public: {
       foodDataKey: process.env.NUXT_PUBLIC_FOODCENTRAL_API_KEY,
@@ -20,22 +32,15 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    [
-      '@pinia/nuxt',
-      {
-        autoImports: ['defineStore', 'acceptHMRUpdate'],
-      },
-    ],
-    'nuxt-icons',
-  ],
+  // @pinia/nuxt auto-imports defineStore and acceptHMRUpdate itself.
+  modules: ['@pinia/nuxt', 'nuxt-icons'],
 
   imports: {
     dirs: ['stores', 'types'],
   },
 
   css: [
-    "@/assets/style/app.scss", 
+    "@/assets/style/app.scss",
   ],
 
   vite: {
@@ -50,4 +55,5 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+  compatibilityDate: '2026-10-01',
 })
