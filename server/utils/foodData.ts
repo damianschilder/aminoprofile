@@ -20,7 +20,9 @@ import {
 export const FDC_DATA_TYPES = ['Foundation', 'SR Legacy']
 // USDA sends every nutrient of every food, about 35 kB per SR Legacy food. Just parsing 50 of them
 // (1.7 MB) took 7 to 10 ms of CPU in V8, the whole CPU budget of a request on the Workers Free
-// plan; 25 foods take 3 to 4 ms. The page says "25 of 99 results" when there are more.
+// plan; 25 foods (about 750 kB) take 3.7 to 4.2 ms. Under workerd (wrangler dev, 2026-11-02) a
+// whole uncached search took 6 to 10 ms, about half of it in parsing USDA's JSON; a cached one
+// 1.3 to 4 ms. The page says "25 of 99 results" when there are more.
 export const FDC_PAGE_SIZE = 25
 const FDC_TIMEOUT_MS = 15_000
 
@@ -53,26 +55,37 @@ function toNumber(raw: unknown): number {
  * The ten values Aminoprofile shows, in grams per 100 g, and how many nutrients have a value.
  * Accepts both the search-result shape ({ nutrientId, nutrientNumber, unitName, value }) and the
  * full food record shape ({ nutrient: { id, number, unitName }, amount }).
+ *
+ * This runs for about 150 nutrients of each of 25 foods on every search that is not cached, so
+ * it does the least work per nutrient: ids are counted as numbers, and the nutrient number and
+ * unit are only read when needed.
  */
 export function pickNutrients(list: unknown): { values: NutrientValues, count: number } {
   const values = emptyValues()
   if (!Array.isArray(list)) return { values, count: 0 }
-  const seen = new Set<string>()
+  const seenIds = new Set<number>()
+  const seenNumbers = new Set<string>()
   for (const item of list) {
     if (!item || typeof item !== 'object') continue
     const n = item as Record<string, any>
     const amount = toNumber(n.value ?? n.amount)
     if (!Number.isFinite(amount) || amount < 0) continue
     const id = toNumber(n.nutrientId ?? n.nutrient?.id)
-    const number = String(n.nutrientNumber ?? n.nutrient?.number ?? '').trim()
-    seen.add(Number.isFinite(id) ? `id ${id}` : `number ${number}`)
-    const key = Number.isFinite(id) ? KEY_BY_ID.get(id) : KEY_BY_NUMBER.get(number)
+    let key: NutrientKey | undefined
+    if (Number.isFinite(id)) {
+      seenIds.add(id)
+      key = KEY_BY_ID.get(id)
+    } else {
+      const number = String(n.nutrientNumber ?? n.nutrient?.number ?? '').trim()
+      seenNumbers.add(number)
+      key = KEY_BY_NUMBER.get(number)
+    }
     if (!key || values[key] !== null) continue
     const factor = GRAMS_PER_UNIT[String(n.unitName ?? n.nutrient?.unitName ?? 'g').toLowerCase()]
     if (factor === undefined) continue
     values[key] = Math.round(amount * factor * 1e6) / 1e6
   }
-  return { values, count: seen.size }
+  return { values, count: seenIds.size + seenNumbers.size }
 }
 
 function text(raw: unknown): string {
@@ -96,7 +109,6 @@ function toCandidate(raw: unknown): Candidate | null {
     fdcId,
     description,
     category,
-    dataType: text(food.dataType),
     nutrientCount: count,
     values,
     searchText: [description, text(food.commonNames), text(food.additionalDescriptions)].join(' '),

@@ -18,8 +18,9 @@ export interface TableFood {
   amount: string
 }
 
-export type SearchStatus = 'idle' | 'loading' | 'done' | 'error'
-export type SearchError = 'too-short' | 'busy' | 'unavailable'
+/** What the search area shows. A search on its way is `loading`, next to the previous status. */
+export type SearchStatus = 'idle' | 'done' | 'error'
+export type SearchError = 'too-short' | 'busy' | 'unavailable' | 'offline'
 
 export interface Total {
   /** Sum in grams over the ticked foods that have a value; null when none of them has one. */
@@ -42,41 +43,75 @@ export function valueFor(food: TableFood, key: NutrientKey): number | null {
   return per100 === null ? null : (per100 * parseGrams(food.amount)) / 100
 }
 
+/** Seconds to wait after a 503 without a readable Retry-After (the server's own default). */
+const DEFAULT_RETRY_AFTER = 600
+
+/** The Retry-After of a 503 in seconds, from 1 second up to an hour. */
+function retryAfterSeconds(e: any): number {
+  const raw = Number(e?.response?.headers?.get?.('retry-after'))
+  return Number.isFinite(raw) && raw > 0 ? Math.min(Math.ceil(raw), 3600) : DEFAULT_RETRY_AFTER
+}
+
 export const useFoodsStore = defineStore('foods', () => {
   const status = ref<SearchStatus>('idle')
+  /** A search is on its way; what is shown stays until its answer arrives. */
+  const loading = ref(false)
   const errorReason = ref<SearchError | null>(null)
-  /** The normalised query of the results shown (or being loaded). */
+  /** The normalised query of the results or message shown. */
   const searchQuery = ref('')
+  /** The normalised query of the search on its way. */
+  const pendingQuery = ref('')
   const results = ref<FoodResult[]>([])
   const responseHits = ref<number | null>(null)
+  /** After a 503: how long the server asked to wait, and whether that time has passed. */
+  const retryAfter = ref<number | null>(null)
+  const canRetry = ref(false)
   const shownFoods = ref<TableFood[]>([])
   const selectedFoods = ref<Array<TableFood['fdcId']>>([])
 
-  const loading = computed(() => status.value === 'loading')
   const error = computed(() => status.value === 'error')
 
   // Only the latest search may change the results: starting a new one aborts the previous one,
   // and an answer that arrives for an older search is ignored.
   let controller: AbortController | null = null
+  let retryTimer: ReturnType<typeof setTimeout> | undefined
 
-  async function searchFoods(raw: string) {
+  function showError(reason: SearchError, query: string) {
+    clearTimeout(retryTimer)
+    status.value = 'error'
+    errorReason.value = reason
+    searchQuery.value = query
+    results.value = []
+    responseHits.value = null
+    retryAfter.value = null
+    // Trying again makes sense straight away when the connection or USDA failed; after "too many
+    // searches" only once the time the server asked for has passed.
+    canRetry.value = reason === 'unavailable' || reason === 'offline'
+  }
+
+  /** `force`: search again even when the same search is shown (the "Try again" button). */
+  async function searchFoods(raw: string, { force = false } = {}) {
     const query = normaliseQuery(raw)
     if (!query) {
       controller?.abort()
       controller = null
-      status.value = 'error'
-      errorReason.value = 'too-short'
+      loading.value = false
+      showError('too-short', '')
       return
     }
-    // Pressing Enter again on the same search does not ask the server again.
-    if (query === searchQuery.value && (status.value === 'loading' || status.value === 'done')) return
+    // Pressing Enter again on the same search does not ask the server again, nor does asking
+    // for a search that just hit the rate limit before the time the server asked for.
+    if (loading.value && query === pendingQuery.value) return
+    if (!force && !loading.value && query === searchQuery.value) {
+      if (status.value === 'done') return
+      if (errorReason.value === 'busy' && !canRetry.value) return
+    }
 
     controller?.abort()
     const own = new AbortController()
     controller = own
-    searchQuery.value = query
-    status.value = 'loading'
-    errorReason.value = null
+    pendingQuery.value = query
+    loading.value = true
     // Give up after 25 s (the server itself waits at most 15 s for USDA). $fetch ignores its own
     // `timeout` option when a signal is passed, so the timer aborts the same controller.
     const timer = setTimeout(() => own.abort(), 25_000)
@@ -88,19 +123,35 @@ export const useFoodsStore = defineStore('foods', () => {
         retry: 0,
       })
       if (controller !== own) return
+      clearTimeout(retryTimer)
       results.value = Array.isArray(response?.foods) ? response.foods : []
       responseHits.value = typeof response?.totalHits === 'number' ? response.totalHits : results.value.length
+      searchQuery.value = query
+      errorReason.value = null
+      retryAfter.value = null
       status.value = 'done'
     } catch (e: any) {
       if (controller !== own) return
-      results.value = []
-      responseHits.value = null
-      status.value = 'error'
-      errorReason.value = e?.statusCode === 503 || e?.data?.data?.reason === 'busy' ? 'busy' : 'unavailable'
+      if (e?.statusCode === 400) showError('too-short', query)
+      else if (e?.statusCode === 503) {
+        showError('busy', query)
+        const seconds = retryAfterSeconds(e)
+        retryAfter.value = seconds
+        retryTimer = setTimeout(() => { canRetry.value = true }, seconds * 1000)
+      }
+      else showError(!e?.statusCode && import.meta.client && navigator.onLine === false ? 'offline' : 'unavailable', query)
     } finally {
       clearTimeout(timer)
-      if (controller === own) controller = null
+      if (controller === own) {
+        controller = null
+        loading.value = false
+      }
     }
+  }
+
+  /** Search again for what failed. */
+  function retrySearch() {
+    if (status.value === 'error' && searchQuery.value && canRetry.value) searchFoods(searchQuery.value, { force: true })
   }
 
   function isShown(fdcId: number) {
@@ -153,8 +204,9 @@ export const useFoodsStore = defineStore('foods', () => {
   })
 
   return {
-    status, errorReason, searchQuery, results, responseHits, shownFoods, selectedFoods, loading, error, totals,
-    searchFoods, isShown, isSelected, addFood, removeFood, toggleFood, setAmount,
+    status, errorReason, searchQuery, pendingQuery, results, responseHits, retryAfter, canRetry, shownFoods,
+    selectedFoods, loading, error, totals,
+    searchFoods, retrySearch, isShown, isSelected, addFood, removeFood, toggleFood, setAmount,
   }
 })
 

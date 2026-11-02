@@ -28,24 +28,33 @@ export const AMINO_ACID_KEYS = NUTRIENTS
 /** Grams per 100 g; null when USDA has no value (which is not the same as 0). */
 export type NutrientValues = Record<NutrientKey, number | null>
 
-/** One search result, as the server route sends it to the page. */
+/**
+ * One search result, as the server route sends it to the page. Every field is used: the name
+ * and category columns, the nutrient count, the sprout (any amino acid value) and, once added,
+ * the row in the amino acids table.
+ */
 export interface FoodResult {
   fdcId: number
   description: string
   category: string
-  dataType: string
   /** How many nutrients USDA has a value for. */
   nutrientCount: number
   values: NutrientValues
 }
 
 export interface SearchResponse {
-  /** The query as the server searched for it (trimmed, lower case, single spaces). */
+  /**
+   * The query as the server searched for it (trimmed, lower case, single spaces). The page does
+   * not need it; it makes a cached answer say what it is the answer to.
+   */
   query: string
-  /** All matches in FoodData Central; `foods` holds the first page of them. */
+  /** All matches in FoodData Central; `foods` holds the first page of them ("25 of 99 results"). */
   totalHits: number
   foods: FoodResult[]
 }
+
+/** Why /api/foods/search failed, in the `data.reason` of its JSON error body. */
+export type SearchFailure = 'invalid' | 'busy' | 'unavailable'
 
 export const QUERY_MIN_LENGTH = 2
 export const QUERY_MAX_LENGTH = 100

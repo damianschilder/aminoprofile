@@ -53,7 +53,10 @@ they were in 2023. What changed:
   none before). The server picks the ten values the page uses out of USDA's answer, so the page
   receives about 7 kB instead of the up to 0.9 MB USDA sends for 25 foods. A newer search
   cancels an older one, pressing Enter twice asks only once, and there are messages for "too
-  short", "nothing found", "too many searches" and "database unavailable".
+  short", "nothing found", "too many searches" (with the wait the server gives in
+  `Retry-After`), "no internet connection" and "database unavailable", the last two with a
+  *Try again* button. What is on screen stays until the next answer arrives; the spinner only
+  appears when an answer takes longer than 150 ms, so cached answers do not flicker.
 - **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
   Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
   Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).

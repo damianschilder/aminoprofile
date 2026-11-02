@@ -14,7 +14,8 @@
 
 import type { H3Event } from 'h3'
 
-const CACHE_VERSION = 'v2'
+// v3: the foods no longer carry `dataType`, which the page never used.
+const CACHE_VERSION = 'v3'
 const MEMORY_TTL_MS = 60 * 60 * 1000
 const MEMORY_MAX_ENTRIES = 200
 const MEMORY_MAX_CHARS = 4 * 1024 * 1024

@@ -11,18 +11,25 @@
       )
         label.visually-hidden(for="food-search") Food name
         input#food-search(
+          ref="input"
           v-model="searchQuery"
           placeholder="Name..."
           maxlength="100"
           autocomplete="off"
           enterkeyhint="search"
         )
+        //- Spinner and hidden button only show when an answer takes longer than 150 ms (see the
+        //- styles), so a cached answer does not make the icon flash.
         UiLoader.loading( v-if="foodsStore.loading" aria-hidden="true")
         //- The button stays while a search runs, so keyboard focus is not lost; the spinner covers it.
         button.search-button.bare-button(type="submit" aria-label="Search" :class="{ 'busy': foodsStore.loading }")
           nuxt-icon(name="search" aria-hidden="true")
-      .error( v-if="foodsStore.error") {{ errorText }}
-      .error( v-else-if="noResults") No foods found for "{{ foodsStore.searchQuery }}".
+      //- While a new search is slow, the previous message keeps its place (so nothing below jumps)
+      //- but is no longer shown.
+      .error( v-if="foodsStore.error" :class="{ 'stale': slowLoading }")
+        span {{ errorText }}
+        button.retry.bare-button(v-if="showRetry" type="button" @click="retry") Try again
+      .error( v-else-if="noResults" :class="{ 'stale': slowLoading }") No foods found for "{{ foodsStore.searchQuery }}".
       .results( v-if="showResults" role="table" aria-label="Search results" :aria-busy="foodsStore.loading ? 'true' : 'false'")
         .headers(role="row")
           span(role="columnheader") Name
@@ -87,18 +94,51 @@ const foodsStore = useFoodsStore();
 
 const searchQuery = ref<string>('');
 
+const input = ref<HTMLInputElement | null>(null);
+
 const hover = ref<boolean>(false);
 
 // The last food added, for screen readers; cleared by the next search.
 const added = ref<string>('');
 
-const ERRORS = {
-  'too-short': 'Type at least 2 characters.',
-  busy: 'Too many searches right now. Please try again in a few minutes.',
-  unavailable: "Can't connect to databank. Please try again later.",
-} as const;
+// "Searching…" is only announced when an answer takes longer than the spinner's 150 ms.
+const slow = ref<boolean>(false);
+let slowTimer: ReturnType<typeof setTimeout> | undefined;
+watch(() => foodsStore.loading, (loading) => {
+  clearTimeout(slowTimer);
+  slow.value = false;
+  if (loading) slowTimer = setTimeout(() => { slow.value = true; }, 150);
+});
+onBeforeUnmount(() => clearTimeout(slowTimer));
+const slowLoading = computed(() => foodsStore.loading && slow.value);
 
-const errorText = computed(() => (foodsStore.errorReason ? ERRORS[foodsStore.errorReason] : ''));
+/** "10 minutes", from the Retry-After the server sent with "too many searches". */
+function waitText(seconds: number) {
+  if (seconds <= 60) return 'a minute';
+  if (seconds >= 3600) return 'an hour';
+  return `${Math.ceil(seconds / 60)} minutes`;
+}
+
+const errorText = computed(() => {
+  switch (foodsStore.errorReason) {
+    case 'too-short': return 'Type at least 2 characters.';
+    case 'busy': return foodsStore.canRetry || !foodsStore.retryAfter
+      ? 'Too many searches right now.'
+      : `Too many searches right now. Please try again in ${waitText(foodsStore.retryAfter)}.`;
+    case 'offline': return 'No internet connection.';
+    case 'unavailable': return "Can't connect to the food database right now.";
+    default: return '';
+  }
+});
+
+const showRetry = computed(() => foodsStore.canRetry && !foodsStore.loading && foodsStore.errorReason !== 'too-short');
+
+// The button disappears once the answer is in, so keyboard focus goes back to the search field.
+function retry() {
+  input.value?.focus();
+  added.value = '';
+  foodsStore.retrySearch();
+}
 
 const showResults = computed(() => !foodsStore.error && foodsStore.results.length > 0);
 
@@ -112,7 +152,7 @@ const countText = computed(() => {
 });
 
 const announcement = computed(() => {
-  if (foodsStore.loading) return 'Searching…';
+  if (slowLoading.value) return 'Searching…';
   if (foodsStore.error) return errorText.value;
   if (noResults.value) return `No foods found for "${foodsStore.searchQuery}".`;
   if (foodsStore.status === 'done') return added.value || `${countText.value} for "${foodsStore.searchQuery}".`;
@@ -153,6 +193,8 @@ function addFood(food: FoodResult) {
     top: 0;
     &.busy {
       opacity: 0;
+      // Hidden only when the answer takes longer than 150 ms; shown again at once.
+      transition: opacity 0s linear 150ms;
     }
   }
   > .search-button:deep(.nuxt-icon svg) {
@@ -166,6 +208,26 @@ function addFood(food: FoodResult) {
     position: absolute;
     top: 3px;
     right: 6px;
+    animation: show-after-150ms 0s linear 150ms backwards;
+  }
+}
+
+@keyframes show-after-150ms {
+  from { visibility: hidden; }
+}
+
+.error.stale {
+  visibility: hidden;
+}
+
+.error > .retry {
+  display: inline;
+  margin-left: 0.5rem;
+  color: $colors--primary;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: $primary20;
   }
 }
 
