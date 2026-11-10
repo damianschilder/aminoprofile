@@ -238,11 +238,14 @@ function ratioNote(key: ColumnKey): string | undefined {
   if (!proteinKnown) return 'Not every ticked food has protein data, so this cannot be worked out.';
   if (!isScored(key)) {
     if (!verdict.value) return 'This needs data for every essential amino acid.';
-    // A lower bound when the lowest value misses data: "≥ 52%".
-    const percent = formatPercent(overall.percent!, overall.atLeast);
+    // A lower bound when the lowest value misses data: "≥ 52%". None when an amino acid has no
+    // data at all, while what is short is still certain.
+    const score = overall.percent === null
+      ? 'There is no amino acid score, because an amino acid has no data.'
+      : `Amino acid score: ${formatPercent(overall.percent, overall.atLeast)}.`;
     return verdict.value.complete
-      ? `Every essential amino acid reaches what is needed. Amino acid score: ${percent}.`
-      : `Below what is needed in ${verdict.value.shortNames}. Amino acid score: ${percent}.`;
+      ? `Every essential amino acid reaches what is needed. ${score}`
+      : `Below what is needed in ${verdict.value.shortNames}. ${score}`;
   }
   const score = byKey[key];
   const name = SCORED_NAME[key];
@@ -259,13 +262,16 @@ const listOf = (items: string[]) => (items.length <= 1 ? items.join('') : `${ite
  */
 const verdict = computed(() => {
   const { byKey, overall, proteinKnown } = foodsStore.scores;
-  if (foodsStore.selectedFoods.length === 0 || !proteinKnown || overall.percent === null) return null;
+  if (foodsStore.selectedFoods.length === 0 || !proteinKnown) return null;
+  // A value under the bar with full data is short, whatever the other amino acids are, also
+  // when one of them has no data at all.
   const short = SCORING_PATTERN
-    .filter(item => byKey[item.key].percent! < 100 && !byKey[item.key].atLeast)
+    .filter(item => byKey[item.key].percent !== null && byKey[item.key].percent! < 100 && !byKey[item.key].atLeast)
     .sort((a, b) => byKey[a.key].percent! - byKey[b.key].percent!);
   if (short.length === 0) {
-    // With a missing value the lowest is only a lower bound, so "complete" is not certain yet.
-    if (overall.percent < 100) return null;
+    // "Complete" needs every amino acid, and with a missing value the lowest is only a lower
+    // bound, so it is not certain yet.
+    if (overall.percent === null || overall.percent < 100) return null;
     return { complete: true as const, lowest: listOf(overall.limiting.map(k => SCORED_NAME[k])) };
   }
   const first = short[0]!;
