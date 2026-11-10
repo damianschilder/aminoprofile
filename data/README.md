@@ -14,8 +14,8 @@ proposed by the maintainer and still has to be confirmed by a second person
 |---|---|
 | `foods.csv` | The curated list: id, plain name, category, aliases (`\|`-separated) and the words used to find candidates |
 | `links.csv` | For each food, the source entries it is linked to: relation (`exact`, `close`, `broad`), status (`proposed`, `confirmed`, `rejected`) and the reason |
-| `aminoprofile-foods.json` | The dataset: values, per amino acid the value per gram of nitrogen of each origin, the spread, outliers, flags, the links and the source releases with SHA-256 hashes |
-| `aminoprofile-foods.csv` | The values and a quality summary, for spreadsheets |
+| `../public/data/aminoprofile-foods.json` | The dataset, served at https://aminoprofile.com/data/aminoprofile-foods.json: values, per amino acid the value per gram of nitrogen of each origin, the spread, outliers, flags, the links and the source releases with SHA-256 hashes |
+| `../public/data/aminoprofile-foods.csv` | The values and a quality summary, for spreadsheets, served at https://aminoprofile.com/data/aminoprofile-foods.csv |
 | `foods-report.md` | The checks of the last build, for review |
 | `../shared/foods.json` | What the site and the agent endpoint load |
 | `sources/` | The downloaded source files (not committed) |
@@ -123,7 +123,7 @@ Aminoprofile and the four sources:
   2018. https://fdc.nal.usda.gov/
 - Max Rubner-Institut (2025): Bundeslebensmittelschlüssel (BLS), Version 4.0, Deutsche
   Nährstoffdatenbank. Karlsruhe. DOI: 10.25826/Data20251217-134202-0
-- Marija Langwagen, Jette Jacobsen, Tue Christensen and Anders Poulsen: The Danish Food
+- Marija Langwagen, Jette Jakobsen, Tue Christensen and Anders Poulsen: The Danish Food
   Composition Database, Frida version 5.5, November 2025, National Food Institute, Technical
   University of Denmark. https://doi.org/10.11583/DTU.29500682
 - Source: Ministry of Education, Culture, Sports, Science and Technology (MEXT), Standard Tables

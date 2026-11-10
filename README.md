@@ -122,6 +122,7 @@ The default build targets Cloudflare Workers:
 5. Add a WAF rate limiting rule for `/api/foods/search`, for example 10 requests per 10 seconds
    per IP address. Every search that is not cached uses the FoodData Central quota of the API
    key (1,000 requests per hour by default), so this keeps one visitor from using it all up.
+   Add a second one for `/mcp` (see [For AI agents (MCP)](#for-ai-agents-mcp)).
 
 ## Technical notes
 
@@ -160,14 +161,19 @@ What the November 2026 work changed, in more detail.
   `/_nuxt/` has a content hash in its name and is cached for a year (`immutable`, in the
   generated `_headers`). Without JavaScript the page says that search needs it.
 - **Search engines, AI assistants and shared links.** `public/robots.txt` lets every crawler read
-  the pages but not `/api/`, and names the AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User,
-  ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended, Applebot-Extended,
-  CCBot) with the same rules. `public/sitemap.xml` lists the two pages, and `public/llms.txt`
-  ([llmstxt.org](https://llmstxt.org/)) says what the site does, where the data comes from and
+  the pages, the dataset in `/data/` and `/llms.txt`, but not `/api/` or `/mcp` (a POST endpoint
+  for MCP clients, with nothing to crawl). It names the AI crawlers (GPTBot, OAI-SearchBot,
+  ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended,
+  Applebot-Extended, CCBot) with the same rules. `public/sitemap.xml` lists the three pages, and
+  `public/llms.txt` ([llmstxt.org](https://llmstxt.org/)) says what the site does, describes the
+  dataset and the MCP server, asks agents to use those rather than scrape the pages, and says
   whom to contact. Each page has its own title, description and canonical link
   (`shared/site.ts`), Open Graph and Twitter card tags with a 1200x630 picture in the site's style
-  (`public/og-image.png`, made from `docs/og-image.html`), and the home page describes itself as a
-  `WebApplication` in JSON-LD. There is a `theme-color` and a web manifest with the app icons.
+  (`public/og-image.png`, made from `docs/og-image.html`). In JSON-LD the home page describes
+  itself as a `WebApplication` based on FoodData Central and the Aminoprofile dataset, and `/data`
+  describes the dataset as a `Dataset` (with its downloads, sources, licence and measured
+  values), for Google's dataset search. There is a `theme-color` and a web manifest with the app
+  icons.
 - **Accessibility.** The search, info, remove and tick icons are real buttons with a visible focus
   ring; the page has `lang="en"`, landmarks and a correct heading order. The few grey texts that
   measured below WCAG AA contrast were darkened by an invisible amount. Greyed-out results and
@@ -177,8 +183,11 @@ What the November 2026 work changed, in more detail.
   the amounts, so it no longer touches the next row.
 - **Security headers.** `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
   `Permissions-Policy`, `Strict-Transport-Security` and a light `Content-Security-Policy`, set in
-  `routeRules` in `nuxt.config.ts`. The privacy page is at `/privacy`, linked from the footer and
-  from the mobile screen.
+  `routeRules` in `nuxt.config.ts`. The two dataset files also get
+  `Access-Control-Allow-Origin: *` and a day of caching, and the CSV is served as
+  `text/csv; charset=utf-8`. On Cloudflare all of these reach the static files through the
+  generated `_headers`. The privacy page is at `/privacy` and the data page at `/data`, both
+  linked from the footer and from the mobile screen.
 - **The four additions.** The favicon set is SVG, ICO (16/32/48), a 180 px iPhone icon and
   192/512 px manifest icons (one maskable); `scripts/make-favicons.py` makes them from
   `assets/icons/minerals.svg`. The tooltips are CSS only (`data-tip` in
@@ -186,22 +195,59 @@ What the November 2026 work changed, in more detail.
   (`components/Ui/Search.vue`) hides itself after 4 seconds or at the next search, and *View*
   scrolls to the table and focuses its heading.
 
+## For AI agents (MCP)
+
+Aminoprofile is also an [MCP](https://modelcontextprotocol.io/) server, so AI assistants can
+look foods up and score combinations as a tool. It answers from the dataset described under
+[Data](#data).
+
+- **Endpoint:** `https://aminoprofile.com/mcp`, MCP Streamable HTTP transport. Stateless,
+  read-only, no login, CORS open.
+- **Tools:**
+  - `search_foods` `{ query?, category?, limit? }`: foods with id, name, category, protein per
+    100 g and the number of independent sources.
+  - `get_food` `{ id }`: grams per 100 g of protein and 11 amino acids, the food's amino acid
+    score and limiting amino acid, the quality of the values (origins, independent sources,
+    spread, estimated), links to the dataset and the method, and the licence.
+  - `score_foods` `{ items: [{ id, grams }] }`: totals in grams, the amino acid score of the
+    combination per amino acid (FAO 2013 pattern for ages 3 and up, methionine with cystine,
+    phenylalanine with tyrosine), the limiting amino acid and notes. Like the Score row, it is
+    not corrected for digestibility, so it is not a DIAAS.
+- Food ids look like `egg-whole-raw`, `peanut-butter` and `oats-rolled`.
+
+To connect:
+
+- **Claude Code:** `claude mcp add --transport http aminoprofile https://aminoprofile.com/mcp`
+- **Claude** (claude.ai and the desktop app): *Settings → Connectors*, add a custom connector
+  with the URL `https://aminoprofile.com/mcp`.
+- **Other clients** that support remote MCP servers over Streamable HTTP: the same URL.
+
+Rate limiting: add a Cloudflare WAF rate limiting rule for `/mcp`, like the one for
+`/api/foods/search` (for example 10 requests per 10 seconds per IP address). The server does not
+call USDA, so there is no quota to protect, but the rule keeps one client from using up the
+Worker's requests.
+
 ## Data
 
 The site searches U.S. Department of Agriculture, Agricultural Research Service. FoodData
 Central, 2019. [fdc.nal.usda.gov](https://fdc.nal.usda.gov/). FoodData Central data is in the
 public domain.
 
-**In progress: Aminoprofile's own food dataset** (`data/`, version 0.1.0, a draft). 64 everyday
-foods with plain names, each combined from USDA FoodData Central, the German
-Bundeslebensmittelschlüssel 4.0, the Danish Frida 5.5 and the Japanese MEXT amino acid tables,
-with for every value which laboratories measured it and how far they agree. The method, the
-checks, the known limits and the credits are in [data/README.md](data/README.md). The site does
-not use it yet. Under CC BY 4.0.
+**Aminoprofile's own food dataset** (version 0.1.0, a draft). 64 everyday foods with plain
+names, each combined from USDA FoodData Central, the German Bundeslebensmittelschlüssel 4.0, the
+Danish Frida 5.5 and the Japanese MEXT amino acid tables, with for every value which
+laboratories measured it and how far they agree. It is published at
+[aminoprofile.com/data](https://aminoprofile.com/data), as
+[JSON](https://aminoprofile.com/data/aminoprofile-foods.json) and
+[CSV](https://aminoprofile.com/data/aminoprofile-foods.csv) (the files are in `public/data/`),
+under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The curated lists are in
+`data/`, and the method, the checks, the known limits and the credits in
+[data/README.md](data/README.md). The MCP server answers from it. The search on the page still
+uses FoodData Central.
 
 ## License
 
 The code is available under the [MIT License](LICENSE). The food data is not covered by this
-license: FoodData Central is in the public domain, and the dataset in `data/` is under CC BY 4.0
-with the credits in [data/README.md](data/README.md). The typefaces in `assets/fonts`, Mulish
+license: FoodData Central is in the public domain, and the Aminoprofile dataset (`data/` and
+`public/data/`) is under CC BY 4.0 with the credits in [data/README.md](data/README.md). The typefaces in `assets/fonts`, Mulish
 and Young Serif, are under the SIL Open Font License 1.1; each folder holds its `OFL.txt`.

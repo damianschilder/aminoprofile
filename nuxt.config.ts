@@ -70,6 +70,31 @@ export default defineNuxtConfig({
       },
     },
     '/api/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    // The open dataset in public/data/ (data/README.md): readable from any site, cached for a day.
+    // On Cloudflare these reach the static files through the generated .output/public/_headers,
+    // like the headers above. One rule per file rather than '/data/**', because that pattern
+    // would also match the /data page itself and let browsers keep its HTML for a day.
+    '/data/aminoprofile-foods.json': {
+      headers: {
+        'access-control-allow-origin': '*',
+        'cache-control': 'public, max-age=86400',
+      },
+    },
+    '/data/aminoprofile-foods.csv': {
+      headers: {
+        'access-control-allow-origin': '*',
+        'cache-control': 'public, max-age=86400',
+        'content-type': 'text/csv; charset=utf-8',
+      },
+    },
+    // The AI Catalog (public/.well-known/ai-catalog.json): where agents find the MCP server card.
+    '/.well-known/ai-catalog.json': {
+      headers: {
+        'access-control-allow-origin': '*',
+        'cache-control': 'public, max-age=3600',
+        'content-type': 'application/ai-catalog+json',
+      },
+    },
   },
 
   app: {

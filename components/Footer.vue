@@ -10,6 +10,8 @@ footer.footer-wrapper
           span .
           span.separator ·
           NuxtLink(to="/privacy") Privacy
+          span.separator ·
+          NuxtLink(to="/data") Data
 </template>
 
 <style lang="scss" scoped>

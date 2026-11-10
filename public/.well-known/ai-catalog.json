@@ -1,0 +1,10 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:aminoprofile.com:mcp:aminoprofile",
+      "type": "application/mcp-server-card+json",
+      "url": "https://aminoprofile.com/mcp/server-card"
+    }
+  ]
+}

@@ -1,9 +1,10 @@
 // Builds the Aminoprofile food dataset from the curated list (data/foods.csv), the links to the
 // source databases (data/links.csv) and the sources themselves (data/sources/, see
 // scripts/fetch-sources.sh). Writes:
-//   data/aminoprofile-foods.json  the full dataset: values, per amino acid where they come from
-//                                 and how far the sources agree, the links, the source releases
-//   data/aminoprofile-foods.csv   the values and a quality summary, for spreadsheets
+//   public/data/aminoprofile-foods.json  the full dataset: values, per amino acid where they come
+//                                 from and how far the sources agree, the links, the source
+//                                 releases (served at https://aminoprofile.com/data/)
+//   public/data/aminoprofile-foods.csv   the values and a quality summary, for spreadsheets
 //   data/foods-report.md          checks for a person to review
 //   shared/foods.json             what the site and the agent endpoint load
 //
@@ -200,17 +201,31 @@ const dataset = {
   originNames: ORIGIN_NAMES,
   foods: built,
 }
-write('data/aminoprofile-foods.json', `${JSON.stringify(dataset, null, 2)}\n`)
+write('public/data/aminoprofile-foods.json', `${JSON.stringify(dataset, null, 2)}\n`)
 
-// What the site and the agent endpoint need: no per-origin detail, no link reasons.
+// What the site and the agent endpoint need: no link reasons, no flags. byOrigin (mg per g
+// nitrogen per origin, outliers left out) and the names of the source entries are for the food
+// pages (pages/foods/[id].vue), which show how far the sources agree.
+const usedLinks = f => f.links.filter(l => l.status !== 'rejected' && l.relation !== 'broad')
 write('shared/foods.json', `${JSON.stringify({
   version: DATASET_VERSION,
-  foods: built.map(f => ({ id: f.id, name: f.name, category: f.category, aliases: f.aliases, values: f.values, quality: { origins: f.quality.origins, independentSources: f.quality.independentSources, maxSpread: f.quality.maxSpread, estimated: f.quality.estimated }, sources: f.links.filter(l => l.status !== 'rejected' && l.relation !== 'broad').map(l => `${l.source}:${l.id}`) })),
+  originNames: ORIGIN_NAMES,
+  foods: built.map(f => ({
+    id: f.id,
+    name: f.name,
+    category: f.category,
+    aliases: f.aliases,
+    values: f.values,
+    quality: { origins: f.quality.origins, independentSources: f.quality.independentSources, maxSpread: f.quality.maxSpread, estimated: f.quality.estimated },
+    sources: usedLinks(f).map(l => `${l.source}:${l.id}`),
+    entries: usedLinks(f).map(l => ({ source: l.source, id: l.id, name: l.name, relation: l.relation })),
+    byOrigin: Object.fromEntries(AA_KEYS.map(k => [k, f.perAminoAcid[k].byOrigin])),
+  })),
 })}\n`)
 
 const csvCell = v => (v === null || v === undefined ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v))
 const columns = ['id', 'name', 'category', 'protein', ...AA_KEYS, 'independent_sources', 'origins', 'max_spread', 'estimated']
-write('data/aminoprofile-foods.csv', `${[columns.join(','), ...built.map(f => [
+write('public/data/aminoprofile-foods.csv', `${[columns.join(','), ...built.map(f => [
   f.id, f.name, f.category, f.values.protein, ...AA_KEYS.map(k => f.values[k]),
   f.quality.independentSources, f.quality.origins.join('|'), f.quality.maxSpread, f.quality.estimated.join('|'),
 ].map(csvCell).join(','))].join('\n')}\n`)

@@ -2,13 +2,14 @@
 
 > Aminoprofile is a free web page for comparing the essential amino acids of foods. You search
 > USDA FoodData Central by food name, add foods to a table, set the amount of each in grams, and
-> see the nine essential amino acids and protein per food and in total.
+> see the nine essential amino acids and protein per food and in total. Aminoprofile also
+> publishes its own open food dataset (CC BY 4.0) and a read-only MCP server for AI agents.
 
-- Values are in grams. USDA gives them per 100 g of food; Aminoprofile scales them to the
+- Values are in grams. USDA gives them per 100 g of food. Aminoprofile scales them to the
   amount you set (100 g by default) and adds up the foods you tick.
 - The amino acids are histidine, isoleucine, leucine, lysine, methionine, phenylalanine,
-  threonine, tryptophan and valine. A missing value shows as a dash (—), which is not the same as 0;
-  a total that includes a missing value is marked "≥".
+  threonine, tryptophan and valine. A missing value shows as a dash (—), which is not the same as 0.
+  A total that includes a missing value is marked "≥".
 - A Score row shows the amino acid score of the ticked foods together: each essential amino
   acid in mg per g protein as a percentage of the FAO (2013) scoring pattern for ages 3 and up
   (methionine with cystine, phenylalanine with tyrosine). The lowest percentage is the score.
@@ -17,24 +18,67 @@
   Foods that have amino acid data are listed first.
 - There is no account, no cookies and no stored history: the table lives in the browser tab.
   The page needs JavaScript and is made for desktop screens (1240 pixels wide or more).
-- The search endpoint (/api/) is for the page itself and is not meant for crawling; for bulk
-  data, use FoodData Central directly.
+- Agents: please use the MCP server or the dataset files below rather than scraping the pages.
+  The search endpoint (/api/) is for the page itself and is not meant for crawling.
 
 ## Pages
 
 - [Search and compare](https://aminoprofile.com/): the search field, the results and the
   essential amino acids table.
+- [Data](https://aminoprofile.com/data): the open dataset, its sources and licence, and how to
+  connect to the MCP server.
 - [Privacy](https://aminoprofile.com/privacy): which data is involved (only the search text goes
   to USDA, through the Aminoprofile server), who is responsible and what your rights are.
 
-## Data source
+## Dataset
 
-- [USDA FoodData Central](https://fdc.nal.usda.gov/): the food database of the U.S.
-  Department of Agriculture. Citation: U.S. Department of Agriculture, Agricultural Research
-  Service. FoodData Central, 2019.
-- [FoodData Central API guide](https://fdc.nal.usda.gov/api-guide): how to query the data
+Aminoprofile foods, version 0.1.0 (November 2026, a draft). The essential amino acids, cystine,
+tyrosine and protein of 64 everyday foods, in grams per 100 g edible portion, combined from four
+national food composition databases. For every value it records which laboratories or databases
+measured it, how many independent sources there are and how far they agree. Protein is
+nitrogen x 6.25. Licence: CC BY 4.0. Credit Aminoprofile and the four sources.
+
+- [aminoprofile-foods.json](https://aminoprofile.com/data/aminoprofile-foods.json): everything,
+  with per value its origins, spread and flags, the links to the source entries and the source
+  releases with SHA-256 hashes.
+- [aminoprofile-foods.csv](https://aminoprofile.com/data/aminoprofile-foods.csv): the values and
+  a quality summary per food, for spreadsheets.
+- [Method, checks, known limits and credits](https://github.com/damianschilder/aminoprofile/blob/main/data/README.md)
+
+## MCP server
+
+- Endpoint: https://aminoprofile.com/mcp (MCP Streamable HTTP transport). Stateless, read-only,
+  no login, CORS open. It answers from the dataset above.
+- `search_foods` `{ query?, category?, limit? }`: foods with id, name, category, protein per
+  100 g and the number of independent sources.
+- `get_food` `{ id }`: grams per 100 g of protein and 11 amino acids, the food's amino acid score
+  and limiting amino acid, the quality of the values (origins, independent sources, spread,
+  estimated), links to the dataset and the method, and the licence.
+- `score_foods` `{ items: [{ id, grams }] }`: totals in grams, the amino acid score of the
+  combination per amino acid (FAO 2013 pattern for ages 3 and up, methionine with cystine,
+  phenylalanine with tyrosine), the limiting amino acid and notes. Not corrected for
+  digestibility, so not a DIAAS.
+- Food ids look like `egg-whole-raw`, `peanut-butter` and `oats-rolled`.
+- Claude Code: `claude mcp add --transport http aminoprofile https://aminoprofile.com/mcp`
+- Claude (claude.ai and the desktop app): Settings, Connectors, add a custom connector with
+  https://aminoprofile.com/mcp
+- Other clients that support remote MCP servers over Streamable HTTP: the same URL.
+
+## Data sources
+
+The site's search uses USDA FoodData Central. The dataset combines four sources:
+
+- [USDA FoodData Central](https://fdc.nal.usda.gov/), SR Legacy (CC0). Citation: U.S.
+  Department of Agriculture, Agricultural Research Service. FoodData Central: SR Legacy, 2018.
+  The [FoodData Central API guide](https://fdc.nal.usda.gov/api-guide) explains how to query it
   directly.
+- [Bundeslebensmittelschlüssel (BLS) 4.0](https://doi.org/10.25826/Data20251217-134202-0), Max
+  Rubner-Institut, Germany (CC BY 4.0).
+- [Frida 5.5](https://doi.org/10.11583/DTU.29500682), the Danish Food Composition Database, DTU
+  National Food Institute (CC BY 4.0).
+- [Standard Tables of Food Composition in Japan, Amino Acids](https://www.mext.go.jp/), MEXT
+  (Government of Japan Standard Terms of Use, compatible with CC BY 4.0).
 
 ## Contact
 
-- Questions and privacy requests: parels.app@gmail.com
+- Questions, corrections to the data and privacy requests: parels.app@gmail.com

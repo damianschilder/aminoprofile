@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.aminoprofile/aminoprofile",
+  "title": "Aminoprofile",
+  "description": "Essential amino acids of 64 everyday foods from four national databases, and amino acid scores.",
+  "version": "0.1.0",
+  "websiteUrl": "https://aminoprofile.com",
+  "repository": {
+    "url": "https://github.com/damianschilder/aminoprofile",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://aminoprofile.com/mcp"
+    }
+  ]
+}

@@ -1,10 +1,15 @@
 # Aminoprofile: every page may be read and indexed, by search engines and by AI crawlers and
-# assistants alike. /api/ is the search endpoint behind the page, not content: it only answers
-# searches, and each one is passed on to USDA FoodData Central.
+# assistants alike. So may the open dataset in /data/ (CC BY 4.0) and /llms.txt.
+# /api/ is the search endpoint behind the page, not content: it only answers searches, and each
+# one is passed on to USDA FoodData Central. /mcp is the MCP server for AI agents: it only
+# answers POST requests from MCP clients, so there is nothing to crawl. Agents use it as a tool.
 
 User-agent: *
 Allow: /
+Allow: /data/
+Allow: /llms.txt
 Disallow: /api/
+Disallow: /mcp
 
 # Named so that the rules for them are explicit; they are the same as above.
 User-agent: GPTBot
@@ -18,6 +23,9 @@ User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: CCBot
 Allow: /
+Allow: /data/
+Allow: /llms.txt
 Disallow: /api/
+Disallow: /mcp
 
 Sitemap: https://aminoprofile.com/sitemap.xml

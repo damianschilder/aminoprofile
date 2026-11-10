@@ -22,10 +22,14 @@
     "wrangler": "^4.156.1"
   },
   "dependencies": {
+    "@cfworker/json-schema": "^4.1.6",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/server": "^2.4.0",
     "@pinia/nuxt": "^1.0.3",
     "@vue/devtools-api": "^8.2.1",
     "nuxt-icons": "^4.0.0",
-    "pinia": "^4.1.0"
+    "pinia": "^4.1.0",
+    "zod": "^4.6.7"
   },
   "overrides": {
     "glob": "^14.0.3",

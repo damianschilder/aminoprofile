@@ -29,7 +29,11 @@ useHead({
       inLanguage: 'en',
       isAccessibleForFree: true,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      isBasedOn: { '@type': 'Dataset', name: 'USDA FoodData Central', url: 'https://fdc.nal.usda.gov/' },
+      isBasedOn: [
+        { '@type': 'Dataset', name: 'USDA FoodData Central', url: 'https://fdc.nal.usda.gov/' },
+        // Aminoprofile's own dataset; pages/data.vue describes it in full.
+        { '@type': 'Dataset', name: 'Aminoprofile foods', url: `${SITE_URL}/data`, license: 'https://creativecommons.org/licenses/by/4.0/' },
+      ],
     }),
   }],
 });

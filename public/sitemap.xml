@@ -4,6 +4,9 @@
     <loc>https://aminoprofile.com/</loc>
   </url>
   <url>
+    <loc>https://aminoprofile.com/data</loc>
+  </url>
+  <url>
     <loc>https://aminoprofile.com/privacy</loc>
   </url>
 </urlset>
