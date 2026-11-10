@@ -9,6 +9,10 @@
 - The amino acids are histidine, isoleucine, leucine, lysine, methionine, phenylalanine,
   threonine, tryptophan and valine. A missing value shows as a dash (—), which is not the same as 0;
   a total that includes a missing value is marked "≥".
+- A Score row shows the amino acid score of the ticked foods together: each essential amino
+  acid in mg per g protein as a percentage of the FAO (2013) scoring pattern for ages 3 and up
+  (methionine with cystine, phenylalanine with tyrosine). The lowest percentage is the score.
+  It is not corrected for digestibility, so it is not a DIAAS.
 - Results come from the Foundation Foods and SR Legacy data sets, the two with amino acid data.
   Foods that have amino acid data are listed first.
 - There is no account, no cookies and no stored history: the table lives in the browser tab.

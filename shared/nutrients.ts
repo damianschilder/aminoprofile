@@ -19,11 +19,23 @@ export const NUTRIENTS = [
   { key: 'protein', label: 'Protein', name: 'Protein', id: 1003, number: '203' },
 ] as const
 
-export type NutrientKey = typeof NUTRIENTS[number]['key']
+// Not columns of the table: the amino acid score counts cystine together with methionine and
+// tyrosine together with phenylalanine, as the FAO scoring pattern does (shared/scoring.ts).
+export const PARTNER_NUTRIENTS = [
+  { key: 'cys', label: 'Cys', name: 'Cystine', id: 1216, number: '507' },
+  { key: 'tyr', label: 'Tyr', name: 'Tyrosine', id: 1218, number: '509' },
+] as const
+
+/** Every value the server picks out of the USDA answer: the table's columns and the partners. */
+export const ALL_NUTRIENTS = [...NUTRIENTS, ...PARTNER_NUTRIENTS] as const
+
+/** A column of the table. */
+export type ColumnKey = typeof NUTRIENTS[number]['key']
+export type NutrientKey = typeof ALL_NUTRIENTS[number]['key']
 
 export const AMINO_ACID_KEYS = NUTRIENTS
   .filter(n => n.key !== 'protein')
-  .map(n => n.key) as Exclude<NutrientKey, 'protein'>[]
+  .map(n => n.key) as Exclude<ColumnKey, 'protein'>[]
 
 /** Grams per 100 g; null when USDA has no value (which is not the same as 0). */
 export type NutrientValues = Record<NutrientKey, number | null>

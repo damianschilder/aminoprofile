@@ -32,6 +32,14 @@ profile of each food and adds them up across the foods you combine.
   USDA does not have shows as a dash (—), which is not the same as 0.
 - **Combine.** Change the amount per food (100 g by default) and tick the foods to include. The
   *Total* row adds up the ticked rows, so you can see what a combination of foods gives you.
+- **Score.** The *Score* row under the total shows how complete the protein of the ticked foods
+  is together. For each essential amino acid it gives the milligrams per gram of protein as a
+  share of what the [FAO (2013)](https://openknowledge.fao.org/handle/20.500.14283/i3124e)
+  scoring pattern for ages 3 and up asks. Methionine counts together with cystine, and
+  phenylalanine with tyrosine, as in the pattern. Under *Protein* is the lowest share, which is
+  the score, and the amino acid that sets it is shown in bold green. Hover a score to see the
+  milligrams. It is an amino acid score, not a DIAAS: it is not corrected for digestibility,
+  which would lower most plant foods.
   When a ticked food has no value for an amino acid, its total is marked "≥": the real amount is
   at least that.
 
@@ -122,8 +130,10 @@ What the November 2026 work changed, in more detail.
 - **Search route.** `server/api/foods/search.get.ts` holds the API key, accepts only a search term
   of 2 to 100 characters, has a 15 second timeout and passes on no upstream error details. Every
   word typed must be in the food's name (if that finds nothing, any word will do), and the 25
-  best matches are shown. The server picks the ten values the page uses out of USDA's answer.
+  best matches are shown. The server picks the twelve values the page uses out of USDA's answer:
+  the ten columns, plus cystine and tyrosine for the score.
 - **Nutrients.** One shared list in `shared/nutrients.ts` maps each column to USDA's nutrient id.
+  The score is worked out in `shared/scoring.ts`, with the FAO pattern written out there.
   Foundation Foods has amino acids for 118 of its 424 foods, SR Legacy for about 5,100 of 7,793.
   Removing a food no longer unticks another one, and a food cannot be added twice.
 - **Searching.** A newer search cancels an older one, and pressing Enter twice asks only once.

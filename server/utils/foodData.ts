@@ -1,12 +1,12 @@
 // Searching USDA FoodData Central and turning its answer into the small list the page needs.
 //
 // A FoodData Central search returns every nutrient of every food: close to a megabyte for 25
-// foods. The page only uses a name, a category, a nutrient count and ten values per food, so the
+// foods. The page only uses a name, a category, a nutrient count and twelve values per food, so the
 // server picks those out (by nutrient id, with the nutrient number as a fallback, converted to
 // grams) and sends about 1% of the original. Missing values stay null: "no data" is not "0 g".
 
 import {
-  NUTRIENTS,
+  ALL_NUTRIENTS,
   hasAminoAcids,
   type FoodResult,
   type NutrientKey,
@@ -38,11 +38,11 @@ export class FoodDataError extends Error {
 }
 
 const GRAMS_PER_UNIT: Record<string, number> = { g: 1, mg: 1e-3, ug: 1e-6, 'µg': 1e-6, 'μg': 1e-6 }
-const KEY_BY_ID = new Map<number, NutrientKey>(NUTRIENTS.map(n => [n.id, n.key]))
-const KEY_BY_NUMBER = new Map<string, NutrientKey>(NUTRIENTS.map(n => [n.number, n.key]))
+const KEY_BY_ID = new Map<number, NutrientKey>(ALL_NUTRIENTS.map(n => [n.id, n.key]))
+const KEY_BY_NUMBER = new Map<string, NutrientKey>(ALL_NUTRIENTS.map(n => [n.number, n.key]))
 
 function emptyValues(): NutrientValues {
-  return Object.fromEntries(NUTRIENTS.map(n => [n.key, null])) as NutrientValues
+  return Object.fromEntries(ALL_NUTRIENTS.map(n => [n.key, null])) as NutrientValues
 }
 
 function toNumber(raw: unknown): number {
@@ -52,7 +52,8 @@ function toNumber(raw: unknown): number {
 }
 
 /**
- * The ten values Aminoprofile shows, in grams per 100 g, and how many nutrients have a value.
+ * The twelve values Aminoprofile uses (the ten columns, cystine and tyrosine), in grams per
+ * 100 g, and how many nutrients have a value.
  * Accepts both the search-result shape ({ nutrientId, nutrientNumber, unitName, value }) and the
  * full food record shape ({ nutrient: { id, number, unitName }, amount }).
  *

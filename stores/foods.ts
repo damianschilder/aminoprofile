@@ -1,5 +1,5 @@
 import {
-  NUTRIENTS,
+  ALL_NUTRIENTS,
   hasAminoAcids,
   normaliseQuery,
   type FoodResult,
@@ -7,6 +7,7 @@ import {
   type NutrientValues,
   type SearchResponse,
 } from '#shared/nutrients'
+import { aminoAcidScores } from '#shared/scoring'
 
 /** A food in the "Essential amino acids" table. */
 export interface TableFood {
@@ -166,7 +167,10 @@ export const useFoodsStore = defineStore('foods', () => {
   function addFood(food: FoodResult): boolean {
     if (!hasAminoAcids(food.values)) return false
     if (!isShown(food.fdcId)) {
-      shownFoods.value.push({ fdcId: food.fdcId, description: food.description, values: { ...food.values }, amount: '' })
+      // A missing key is no data: answers the browser cached before cystine and tyrosine were
+      // added do not have them.
+      const values = Object.fromEntries(ALL_NUTRIENTS.map(({ key }) => [key, food.values[key] ?? null])) as NutrientValues
+      shownFoods.value.push({ fdcId: food.fdcId, description: food.description, values, amount: '' })
     }
     if (!isSelected(food.fdcId)) selectedFoods.value.push(food.fdcId)
     return true
@@ -187,10 +191,13 @@ export const useFoodsStore = defineStore('foods', () => {
     if (food) food.amount = amount
   }
 
-  /** The Total row: the ticked foods added up, each for its own amount. */
+  /**
+   * The Total row: the ticked foods added up, each for its own amount. Also cystine and tyrosine,
+   * which are not columns but count in the score.
+   */
   const totals = computed(() => {
     const ticked = shownFoods.value.filter(food => selectedFoods.value.includes(food.fdcId))
-    return Object.fromEntries(NUTRIENTS.map(({ key }) => {
+    return Object.fromEntries(ALL_NUTRIENTS.map(({ key }) => {
       let sum = 0
       let known = 0
       for (const food of ticked) {
@@ -203,9 +210,12 @@ export const useFoodsStore = defineStore('foods', () => {
     })) as Record<NutrientKey, Total>
   })
 
+  /** The Score row: the amino acid score of the ticked foods together (shared/scoring.ts). */
+  const scores = computed(() => aminoAcidScores(totals.value))
+
   return {
     status, errorReason, searchQuery, pendingQuery, results, responseHits, retryAfter, canRetry, shownFoods,
-    selectedFoods, loading, error, totals,
+    selectedFoods, loading, error, totals, scores,
     searchFoods, retrySearch, isShown, isSelected, addFood, removeFood, toggleFood, setAmount,
   }
 })

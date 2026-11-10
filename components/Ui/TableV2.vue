@@ -77,11 +77,33 @@
                 span.no-data(aria-hidden="true") —
                 span.visually-hidden No data
               template(v-else) {{ totalText(nutrient.key) }}
+          //- Each essential amino acid of the total per gram of protein, as a share of the FAO
+          //- pattern; under Protein the lowest share, which is the score (shared/scoring.ts).
+          tr.score
+            td
+            td.tip.wide.start.above(:data-tip="SCORE_EXPLAINED") Score #[span (%)]
+            td.amino.wide.above(
+              v-for="nutrient in NUTRIENTS"
+              :key="nutrient.key"
+              :class="{ 'tip': !!scoreNote(nutrient.key), 'limiting': isLimiting(nutrient.key) }"
+              :data-tip="scoreNote(nutrient.key)"
+            )
+              template(v-if="scoreText(nutrient.key) === null")
+                span.no-data(aria-hidden="true") —
+                span.visually-hidden No score
+              template(v-else)
+                | {{ scoreText(nutrient.key) }}
+                span.visually-hidden(v-if="isLimiting(nutrient.key)")  (lowest)
 
 </template>
 
 <script setup lang="ts">
-import { NUTRIENTS, formatGrams, type NutrientKey } from '#shared/nutrients';
+import { NUTRIENTS, formatGrams, type ColumnKey, type NutrientKey } from '#shared/nutrients';
+import { SCORING_PATTERN, formatPercent, type ScoredKey } from '#shared/scoring';
+
+const SCORE_EXPLAINED = 'Each essential amino acid per gram of protein, as a share of what the FAO (2013) pattern for ages 3 and up asks. Methionine counts with cystine, phenylalanine with tyrosine. Under Protein: the lowest share, which is the score. Not corrected for digestibility.';
+
+const SCORED_NAME = Object.fromEntries(SCORING_PATTERN.map(item => [item.key, item.name])) as Record<ScoredKey, string>;
 
 const foodsStore = useFoodsStore();
 
@@ -129,6 +151,39 @@ function totalNote(key: NutrientKey, name: string) {
   }
   if (!total.complete) return `Not every ticked food has ${name.toLowerCase()} data, so the total is at least this much.`;
   return undefined;
+}
+
+// The Score row. Under Protein it shows the overall score, under each amino acid its own.
+
+function isLimiting(key: ColumnKey) {
+  return key !== 'protein' && foodsStore.scores.overall.limiting.includes(key);
+}
+
+function scoreText(key: ColumnKey): string | null {
+  const { overall, byKey } = foodsStore.scores;
+  if (key === 'protein') return overall.percent === null ? null : formatPercent(overall.percent, overall.atLeast);
+  const score = byKey[key];
+  return score.percent === null ? null : formatPercent(score.percent, score.atLeast);
+}
+
+/** The tooltip of a score: what it is made of, or why there is none. */
+function scoreNote(key: ColumnKey): string | undefined {
+  const { overall, byKey, proteinKnown } = foodsStore.scores;
+  if (foodsStore.selectedFoods.length === 0) return 'Tick a food to see its score.';
+  if (!proteinKnown) return 'Not every ticked food has protein data, so there is no score.';
+  if (key === 'protein') {
+    if (overall.percent === null) return 'There is no score without data for every essential amino acid.';
+    const lowest = overall.limiting.map(k => SCORED_NAME[k]).join(' and ');
+    const bound = overall.atLeast ? ' Not every ticked food has data for it, so the score is at least this.' : '';
+    return overall.percent >= 100
+      ? `Every essential amino acid meets the pattern. The lowest is ${lowest}.${bound}`
+      : `The lowest is ${lowest}, so it limits how much of this protein the body can use.${bound}`;
+  }
+  const score = byKey[key];
+  const name = SCORED_NAME[key];
+  if (score.percent === null) return `No ticked food has ${name} data.`;
+  const text = `${name.charAt(0).toUpperCase()}${name.slice(1)}: ${Math.round(score.mgPerG!)} mg per g protein. The pattern asks ${score.needed}.`;
+  return score.atLeast ? `${text} Not every ticked food has data for it, so the score is at least this.` : text;
 }
 </script>
 
@@ -189,6 +244,16 @@ table {
     border-top: 1px solid $neutral-variant90;
     span {
       color: $neutral-variant50-text;
+    }
+  }
+  .score {
+    span {
+      color: $neutral-variant50-text;
+    }
+    // The amino acid with the lowest score, the one that limits the combination.
+    .limiting {
+      color: $colors--primary;
+      font-weight: 700;
     }
   }
   .amino {
@@ -281,6 +346,17 @@ table {
   &.above::after {
     top: auto;
     bottom: calc(100% - 2px);
+  }
+  // A longer explanation wraps, at the width of a Material rich tooltip.
+  &.wide::after {
+    white-space: normal;
+    width: max-content;
+    max-width: 18rem;
+  }
+  // Under a left-aligned label, starting where the label starts.
+  &.start::after {
+    left: 0;
+    transform: none;
   }
   &:last-child::after {
     left: auto;
