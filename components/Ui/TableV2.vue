@@ -77,33 +77,60 @@
                 span.no-data(aria-hidden="true") —
                 span.visually-hidden No data
               template(v-else) {{ totalText(nutrient.key) }}
-          //- Each essential amino acid of the total per gram of protein, as a share of the FAO
-          //- pattern; under Protein the lowest share, which is the score (shared/scoring.ts).
-          tr.score
+          //- The quality of the protein of the ticked foods together (shared/scoring.ts): how many
+          //- mg of each essential amino acid one gram of it holds, and below that how many the FAO
+          //- (2013) pattern asks. Under the bar is red. Methionine counts with cystine and
+          //- phenylalanine with tyrosine, as in the pattern. Under Protein: complete or not.
+          tr.per-protein
             td
-            td.tip.wide.start.above(:data-tip="SCORE_EXPLAINED") Score #[span (%)]
+            td.tip.wide.start.above(:data-tip="PER_PROTEIN_EXPLAINED") Per g protein #[span (mg)]
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
-              :class="{ 'tip': !!scoreNote(nutrient.key), 'limiting': isLimiting(nutrient.key) }"
-              :data-tip="scoreNote(nutrient.key)"
+              :class="{ 'tip': !!ratioNote(nutrient.key), 'short': isShort(nutrient.key), 'limiting': isLimiting(nutrient.key), 'complete': nutrient.key === 'protein' && verdict?.complete }"
+              :data-tip="ratioNote(nutrient.key)"
             )
-              template(v-if="scoreText(nutrient.key) === null")
+              template(v-if="ratioText(nutrient.key) === null")
                 span.no-data(aria-hidden="true") —
-                span.visually-hidden No score
+                span.visually-hidden No value
               template(v-else)
-                | {{ scoreText(nutrient.key) }}
-                span.visually-hidden(v-if="isLimiting(nutrient.key)")  (lowest)
-
+                | {{ ratioText(nutrient.key) }}
+                span.visually-hidden(v-if="isShort(nutrient.key)")  (below what is needed)
+          tr.needed
+            td
+            td.tip.wide.start.above(:data-tip="NEEDED_EXPLAINED") Needed #[span (mg)]
+            td.amino.wide.above(
+              v-for="nutrient in NUTRIENTS"
+              :key="nutrient.key"
+              :class="{ 'tip': !!pairNote(nutrient.key) }"
+              :data-tip="pairNote(nutrient.key)"
+            ) {{ neededText(nutrient.key) }}
+      //- What the two rows above add up to, and what to add when the protein falls short: the
+      //- foods of Aminoprofile's dataset with the most of that amino acid per gram of protein.
+      p.verdict(v-if="verdict" aria-live="polite")
+        template(v-if="verdict.complete")
+          strong.complete Complete protein.
+          |  Every essential amino acid reaches what the FAO pattern asks per gram of protein. The lowest is {{ verdict.lowest }}.
+        template(v-else)
+          strong.short Short in {{ verdict.shortNames }}.
+          |  Combine it with foods that have more {{ verdict.first.name }} per gram of protein, such as
+          template(v-for="(food, i) in verdict.suggestions" :key="food.id")
+            | {{ i === 0 ? ' ' : i === verdict.suggestions.length - 1 ? ' or ' : ', ' }}
+            NuxtLink(:to="`/foods/${food.id}`") {{ food.name.toLowerCase() }}
+            |  ({{ food.mgPerG }} mg)
+          | .
 </template>
 
 <script setup lang="ts">
 import { NUTRIENTS, formatGrams, type ColumnKey, type NutrientKey } from '#shared/nutrients';
-import { SCORING_PATTERN, formatPercent, type ScoredKey } from '#shared/scoring';
+import { SCORING_PATTERN, type ScoredKey } from '#shared/scoring';
+import richestFoods from '#shared/richest-foods.json';
 
-const SCORE_EXPLAINED = 'Each essential amino acid per gram of protein, as a share of what the FAO (2013) pattern for ages 3 and up asks. Methionine counts with cystine, phenylalanine with tyrosine. Under Protein: the lowest share, which is the score. Not corrected for digestibility.';
+const PER_PROTEIN_EXPLAINED = 'How many milligrams of each essential amino acid one gram of the ticked foods\' protein holds, together. Red: less than needed, so combine it with other foods. Met includes cystine and Phe includes tyrosine, as in the pattern. Not corrected for digestibility.';
+const NEEDED_EXPLAINED = 'What one gram of protein should hold, in milligrams, by the FAO (2013) pattern for ages 3 and up: enough protein then also gives enough of each essential amino acid.';
 
 const SCORED_NAME = Object.fromEntries(SCORING_PATTERN.map(item => [item.key, item.name])) as Record<ScoredKey, string>;
+const RICHEST = richestFoods.byKey as Record<ScoredKey, { id: string, name: string, mgPerG: number }[]>;
 
 const foodsStore = useFoodsStore();
 
@@ -153,38 +180,87 @@ function totalNote(key: NutrientKey, name: string) {
   return undefined;
 }
 
-// The Score row. Under Protein it shows the overall score, under each amino acid its own.
+// The "Per g protein" and "Needed" rows, and the sentence under the table.
 
+/** Whole milligrams, with one decimal below 10 (tryptophan: 6.6 is needed). */
+const formatMg = (mg: number) => (mg < 10 ? mg.toFixed(1) : String(Math.round(mg)));
+
+const isScored = (key: ColumnKey): key is ScoredKey => key !== 'protein';
+
+/** Below the bar. A value that is only a lower bound (data missing) is not called short. */
+function isShort(key: ColumnKey) {
+  if (!isScored(key)) return verdict.value !== null && !verdict.value.complete;
+  const score = foodsStore.scores.byKey[key];
+  return score.percent !== null && score.percent < 100 && !score.atLeast;
+}
+
+/** The lowest one, in bold. */
 function isLimiting(key: ColumnKey) {
-  return key !== 'protein' && foodsStore.scores.overall.limiting.includes(key);
+  return isScored(key) && foodsStore.scores.overall.limiting.includes(key);
 }
 
-function scoreText(key: ColumnKey): string | null {
-  const { overall, byKey } = foodsStore.scores;
-  if (key === 'protein') return overall.percent === null ? null : formatPercent(overall.percent, overall.atLeast);
-  const score = byKey[key];
-  return score.percent === null ? null : formatPercent(score.percent, score.atLeast);
+function ratioText(key: ColumnKey): string | null {
+  if (!isScored(key)) {
+    if (!verdict.value) return null;
+    return verdict.value.complete ? 'Complete' : 'Short';
+  }
+  const score = foodsStore.scores.byKey[key];
+  return score.mgPerG === null ? null : `${score.atLeast ? '≥ ' : ''}${formatMg(score.mgPerG)}`;
 }
 
-/** The tooltip of a score: what it is made of, or why there is none. */
-function scoreNote(key: ColumnKey): string | undefined {
-  const { overall, byKey, proteinKnown } = foodsStore.scores;
-  if (foodsStore.selectedFoods.length === 0) return 'Tick a food to see its score.';
-  if (!proteinKnown) return 'Not every ticked food has protein data, so there is no score.';
-  if (key === 'protein') {
-    if (overall.percent === null) return 'There is no score without data for every essential amino acid.';
-    const lowest = overall.limiting.map(k => SCORED_NAME[k]).join(' and ');
-    const bound = overall.atLeast ? ' Not every ticked food has data for it, so the score is at least this.' : '';
-    return overall.percent >= 100
-      ? `Every essential amino acid meets the pattern. The lowest is ${lowest}.${bound}`
-      : `The lowest is ${lowest}, so it limits how much of this protein the body can use.${bound}`;
+function neededText(key: ColumnKey): string {
+  return isScored(key) ? formatMg(foodsStore.scores.byKey[key].needed) : '';
+}
+
+/** Under Met and Phe: the bar is for the pair. */
+function pairNote(key: ColumnKey): string | undefined {
+  return key === 'met' || key === 'phe' ? `For ${SCORED_NAME[key]} together` : undefined;
+}
+
+/** The tooltip of a value: the numbers in words, or why there is none. */
+function ratioNote(key: ColumnKey): string | undefined {
+  const { byKey, overall, proteinKnown } = foodsStore.scores;
+  if (foodsStore.selectedFoods.length === 0) return 'Tick a food to see its protein quality.';
+  if (!proteinKnown) return 'Not every ticked food has protein data, so this cannot be worked out.';
+  if (!isScored(key)) {
+    if (!verdict.value) return 'This needs data for every essential amino acid.';
+    const percent = Math.round(overall.percent!);
+    return verdict.value.complete
+      ? `Every essential amino acid reaches what is needed. Amino acid score: ${percent}%.`
+      : `Below what is needed in ${verdict.value.shortNames}. Amino acid score: ${percent}%.`;
   }
   const score = byKey[key];
   const name = SCORED_NAME[key];
-  if (score.percent === null) return `No ticked food has ${name} data.`;
-  const text = `${name.charAt(0).toUpperCase()}${name.slice(1)}: ${Math.round(score.mgPerG!)} mg per g protein. The pattern asks ${score.needed}.`;
-  return score.atLeast ? `${text} Not every ticked food has data for it, so the score is at least this.` : text;
+  if (score.mgPerG === null) return `No ticked food has ${name} data.`;
+  const text = `${name.charAt(0).toUpperCase()}${name.slice(1)}: ${formatMg(score.mgPerG)} mg per g protein, ${Math.round(score.percent!)}% of the ${formatMg(score.needed)} needed.`;
+  return score.atLeast ? `${text} Not every ticked food has data for it, so it is at least this.` : text;
 }
+
+const listOf = (items: string[]) => (items.length <= 1 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`);
+
+/**
+ * Complete or short, for the Protein column and the sentence under the table. Null while there is
+ * nothing to say: no ticked food, no protein data, or an amino acid without data.
+ */
+const verdict = computed(() => {
+  const { byKey, overall, proteinKnown } = foodsStore.scores;
+  if (foodsStore.selectedFoods.length === 0 || !proteinKnown || overall.percent === null) return null;
+  const short = SCORING_PATTERN
+    .filter(item => byKey[item.key].percent! < 100 && !byKey[item.key].atLeast)
+    .sort((a, b) => byKey[a.key].percent! - byKey[b.key].percent!);
+  if (short.length === 0) {
+    // With a missing value the lowest is only a lower bound, so "complete" is not certain yet.
+    if (overall.percent < 100) return null;
+    return { complete: true as const, lowest: listOf(overall.limiting.map(k => SCORED_NAME[k])) };
+  }
+  const first = short[0]!;
+  return {
+    complete: false as const,
+    shortNames: listOf(short.map(item => SCORED_NAME[item.key])),
+    first: { key: first.key, name: SCORED_NAME[first.key] },
+    suggestions: RICHEST[first.key] ?? [],
+  };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -197,6 +273,20 @@ h2 {
   margin-bottom: 2rem;
   &:focus {
     outline: none;
+  }
+}
+
+.verdict {
+  margin-top: 1.5rem;
+  color: $neutral-variant30;
+  > .complete {
+    color: $colors--primary;
+  }
+  > .short {
+    color: $error40;
+  }
+  a {
+    color: $colors--primary;
   }
 }
 
@@ -246,15 +336,27 @@ table {
       color: $neutral-variant50-text;
     }
   }
-  .score {
+  .per-protein, .needed {
     span {
       color: $neutral-variant50-text;
     }
-    // The amino acid with the lowest score, the one that limits the combination.
+  }
+  .per-protein {
+    // Below what is needed: combine with other foods. The lowest one in bold.
+    .short {
+      color: $error40;
+    }
     .limiting {
+      font-weight: 700;
+    }
+    .complete {
       color: $colors--primary;
       font-weight: 700;
     }
+  }
+  // The bar itself: quieter than the values above it.
+  .needed {
+    color: $neutral-variant50-text;
   }
   .amino {
     white-space: nowrap;

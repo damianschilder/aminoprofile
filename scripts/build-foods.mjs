@@ -7,6 +7,7 @@
 //   public/data/aminoprofile-foods.csv   the values and a quality summary, for spreadsheets
 //   data/foods-report.md          checks for a person to review
 //   shared/foods.json             what the site and the agent endpoint load
+//   shared/richest-foods.json     per amino acid the foods richest in it, for the comparison table
 //
 // The method (data/README.md has the full text and the references):
 // 1. Only links that are exact or close and not rejected are used.
@@ -26,6 +27,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { parseCsv } from './lib/csv.mjs'
 import { AA_KEYS } from './sources/common.mjs'
 import { loadAll, sourceHashes } from './sources/index.mjs'
+// The site's own FAO pattern, so the build and the page cannot disagree (Node strips its types).
+import { SCORING_PATTERN } from '../shared/scoring.ts'
 
 export const DATASET_VERSION = '0.1.0'
 const root = new URL('../', import.meta.url)
@@ -222,6 +225,22 @@ write('shared/foods.json', `${JSON.stringify({
     byOrigin: Object.fromEntries(AA_KEYS.map(k => [k, f.perAminoAcid[k].byOrigin])),
   })),
 })}\n`)
+
+// For the comparison table (components/Ui/TableV2.vue): per amino acid of the FAO pattern, the
+// foods with the most of it per gram of protein, one per food group, so a combination that falls
+// short can be told what to add. Not vegetables: part of their nitrogen is not protein, so their
+// per-gram-of-protein values are unreliable (data/README.md, known limits). Small on purpose: the
+// table's page loads it, unlike shared/foods.json.
+const richest = Object.fromEntries(SCORING_PATTERN.map((item) => {
+  const ranked = built
+    .filter(f => f.category !== 'Vegetables' && f.values.protein && f.values[item.key] !== null && (!item.partner || f.values[item.partner] !== null))
+    .map(f => ({ id: f.id, name: f.name, category: f.category, mgPerG: ((f.values[item.key] + (item.partner ? f.values[item.partner] : 0)) * 1000) / f.values.protein }))
+    .sort((a, b) => b.mgPerG - a.mgPerG)
+  const seen = new Set()
+  const picked = ranked.filter(f => !seen.has(f.category) && seen.add(f.category)).slice(0, 3)
+  return [item.key, picked.map(f => ({ id: f.id, name: f.name, mgPerG: Math.round(f.mgPerG) }))]
+}))
+write('shared/richest-foods.json', `${JSON.stringify({ version: DATASET_VERSION, byKey: richest }, null, 1)}\n`)
 
 const csvCell = v => (v === null || v === undefined ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v))
 const columns = ['id', 'name', 'category', 'protein', ...AA_KEYS, 'independent_sources', 'origins', 'max_spread', 'estimated']

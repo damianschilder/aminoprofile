@@ -32,14 +32,16 @@ profile of each food and adds them up across the foods you combine.
   USDA does not have shows as a dash (—), which is not the same as 0.
 - **Combine.** Change the amount per food (100 g by default) and tick the foods to include. The
   *Total* row adds up the ticked rows, so you can see what a combination of foods gives you.
-- **Score.** The *Score* row under the total shows how complete the protein of the ticked foods
-  is together. For each essential amino acid it gives the milligrams per gram of protein as a
-  share of what the [FAO (2013)](https://openknowledge.fao.org/handle/20.500.14283/i3124e)
-  scoring pattern for ages 3 and up asks. Methionine counts together with cystine, and
-  phenylalanine with tyrosine, as in the pattern. Under *Protein* is the lowest share, which is
-  the score, and the amino acid that sets it is shown in bold green. Hover a score to see the
-  milligrams. It is an amino acid score, not a DIAAS: it is not corrected for digestibility,
-  which would lower most plant foods.
+- **Protein quality.** Under the total, *Per g protein* shows how many milligrams of each
+  essential amino acid one gram of the ticked foods' protein holds, and *Needed* below it how
+  many the [FAO (2013)](https://openknowledge.fao.org/handle/20.500.14283/i3124e) scoring
+  pattern for ages 3 and up asks. A value under the bar is red, and the lowest is bold.
+  Methionine counts together with cystine, and phenylalanine with tyrosine, as in the pattern.
+  Under *Protein* it says *Complete* or *Short*, and a sentence under the table names what is
+  short and the foods of Aminoprofile's dataset with the most of it per gram of protein
+  (`shared/richest-foods.json`, made by `npm run data:build`). Hover a value for its share of the
+  pattern, the amino acid score. It is not corrected for digestibility, which would lower most
+  plant foods, so it is not a DIAAS.
   When a ticked food has no value for an amino acid, its total is marked "≥": the real amount is
   at least that.
 

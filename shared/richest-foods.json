@@ -1,0 +1,158 @@
+{
+ "version": "0.1.0",
+ "byKey": {
+  "his": [
+   {
+    "id": "mackerel-raw",
+    "name": "Mackerel, raw",
+    "mgPerG": 51
+   },
+   {
+    "id": "cheese-gouda",
+    "name": "Cheese, Gouda",
+    "mgPerG": 31
+   },
+   {
+    "id": "kidney-beans-cooked",
+    "name": "Kidney beans, cooked",
+    "mgPerG": 29
+   }
+  ],
+  "ile": [
+   {
+    "id": "egg-white-raw",
+    "name": "Egg white, raw",
+    "mgPerG": 61
+   },
+   {
+    "id": "turkey-breast-raw",
+    "name": "Turkey breast, raw",
+    "mgPerG": 51
+   },
+   {
+    "id": "tofu-firm",
+    "name": "Tofu, firm",
+    "mgPerG": 48
+   }
+  ],
+  "leu": [
+   {
+    "id": "cottage-cheese",
+    "name": "Cottage cheese",
+    "mgPerG": 102
+   },
+   {
+    "id": "mackerel-raw",
+    "name": "Mackerel, raw",
+    "mgPerG": 85
+   },
+   {
+    "id": "kidney-beans-cooked",
+    "name": "Kidney beans, cooked",
+    "mgPerG": 83
+   }
+  ],
+  "lys": [
+   {
+    "id": "mackerel-raw",
+    "name": "Mackerel, raw",
+    "mgPerG": 92
+   },
+   {
+    "id": "milk-skimmed",
+    "name": "Milk, skimmed",
+    "mgPerG": 88
+   },
+   {
+    "id": "peas-split-dry",
+    "name": "Peas, split, dry",
+    "mgPerG": 74
+   }
+  ],
+  "met": [
+   {
+    "id": "egg-white-raw",
+    "name": "Egg white, raw",
+    "mgPerG": 67
+   },
+   {
+    "id": "chia-seeds",
+    "name": "Chia seeds",
+    "mgPerG": 50
+   },
+   {
+    "id": "oats-rolled",
+    "name": "Oats, rolled",
+    "mgPerG": 48
+   }
+  ],
+  "phe": [
+   {
+    "id": "cheese-gouda",
+    "name": "Cheese, Gouda",
+    "mgPerG": 114
+   },
+   {
+    "id": "peanuts",
+    "name": "Peanuts, raw",
+    "mgPerG": 93
+   },
+   {
+    "id": "tofu-firm",
+    "name": "Tofu, firm",
+    "mgPerG": 93
+   }
+  ],
+  "thr": [
+   {
+    "id": "egg-whole-raw",
+    "name": "Egg, whole, raw",
+    "mgPerG": 52
+   },
+   {
+    "id": "mackerel-raw",
+    "name": "Mackerel, raw",
+    "mgPerG": 49
+   },
+   {
+    "id": "kidney-beans-dry",
+    "name": "Kidney beans, dry",
+    "mgPerG": 43
+   }
+  ],
+  "trp": [
+   {
+    "id": "pumpkin-seeds",
+    "name": "Pumpkin seeds",
+    "mgPerG": 16
+   },
+   {
+    "id": "buckwheat-raw",
+    "name": "Buckwheat, raw",
+    "mgPerG": 16
+   },
+   {
+    "id": "egg-whole-boiled",
+    "name": "Egg, whole, boiled",
+    "mgPerG": 16
+   }
+  ],
+  "val": [
+   {
+    "id": "egg-white-raw",
+    "name": "Egg white, raw",
+    "mgPerG": 74
+   },
+   {
+    "id": "rice-brown-raw",
+    "name": "Rice, brown, raw",
+    "mgPerG": 60
+   },
+   {
+    "id": "mackerel-raw",
+    "name": "Mackerel, raw",
+    "mgPerG": 57
+   }
+  ]
+ }
+}
