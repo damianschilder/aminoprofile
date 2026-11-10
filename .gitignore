@@ -7,6 +7,10 @@
 .wrangler
 dist
 
+# Food composition source files (downloaded, see scripts/fetch-sources.sh) and their cache
+data/sources/
+data/candidates.txt
+
 # Node dependencies
 node_modules
 

@@ -8,7 +8,11 @@
     "dev": "nuxt dev --host 127.0.0.1",
     "generate": "nuxt generate",
     "preview": "nuxt preview --host 127.0.0.1",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "data:fetch": "bash scripts/fetch-sources.sh",
+    "data:measure": "node scripts/measure-sources.mjs",
+    "data:candidates": "node scripts/find-candidates.mjs > data/candidates.txt",
+    "data:build": "node scripts/build-foods.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

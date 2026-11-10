@@ -188,12 +188,20 @@ What the November 2026 work changed, in more detail.
 
 ## Data
 
-Food data: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central,
-2019. [fdc.nal.usda.gov](https://fdc.nal.usda.gov/). FoodData Central data is in the public
-domain.
+The site searches U.S. Department of Agriculture, Agricultural Research Service. FoodData
+Central, 2019. [fdc.nal.usda.gov](https://fdc.nal.usda.gov/). FoodData Central data is in the
+public domain.
+
+**In progress: Aminoprofile's own food dataset** (`data/`, version 0.1.0, a draft). 64 everyday
+foods with plain names, each combined from USDA FoodData Central, the German
+Bundeslebensmittelschlüssel 4.0, the Danish Frida 5.5 and the Japanese MEXT amino acid tables,
+with for every value which laboratories measured it and how far they agree. The method, the
+checks, the known limits and the credits are in [data/README.md](data/README.md). The site does
+not use it yet. Under CC BY 4.0.
 
 ## License
 
-The code is available under the [MIT License](LICENSE). The food data comes from FoodData
-Central (see above) and is not covered by this license. The typefaces in `assets/fonts`, Mulish
+The code is available under the [MIT License](LICENSE). The food data is not covered by this
+license: FoodData Central is in the public domain, and the dataset in `data/` is under CC BY 4.0
+with the credits in [data/README.md](data/README.md). The typefaces in `assets/fonts`, Mulish
 and Young Serif, are under the SIL Open Font License 1.1; each folder holds its `OFL.txt`.
