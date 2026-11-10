@@ -123,7 +123,7 @@
 
 <script setup lang="ts">
 import { NUTRIENTS, formatGrams, type ColumnKey, type NutrientKey } from '#shared/nutrients';
-import { SCORING_PATTERN, type ScoredKey } from '#shared/scoring';
+import { SCORING_PATTERN, formatPercent, type ScoredKey } from '#shared/scoring';
 import richestFoods from '#shared/richest-foods.json';
 
 const PER_PROTEIN_EXPLAINED = 'How many milligrams of each essential amino acid one gram of the ticked foods\' protein holds, together. Red: less than needed, so combine it with other foods. Met includes cystine and Phe includes tyrosine, as in the pattern. Not corrected for digestibility.';
@@ -196,8 +196,22 @@ function isShort(key: ColumnKey) {
 
 /** The lowest one, in bold. */
 function isLimiting(key: ColumnKey) {
-  return isScored(key) && foodsStore.scores.overall.limiting.includes(key);
+  return isScored(key) && limitingKeys.value.includes(key);
 }
+
+/**
+ * The lowest of the values that are certain. A lower bound (data missing) may really be higher,
+ * so it is not called the limiting one: otherwise "≥ 3.5" would be bold while the sentence below
+ * says another amino acid is short.
+ */
+const limitingKeys = computed<ScoredKey[]>(() => {
+  const { byKey, overall } = foodsStore.scores;
+  if (overall.percent === null) return [];
+  const certain = SCORING_PATTERN.filter(item => !byKey[item.key].atLeast);
+  if (certain.length === 0) return [];
+  const lowest = Math.min(...certain.map(item => byKey[item.key].percent!));
+  return certain.filter(item => byKey[item.key].percent === lowest).map(item => item.key);
+});
 
 function ratioText(key: ColumnKey): string | null {
   if (!isScored(key)) {
@@ -224,10 +238,11 @@ function ratioNote(key: ColumnKey): string | undefined {
   if (!proteinKnown) return 'Not every ticked food has protein data, so this cannot be worked out.';
   if (!isScored(key)) {
     if (!verdict.value) return 'This needs data for every essential amino acid.';
-    const percent = Math.round(overall.percent!);
+    // A lower bound when the lowest value misses data: "≥ 52%".
+    const percent = formatPercent(overall.percent!, overall.atLeast);
     return verdict.value.complete
-      ? `Every essential amino acid reaches what is needed. Amino acid score: ${percent}%.`
-      : `Below what is needed in ${verdict.value.shortNames}. Amino acid score: ${percent}%.`;
+      ? `Every essential amino acid reaches what is needed. Amino acid score: ${percent}.`
+      : `Below what is needed in ${verdict.value.shortNames}. Amino acid score: ${percent}.`;
   }
   const score = byKey[key];
   const name = SCORED_NAME[key];
