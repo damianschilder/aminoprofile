@@ -245,6 +245,12 @@ under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The curated lis
 [data/README.md](data/README.md). The MCP server answers from it. The search on the page still
 uses FoodData Central.
 
+Every food in it has its own page at `/foods/<id>`, with a list at
+[aminoprofile.com/foods](https://aminoprofile.com/foods): the amino acids, the score, what to
+combine it with, how far the sources agree and the source entries. The numbers are worked out on
+the server from `shared/foods.json` (`server/utils/foodPages.ts`), and `/sitemap.xml` is made
+from the same list (`server/routes/sitemap.xml.ts`), so a new food needs no hand edits.
+
 ## License
 
 The code is available under the [MIT License](LICENSE). The food data is not covered by this

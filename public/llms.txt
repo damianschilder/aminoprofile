@@ -25,6 +25,11 @@
 
 - [Search and compare](https://aminoprofile.com/): the search field, the results and the
   essential amino acids table.
+- [Foods](https://aminoprofile.com/foods): the foods of the dataset by group, with protein,
+  amino acid score and limiting amino acid. Each links to its own page, such as
+  [Oats, rolled](https://aminoprofile.com/foods/oats-rolled): the amino acids per 100 g and per g
+  protein, the score per amino acid, foods that complement it, how far the sources agree and the
+  source entries.
 - [Data](https://aminoprofile.com/data): the open dataset, its sources and licence, and how to
   connect to the MCP server.
 - [Privacy](https://aminoprofile.com/privacy): which data is involved (only the search text goes

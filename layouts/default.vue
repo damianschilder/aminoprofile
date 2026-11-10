@@ -9,9 +9,11 @@
     h1.title Aminoprofile
     span will be available on mobile soon.
     .links
-      NuxtLink(to="/privacy") Privacy
+      NuxtLink(to="/foods") Foods
       span.separator ·
       NuxtLink(to="/data") Data
+      span.separator ·
+      NuxtLink(to="/privacy") Privacy
 </template>
 
 <style lang="scss" scoped>
@@ -48,7 +50,7 @@
   > .title {
     font: bold 1.375rem/1.9375rem $young-serif; // as the h2 it was: 22px/31px
   }
-  // Privacy and Data, as in the footer.
+  // Foods, Data and Privacy, as in the footer.
   > .links {
     position: absolute;
     bottom: 2rem;

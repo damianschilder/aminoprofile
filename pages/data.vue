@@ -6,6 +6,7 @@
         UiBack
         h1 Data
         p.intro Aminoprofile publishes its own food dataset: the essential amino acids, cystine, tyrosine and protein of 64 everyday foods, combined from four national food composition databases. For every value it records which laboratories or databases measured it and how far they agree, so you can judge it yourself.
+        p.intro Every food has its own page, with its amino acid score and what to combine it with: #[NuxtLink(to="/foods") browse the foods].
         .questions
           .question
             h2 Downloads

@@ -9,9 +9,11 @@ footer.footer-wrapper
           a(href="https://fdc.nal.usda.gov/") fdc.nal.usda.gov
           span .
           span.separator ·
-          NuxtLink(to="/privacy") Privacy
+          NuxtLink(to="/foods") Foods
           span.separator ·
           NuxtLink(to="/data") Data
+          span.separator ·
+          NuxtLink(to="/privacy") Privacy
 </template>
 
 <style lang="scss" scoped>
