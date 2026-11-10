@@ -44,7 +44,7 @@ import { SITE_NAME, SITE_URL } from '#shared/site';
 definePageMeta({ layout: 'plain' });
 
 const title = `Data - ${SITE_NAME}`;
-const description = 'The Aminoprofile food dataset: essential amino acids and protein of 64 foods from four food composition databases, under CC BY 4.0. With an MCP server for AI agents.';
+const description = 'Aminoprofile\'s open food dataset: essential amino acids and protein of 64 foods from four food composition databases, CC BY 4.0, with an MCP server for agents.';
 const url = `${SITE_URL}/data`;
 
 // The dataset itself, for search engines and assistants (schema.org Dataset, as Google's dataset

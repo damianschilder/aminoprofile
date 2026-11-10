@@ -176,9 +176,20 @@ const completeness = computed(() => {
 
 const f = food.value;
 const url = `${SITE_URL}/foods/${f.id}`;
-const title = `${f.name}: amino acids and protein quality - ${SITE_NAME}`;
-const scoreText = f.score ? `, amino acid score ${f.score.percent}%${f.score.limiting.length ? ` (limited by ${listOf(f.score.limiting)})` : ''}` : '';
-const description = `${f.name}: ${f.protein === null ? '' : `${f.protein.toFixed(1)} g protein per 100 g`}${scoreText}, all essential amino acids and how far ${f.independentSources} food composition databases agree.`;
+// Results show about 60 characters of a title and 160 of a description, so the longer food names
+// get the shorter wording. The site's name stays last.
+const fitting = (limit: number, ...options: string[]) => options.find(o => o.length <= limit) ?? options.at(-1)!;
+const title = fitting(60,
+  `${f.name}: amino acids and protein - ${SITE_NAME}`,
+  `${f.name}: amino acids - ${SITE_NAME}`,
+  `${f.name} - ${SITE_NAME}`);
+const facts = [
+  f.protein === null ? '' : `${f.protein.toFixed(1)} g protein per 100 g`,
+  f.score ? `amino acid score ${f.score.percent}%${f.score.limiting.length ? `, limited by ${listOf(f.score.limiting)}` : ''}` : '',
+].filter(Boolean).join(', ');
+const description = fitting(160,
+  `${f.name}: ${facts}. Every essential amino acid, from ${f.independentSources} food composition databases.`,
+  `${f.name}: ${facts}.`);
 
 useSeoMeta({ title, description, ogTitle: title, ogDescription: description, ogUrl: url });
 useHead({

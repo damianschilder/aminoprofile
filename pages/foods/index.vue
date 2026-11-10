@@ -41,7 +41,7 @@ const categoryAnchor = (category: string) => category.toLowerCase().replace(/[^a
 
 const count = list.value?.count ?? 0;
 const title = `Amino acid scores and protein of ${count} foods - ${SITE_NAME}`;
-const description = `Protein, essential amino acids and amino acid score of ${count} everyday foods, from eggs and cheese to lentils and oats, combined from four national food composition databases.`;
+const description = `Protein, essential amino acids and amino acid score of ${count} everyday foods, from eggs and cheese to lentils and oats, from four food composition databases.`;
 const url = `${SITE_URL}/foods`;
 
 useSeoMeta({ title, description, ogTitle: title, ogDescription: description, ogUrl: url });

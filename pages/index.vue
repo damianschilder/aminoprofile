@@ -14,10 +14,16 @@ useSeoMeta({ title, description, ogTitle: title, ogDescription: description, ogU
 
 useHead({
   link: [{ rel: 'canonical', href: url }],
-  // What the page is, for search engines and assistants (schema.org).
+  // What the page is, for search engines and assistants (schema.org). WebSite with name and url is
+  // what Google reads for the site name in results.
   script: [{
     type: 'application/ld+json',
-    innerHTML: JSON.stringify({
+    innerHTML: JSON.stringify([{
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url,
+    }, {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       name: SITE_NAME,
@@ -34,7 +40,7 @@ useHead({
         // Aminoprofile's own dataset; pages/data.vue describes it in full.
         { '@type': 'Dataset', name: 'Aminoprofile foods', url: `${SITE_URL}/data`, license: 'https://creativecommons.org/licenses/by/4.0/' },
       ],
-    }),
+    }]),
   }],
 });
 </script>

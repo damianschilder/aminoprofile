@@ -87,6 +87,11 @@ export default defineNuxtConfig({
         'content-type': 'text/csv; charset=utf-8',
       },
     },
+    // llms.txt has non-ASCII characters (ü, ×, ≥): without a charset, browsers and agents may read
+    // it as Latin-1.
+    '/llms.txt': {
+      headers: { 'content-type': 'text/plain; charset=utf-8' },
+    },
     // The AI Catalog (public/.well-known/ai-catalog.json): where agents find the MCP server card.
     '/.well-known/ai-catalog.json': {
       headers: {

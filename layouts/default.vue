@@ -5,8 +5,9 @@
     slot
     UiTableV2.table
   Footer
+  //- Not an h1: the page's one h1 is the search heading (components/Ui/Search.vue).
   .noMobile
-    h1.title Aminoprofile
+    p.title Aminoprofile
     span will be available on mobile soon.
     .links
       NuxtLink(to="/foods") Foods
