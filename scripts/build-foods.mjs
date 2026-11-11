@@ -20,8 +20,9 @@
 //    amino acids is mg per g nitrogen).
 // 4. Per amino acid, the measured values are grouped by origin (the lab or database that measured
 //    them), one median per origin, then the median over origins. A value a source copied from
-//    USDA counts as USDA, so one measurement never counts twice. When nobody measured it, the
-//    median of the sources' estimates is used and marked as estimated.
+//    USDA counts as USDA, so one measurement never counts twice, and when the food's own USDA
+//    entry marks that value as an estimate, the copy is an estimate too. When nobody measured it,
+//    the median of the sources' estimates is used and marked as estimated.
 // 5. Grams per 100 g = profile x nitrogen. Protein = nitrogen x 6.25, the EU labelling definition.
 
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -31,7 +32,7 @@ import { loadAll, sourceHashes } from './sources/index.mjs'
 // The site's own FAO pattern, so the build and the page cannot disagree (Node strips its types).
 import { SCORING_PATTERN } from '../shared/scoring.ts'
 
-export const DATASET_VERSION = '0.2.0'
+export const DATASET_VERSION = '0.3.0'
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 const write = (path, text) => writeFileSync(new URL(path, root), text)
@@ -51,7 +52,11 @@ const EAA = ['his', 'ile', 'leu', 'lys', 'met', 'phe', 'thr', 'trp', 'val']
 const EAA_PER_G_N = [1.6, 3.6]
 const SPREAD_FLAG = 0.25
 const DRY_MATTER_FLAG = 0.10
-/** An origin further than this from the median of the other origins is an outlier (needs 3+). */
+/**
+ * An origin further than this from the median of all origins is an outlier (needs 3+). The median
+ * of all, not of the others: with three origins the median of the other two is their mean, which
+ * a wild value pulls along, so two of three were "outliers" and none was left out.
+ */
 const OUTLIER = 0.40
 /**
  * An entry with the same value for this many amino acids has a data error. Seen in USDA SR
@@ -119,21 +124,32 @@ const built = foods.map((food) => {
     }
   }
 
+  // A value BLS or Frida copied from USDA is only as good as USDA's own: when the food's linked
+  // USDA entries estimated it, the copy is an estimate too, not a second measurement.
+  const ownUsda = used.filter(u => u.link.source === 'usda')
+  const copiesUsdaEstimate = (u, k) => {
+    if (u.link.source === 'usda' || u.entry.aa[k].origin !== 'usda') return false
+    const own = ownUsda.filter(x => x.entry.aa[k])
+    return own.length > 0 && own.every(x => x.entry.aa[k].estimate)
+  }
+
   // Amino acids per gram of nitrogen.
   const perAminoAcid = {}
   const values = {}
   for (const k of AA_KEYS) {
-    const withN = used.filter(u => !broken.has(u) && u.entry.aa[k] && u.entry.nitrogen > 0)
-    const measured = withN.filter(u => !u.entry.aa[k].estimate)
+    // A 0 is not a measurement: every protein contains every amino acid, so it is a data error
+    // (seen in Danish fruit and vegetable entries and one USDA soy milk cystine).
+    const zero = used.filter(u => !broken.has(u) && u.entry.aa[k]?.g === 0)
+    if (zero.length) flags.push(`${k}: ${zero.map(u => `${u.link.source} ${u.link.source_id}`).join(', ')} left out, 0 is a data error`)
+    const withN = used.filter(u => !broken.has(u) && u.entry.aa[k]?.g > 0 && u.entry.nitrogen > 0)
+    const measured = withN.filter(u => !u.entry.aa[k].estimate && !copiesUsdaEstimate(u, k))
     const byOrigin = groupBy(measured, u => u.entry.aa[k].origin)
     let originProfiles = [...byOrigin].map(([origin, g]) => ({ origin, profile: median(g.map(u => u.entry.aa[k].g / u.entry.nitrogen)) }))
     // Outliers, marked for exclusion rather than deleted (Greenfield & Southgate): only with 3+
     // origins can one be told apart from the rest.
+    const all = median(originProfiles.map(o => o.profile))
     const outliers = originProfiles.length >= 3
-      ? originProfiles.filter(o => {
-        const others = median(originProfiles.filter(x => x !== o).map(x => x.profile))
-        return Math.abs(o.profile - others) / others > OUTLIER
-      })
+      ? originProfiles.filter(o => Math.abs(o.profile - all) / all > OUTLIER)
       : []
     if (outliers.length && outliers.length < originProfiles.length / 2) {
       flags.push(`${k}: ${outliers.map(o => `${o.origin} (${Math.round(o.profile * 1000)} mg/g N)`).join(', ')} left out as an outlier against ${originProfiles.filter(o => !outliers.includes(o)).map(o => `${o.origin} ${Math.round(o.profile * 1000)}`).join(', ')}`)
@@ -229,12 +245,13 @@ write('shared/foods.json', `${JSON.stringify({
 
 // For the comparison table (components/Ui/TableV2.vue): per amino acid of the FAO pattern, the
 // foods with the most of it per gram of protein, one per food group, so a combination that falls
-// short can be told what to add. Not vegetables: part of their nitrogen is not protein, so their
-// per-gram-of-protein values are unreliable (data/README.md, known limits). Small on purpose: the
-// table's page loads it, unlike shared/foods.json.
+// short can be told what to add. Not vegetables or fruit: part of their nitrogen is not protein,
+// so their per-gram-of-protein values are unreliable (data/README.md, known limits). Small on
+// purpose: the table's page loads it, unlike shared/foods.json.
+const LOW_PROTEIN_GROUPS = new Set(['Vegetables', 'Fruit'])
 const richest = Object.fromEntries(SCORING_PATTERN.map((item) => {
   const ranked = built
-    .filter(f => f.category !== 'Vegetables' && f.values.protein && f.values[item.key] !== null && (!item.partner || f.values[item.partner] !== null))
+    .filter(f => !LOW_PROTEIN_GROUPS.has(f.category) && f.values.protein && f.values[item.key] !== null && (!item.partner || f.values[item.partner] !== null))
     .map(f => ({ id: f.id, name: f.name, category: f.category, mgPerG: ((f.values[item.key] + (item.partner ? f.values[item.partner] : 0)) * 1000) / f.values.protein }))
     .sort((a, b) => b.mgPerG - a.mgPerG)
   const seen = new Set()

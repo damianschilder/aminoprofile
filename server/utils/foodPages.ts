@@ -178,6 +178,9 @@ export interface FoodPage {
   version: string
 }
 
+/** Food groups left out of the combination suggestions (see combinationsFor). */
+const LOW_PROTEIN_GROUPS = new Set(['Vegetables', 'Fruit'])
+
 /** Grams of each food that give `total` g protein together, half from each. */
 const gramsFor = (protein: number, total: number) => Math.round(((total / 2) / protein) * 100)
 
@@ -188,10 +191,11 @@ function combinationsFor(food: DatasetFood): FoodPage['combinations'] {
   const kind = ownScore.percent < 100 ? 'lifted-by' : 'lifts'
   const candidates = DATASET_FOODS
     .filter(other => other.id !== food.id && other.category !== food.category && other.values.protein)
-    // Not vegetables: their nitrogen is partly not protein (nitrate, chitin), so their score comes
-    // out too low and they would top the "lifts" list for that reason alone (data/README.md,
-    // known limits). And only amounts someone eats: at most 300 g for half the protein.
-    .filter(other => other.category !== 'Vegetables' && gramsFor(other.values.protein!, COMBINATION_PROTEIN_GRAMS) <= MAX_COMBINATION_GRAMS)
+    // Not vegetables or fruit: their nitrogen is partly not protein (nitrate, chitin, free amino
+    // acids), so their score comes out too low and they would top the "lifts" list for that reason
+    // alone (data/README.md, known limits). And only amounts someone eats: at most 300 g for half
+    // the protein.
+    .filter(other => !LOW_PROTEIN_GROUPS.has(other.category) && gramsFor(other.values.protein!, COMBINATION_PROTEIN_GRAMS) <= MAX_COMBINATION_GRAMS)
     .flatMap((other) => {
       const theirs = PROFILES.get(other.id)
       const theirScore = SCORES.get(other.id)
