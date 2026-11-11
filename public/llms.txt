@@ -21,6 +21,9 @@
   The page needs JavaScript and is made for desktop screens (1240 pixels wide or more).
 - Agents: please use the MCP server or the dataset files below rather than scraping the pages.
   The search endpoint (/api/) is for the page itself and is not meant for crawling.
+- Aminoprofile is a non-commercial, open-source project by Damian Schilder: no ads, no
+  accounts, no paid features. The code is on [GitHub](https://github.com/damianschilder/aminoprofile)
+  under the MIT licence.
 
 ## Pages
 
@@ -31,7 +34,9 @@
   [Oats, rolled](https://aminoprofile.com/foods/oats-rolled): the amino acids per 100 g and per g
   protein, the score per amino acid, foods that complement it, how far the sources agree and the
   source entries.
-- [Data](https://aminoprofile.com/data): the open dataset, its sources and licence, and how to
+- [Sources](https://aminoprofile.com/sources): every source the site rests on, numbered, with
+  the licence of each database. Each (i) on the site links to its entries there.
+- [Data](https://aminoprofile.com/data): the open dataset, how it is combined, its licence, and how to
   connect to the MCP server.
 - [Privacy](https://aminoprofile.com/privacy): which data is involved (only the search text goes
   to USDA, through the Aminoprofile server), who is responsible and what your rights are.
@@ -70,20 +75,40 @@ nitrogen x 6.25. Licence: CC BY 4.0. Credit Aminoprofile and the four sources.
   https://aminoprofile.com/mcp
 - Other clients that support remote MCP servers over Streamable HTTP: the same URL.
 
-## Data sources
+## Sources
 
-The site's search uses USDA FoodData Central. The dataset combines four sources:
+The full list, with each database's prescribed credit, is on the
+[Sources page](https://aminoprofile.com/sources).
+
+The site's search uses [USDA FoodData Central](https://fdc.nal.usda.gov/) (CC0). Citation: U.S.
+Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. The
+[FoodData Central API guide](https://fdc.nal.usda.gov/api-guide) explains how to query it
+directly. The dataset combines four sources:
 
 - [USDA FoodData Central](https://fdc.nal.usda.gov/), SR Legacy (CC0). Citation: U.S.
   Department of Agriculture, Agricultural Research Service. FoodData Central: SR Legacy, 2018.
-  The [FoodData Central API guide](https://fdc.nal.usda.gov/api-guide) explains how to query it
-  directly.
 - [Bundeslebensmittelschlüssel (BLS) 4.0](https://doi.org/10.25826/Data20251217-134202-0), Max
   Rubner-Institut, Germany (CC BY 4.0).
 - [Frida 5.5](https://doi.org/10.11583/DTU.29500682), the Danish Food Composition Database, DTU
   National Food Institute (CC BY 4.0).
 - [Standard Tables of Food Composition in Japan, Amino Acids](https://www.mext.go.jp/), MEXT
   (Government of Japan Standard Terms of Use, compatible with CC BY 4.0).
+
+The method and the scoring rest on:
+
+- [FAO (2013)](https://openknowledge.fao.org/handle/20.500.14283/i3124e). Dietary protein
+  quality evaluation in human nutrition. FAO Food and Nutrition Paper 92. The scoring pattern
+  for older children, adolescents and adults is Table 5, p. 29. The score is the lowest ratio,
+  p. 23.
+- [Regulation (EU) No 1169/2011](https://eur-lex.europa.eu/eli/reg/2011/1169/oj), Annex I,
+  point 10: protein = total Kjeldahl nitrogen x 6.25.
+- [Moughan and Lim (2024)](https://doi.org/10.3389/fnut.2024.1389719). Digestible indispensable
+  amino acid score (DIAAS): 10 years on. Frontiers in Nutrition 11:1389719. Section 6.7: the
+  score of a meal is calculated from the amino acids each food supplies.
+- [FAO/INFOODS (2012)](https://www.fao.org/4/ap805e/ap805e.pdf). Guidelines for Food Matching,
+  version 1.2.
+- [Greenfield and Southgate (2003)](https://www.fao.org/4/y4705e/y4705e00.htm). Food composition
+  data: production, management and use, second edition. FAO. Chapters 9 and 10.
 
 ## Contact
 

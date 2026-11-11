@@ -12,7 +12,8 @@
     "data:fetch": "bash scripts/fetch-sources.sh",
     "data:measure": "node scripts/measure-sources.mjs",
     "data:candidates": "node scripts/find-candidates.mjs > data/candidates.txt",
-    "data:build": "node scripts/build-foods.mjs"
+    "data:build": "node scripts/build-foods.mjs",
+    "check:references": "node scripts/check-references.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

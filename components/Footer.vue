@@ -13,6 +13,8 @@ footer.footer-wrapper
           span.separator ·
           NuxtLink(to="/data") Data
           span.separator ·
+          NuxtLink(to="/sources") Sources
+          span.separator ·
           NuxtLink(to="/privacy") Privacy
 </template>
 

@@ -14,14 +14,16 @@
         p.lead
           | {{ lead }}
           UiInfo(label="About the amino acid score")
-            | The score is the essential amino acid that falls shortest per gram of protein, as a share of the FAO (2013) pattern for ages 3 and up. A protein is complete when every essential amino acid reaches 100%. It is not corrected for digestibility, so it is not a DIAAS.
+            | The score is how far the shortest essential amino acid reaches, per gram of protein, as a share of what the FAO pattern for ages 3 and up asks. Protein that reaches 100% for every one is often called complete, a common name and not an FAO term. Not corrected for digestibility, so not a DIAAS.
+            UiSource(cite="fao-2013: Table 5, p. 29, and p. 23")
 
         .sections
           section
             h2
               | Amino acids
               UiInfo(label="About the amino acid table")
-                | Grams per 100 g of the edible food, and milligrams per gram of its protein. Needed is what one gram of protein should hold by the FAO (2013) pattern. Red is below it. Methionine counts with cystine and phenylalanine with tyrosine, so each pair shares one value. Protein is nitrogen x 6.25.
+                | Grams per 100 g of the edible food, and milligrams per gram of its protein. Needed is what one gram of protein should hold by the FAO pattern. Red is below it. Methionine counts with cystine and phenylalanine with tyrosine, so each pair shares one value. Protein is nitrogen x 6.25.
+                UiSource(cite="fao-2013: Table 5, p. 29 | eu-1169-2011: Annex I, point 10")
             .table-scroll
               table
                 thead
@@ -49,8 +51,9 @@
             h2
               | {{ food.combinations.kind === 'lifted-by' ? 'Combine it with' : 'It complements' }}
               UiInfo(:label="food.combinations.kind === 'lifted-by' ? 'About these combinations' : 'About these foods'")
-                template(v-if="food.combinations.kind === 'lifted-by'") Foods from other groups whose protein makes up for what this food lacks. The amounts give {{ COMBINATION_PROTEIN }} g of protein, half from each, and the score is for the two together.
-                template(v-else) This food reaches 100% on its own, so it can make up for foods that do not. These rise the most when half of their protein comes from this food instead. The amounts give {{ COMBINATION_PROTEIN }} g of protein together.
+                template(v-if="food.combinations.kind === 'lifted-by'") Foods from other groups whose protein makes up for what this food lacks. The amino acids of foods eaten together add up, so the score is for the two together. The amounts, {{ COMBINATION_PROTEIN }} g of protein with half from each, are Aminoprofile's own choice.
+                template(v-else) This food reaches 100% on its own, so it can make up for foods that do not. These rise the most when half of their protein comes from this food instead, as the amino acids of foods eaten together add up. The amounts, {{ COMBINATION_PROTEIN }} g of protein together, are Aminoprofile's own choice.
+                UiSource(cite="moughan-lim-2024: section 6.7 | fao-2013: p. 22")
             .table-scroll
               table
                 thead
@@ -76,6 +79,7 @@
           details.sources
             summary Sources: {{ sourcesLine }}
             p.small Milligrams per gram of nitrogen, per laboratory or database that measured the value. A value one database copied from another counts once, and outliers are left out. Spread is the highest minus the lowest, as a share of the median.
+              UiSource(cite="fao-infoods-2012 | greenfield-southgate-2003: chapters 9 and 10")
             .table-scroll
               table
                 thead
@@ -97,7 +101,7 @@
                 span.name(:lang="nameLanguage(e.source)") {{ e.name }}
                 span.relation(v-if="e.relation !== 'exact'") ({{ e.relation }} match)
 
-        p.updated Aminoprofile foods dataset {{ food.version }} (a draft), #[a(href="https://creativecommons.org/licenses/by/4.0/") CC BY 4.0]. #[NuxtLink(to="/data") Method and downloads].
+        p.updated Aminoprofile foods dataset {{ food.version }} (a draft), #[a(href="https://creativecommons.org/licenses/by/4.0/") CC BY 4.0]. #[NuxtLink(to="/data") Method and downloads] · #[NuxtLink(to="/sources") Sources].
 </template>
 
 <script setup lang="ts">

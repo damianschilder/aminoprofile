@@ -21,7 +21,7 @@ proposed by the maintainer and still has to be confirmed by a second person
 | `sources/` | The downloaded source files (not committed) |
 
 Values are grams per 100 g edible portion. Protein is nitrogen x 6.25, the definition of EU food
-labelling (Regulation (EU) 1169/2011, Annex I).
+labelling (Regulation (EU) 1169/2011, Annex I, point 10).
 
 ## Sources
 
@@ -140,6 +140,11 @@ No source endorses this dataset.
 - Greenfield H, Southgate DAT. Food Composition Data: Production, Management and Use, 2nd
   edition. FAO, Rome, 2003. Chapters 9 and 10.
 - FAO (2013). Dietary protein quality evaluation in human nutrition. FAO Food and Nutrition
-  Paper 92.
+  Paper 92. The scoring pattern for older children, adolescents and adults is Table 5, p. 29.
+- Regulation (EU) No 1169/2011 on the provision of food information to consumers, Annex I,
+  point 10: protein = total Kjeldahl nitrogen x 6.25.
+- Moughan PJ, Lim WXJ (2024). Digestible indispensable amino acid score (DIAAS): 10 years on.
+  Frontiers in Nutrition 11:1389719. Section 6.7: a meal's score comes from the amino acids each
+  food supplies. https://doi.org/10.3389/fnut.2024.1389719
 - Gebru T et al. Datasheets for Datasets. Communications of the ACM 64(12), 2021. This file
   follows its outline: motivation, composition, collection, processing, uses, distribution.

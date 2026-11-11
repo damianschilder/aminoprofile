@@ -7,6 +7,13 @@ Aminoprofile looks foods up in [USDA FoodData Central](https://fdc.nal.usda.gov/
 results have amino acid data, and adds up the nine essential amino acids and protein of the foods
 you pick.
 
+Aminoprofile is a non-commercial, open-source project by Damian Schilder: no ads, no accounts, no
+paid features. Every source it rests on is listed at
+[aminoprofile.com/sources](https://aminoprofile.com/sources), from one registry in
+`shared/references.ts`. Each (i) on the site names its sources with `<UiSource>`, and
+`npm run check:references` checks that every one exists and every reference is cited
+(quiet-functionalism `guides/sources.md`).
+
 ![Search results for "chicken breast", with a message that a food was added to the table](docs/screenshots/search.png)
 
 ![The essential amino acids table with three foods and their total](docs/screenshots/amino-acids.png)

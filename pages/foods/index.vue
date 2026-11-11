@@ -8,7 +8,8 @@
         p.intro
           | Protein and amino acid score of {{ list.count }} everyday foods, each combined from up to four national food composition databases.
           UiInfo(label="About the score and the sources")
-            | The score is the essential amino acid that falls shortest per gram of protein, as a share of the FAO (2013) pattern for ages 3 and up. 100% or more means a complete protein. Not corrected for digestibility, so not a DIAAS. The sources are USDA, Germany's BLS, Denmark's Frida and Japan's MEXT tables.
+            | The score is how far the shortest essential amino acid reaches, per gram of protein, as a share of what the FAO pattern for ages 3 and up asks. 100% or more is often called a complete protein. Not corrected for digestibility, so not a DIAAS. The values come from the USDA, German, Danish and Japanese food composition tables.
+            UiSource(cite="fao-2013: Table 5, p. 29 | usda-sr-legacy | bls-4 | frida-5-5 | mext-2023")
         nav.categories(aria-label="Food groups")
           a(v-for="c in list.categories" :key="c.name" :href="`#${categoryAnchor(c.name)}`") {{ c.name }}
         section(v-for="c in list.categories" :key="c.name" :id="categoryAnchor(c.name)")
@@ -28,7 +29,7 @@
                   td.num {{ f.protein === null ? '—' : f.protein.toFixed(1) }}
                   td.num {{ f.score === null ? '—' : `${f.score}%` }}
                   td {{ f.limiting.length ? f.limiting.join(', ') : '—' }}
-        p.updated Aminoprofile foods dataset, version {{ list.version }} (a draft), under #[a(href="https://creativecommons.org/licenses/by/4.0/") CC BY 4.0]. #[NuxtLink(to="/data") Downloads, method and sources].
+        p.updated Aminoprofile foods dataset, version {{ list.version }} (a draft), under #[a(href="https://creativecommons.org/licenses/by/4.0/") CC BY 4.0]. #[NuxtLink(to="/data") Downloads and method] · #[NuxtLink(to="/sources") Sources].
 </template>
 
 <script setup lang="ts">

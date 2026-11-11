@@ -85,7 +85,9 @@
             td
             td.label
               | Per g protein #[span (mg)]
-              UiInfo(label="About the Per g protein row" placement="above") {{ PER_PROTEIN_EXPLAINED }}
+              UiInfo(label="About the Per g protein row" placement="above")
+                | {{ PER_PROTEIN_EXPLAINED }}
+                UiSource(cite="fao-2013: Table 5, p. 29 | moughan-lim-2024: section 6.7 | usda-fdc")
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
@@ -102,7 +104,9 @@
             td
             td.label
               | Needed #[span (mg)]
-              UiInfo(label="About the Needed row" placement="above") {{ NEEDED_EXPLAINED }}
+              UiInfo(label="About the Needed row" placement="above")
+                | {{ NEEDED_EXPLAINED }}
+                UiSource(cite="fao-2013: Table 5, p. 29")
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
@@ -119,6 +123,7 @@
           NuxtLink(:to="`/foods/${food.id}`") {{ food.name }}
         UiInfo(label="About these foods" placement="above")
           | The foods of Aminoprofile's dataset with the most {{ verdict.first.name }} per gram of protein, one per food group: {{ verdict.suggestions.map(f => f.mgPerG).join(', ') }} mg, against the {{ verdict.first.needed }} needed. Amino acids from foods eaten together add up, as the Total row does.
+          UiSource(cite="moughan-lim-2024: section 6.7 | fao-2013: Table 5, p. 29")
 </template>
 
 <script setup lang="ts">
@@ -127,7 +132,7 @@ import { SCORING_PATTERN, formatPercent, type ScoredKey } from '#shared/scoring'
 import richestFoods from '#shared/richest-foods.json';
 
 const PER_PROTEIN_EXPLAINED = 'Milligrams of each essential amino acid in one gram of the ticked foods\' protein, together. Red is below what is needed: combine it with other foods. Met includes cystine and Phe tyrosine, as in the pattern. Hover a value for its share. Not corrected for digestibility.';
-const NEEDED_EXPLAINED = 'What one gram of protein should hold by the FAO (2013) pattern for ages 3 and up. Protein that reaches it for every amino acid is complete.';
+const NEEDED_EXPLAINED = 'What one gram of protein should hold by the FAO pattern for ages 3 and up. Protein that reaches it for every amino acid is often called complete.';
 
 const SCORED_NAME = Object.fromEntries(SCORING_PATTERN.map(item => [item.key, item.name])) as Record<ScoredKey, string>;
 const RICHEST = richestFoods.byKey as Record<ScoredKey, { id: string, name: string, mgPerG: number }[]>;

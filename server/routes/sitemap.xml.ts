@@ -4,7 +4,7 @@
 import { SITE_URL } from '#shared/site'
 import { FOOD_PAGE_IDS } from '../utils/foodPages'
 
-const PATHS = ['/', '/foods', ...FOOD_PAGE_IDS.map(id => `/foods/${id}`), '/data', '/privacy']
+const PATHS = ['/', '/foods', ...FOOD_PAGE_IDS.map(id => `/foods/${id}`), '/data', '/sources', '/privacy']
 
 const BODY = [
   '<?xml version="1.0" encoding="UTF-8"?>',
