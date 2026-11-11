@@ -246,12 +246,16 @@ write('shared/foods.json', `${JSON.stringify({
 // For the comparison table (components/Ui/TableV2.vue): per amino acid of the FAO pattern, the
 // foods with the most of it per gram of protein, one per food group, so a combination that falls
 // short can be told what to add. Not vegetables or fruit: part of their nitrogen is not protein,
-// so their per-gram-of-protein values are unreliable (data/README.md, known limits). Small on
-// purpose: the table's page loads it, unlike shared/foods.json.
+// so their per-gram-of-protein values are unreliable (data/README.md, known limits). Only foods
+// someone eats for protein (at least 10 g per 100 g) whose values at least two independent
+// sources measured: otherwise a sweetened condensed milk or a single lab's value tops the list
+// by noise. Small on purpose: the table's page loads it, unlike shared/foods.json.
 const LOW_PROTEIN_GROUPS = new Set(['Vegetables', 'Fruit'])
+const SUGGEST_MIN_PROTEIN = 10
 const richest = Object.fromEntries(SCORING_PATTERN.map((item) => {
   const ranked = built
-    .filter(f => !LOW_PROTEIN_GROUPS.has(f.category) && f.values.protein && f.values[item.key] !== null && (!item.partner || f.values[item.partner] !== null))
+    .filter(f => !LOW_PROTEIN_GROUPS.has(f.category) && f.values.protein >= SUGGEST_MIN_PROTEIN && f.quality.independentSources >= 2)
+    .filter(f => f.values[item.key] !== null && (!item.partner || f.values[item.partner] !== null))
     .map(f => ({ id: f.id, name: f.name, category: f.category, mgPerG: ((f.values[item.key] + (item.partner ? f.values[item.partner] : 0)) * 1000) / f.values.protein }))
     .sort((a, b) => b.mgPerG - a.mgPerG)
   const seen = new Set()
