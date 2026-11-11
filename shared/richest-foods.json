@@ -1,5 +1,5 @@
 {
- "version": "0.1.0",
+ "version": "0.2.0",
  "byKey": {
   "his": [
    {
@@ -8,14 +8,14 @@
     "mgPerG": 51
    },
    {
+    "id": "black-eyed-peas-dry",
+    "name": "Black-eyed peas, dry",
+    "mgPerG": 32
+   },
+   {
     "id": "cheese-gouda",
     "name": "Cheese, Gouda",
     "mgPerG": 31
-   },
-   {
-    "id": "kidney-beans-cooked",
-    "name": "Kidney beans, cooked",
-    "mgPerG": 29
    }
   ],
   "ile": [
@@ -25,38 +25,38 @@
     "mgPerG": 61
    },
    {
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 56
+   },
+   {
     "id": "turkey-breast-raw",
     "name": "Turkey breast, raw",
     "mgPerG": 51
-   },
-   {
-    "id": "tofu-firm",
-    "name": "Tofu, firm",
-    "mgPerG": 48
    }
   ],
   "leu": [
+   {
+    "id": "sweet-corn-raw",
+    "name": "Sweet corn, raw",
+    "mgPerG": 107
+   },
    {
     "id": "cottage-cheese",
     "name": "Cottage cheese",
     "mgPerG": 102
    },
    {
-    "id": "mackerel-raw",
-    "name": "Mackerel, raw",
-    "mgPerG": 85
-   },
-   {
-    "id": "kidney-beans-cooked",
-    "name": "Kidney beans, cooked",
-    "mgPerG": 83
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 89
    }
   ],
   "lys": [
    {
-    "id": "mackerel-raw",
-    "name": "Mackerel, raw",
-    "mgPerG": 92
+    "id": "herring-raw",
+    "name": "Herring, Atlantic, raw",
+    "mgPerG": 97
    },
    {
     "id": "milk-skimmed",
@@ -93,13 +93,13 @@
     "mgPerG": 114
    },
    {
-    "id": "peanuts",
-    "name": "Peanuts, raw",
-    "mgPerG": 93
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 95
    },
    {
-    "id": "tofu-firm",
-    "name": "Tofu, firm",
+    "id": "peanuts",
+    "name": "Peanuts, raw",
     "mgPerG": 93
    }
   ],
@@ -110,14 +110,14 @@
     "mgPerG": 52
    },
    {
-    "id": "mackerel-raw",
-    "name": "Mackerel, raw",
-    "mgPerG": 49
+    "id": "trout-raw",
+    "name": "Trout, raw",
+    "mgPerG": 50
    },
    {
-    "id": "kidney-beans-dry",
-    "name": "Kidney beans, dry",
-    "mgPerG": 43
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 47
    }
   ],
   "trp": [
@@ -144,14 +144,14 @@
     "mgPerG": 74
    },
    {
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 63
+   },
+   {
     "id": "rice-brown-raw",
     "name": "Rice, brown, raw",
     "mgPerG": 60
-   },
-   {
-    "id": "mackerel-raw",
-    "name": "Mackerel, raw",
-    "mgPerG": 57
    }
   ]
  }

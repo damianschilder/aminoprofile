@@ -1,6 +1,6 @@
 {
   "name": "Aminoprofile foods",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Essential amino acids, cystine, tyrosine and protein of everyday foods, combined from four national food composition databases, with where each value comes from and how far the sources agree.",
   "licence": "CC BY 4.0",
   "units": "Grams per 100 g edible portion. Protein = nitrogen x 6.25. mgPerGramNitrogen: milligrams of the amino acid per gram of nitrogen.",
@@ -66,7 +66,11 @@
       "aliases": [
         "egg",
         "eggs",
-        "chicken egg"
+        "chicken egg",
+        "ei",
+        "eieren",
+        "kippenei",
+        "yumurta"
       ],
       "values": {
         "his": 0.2998,
@@ -321,7 +325,10 @@
       "category": "Eggs and dairy",
       "aliases": [
         "boiled egg",
-        "hard-boiled egg"
+        "hard-boiled egg",
+        "gekookt ei",
+        "hardgekookt ei",
+        "haşlanmış yumurta"
       ],
       "values": {
         "his": 0.3118,
@@ -543,7 +550,8 @@
       "category": "Eggs and dairy",
       "aliases": [
         "egg white",
-        "albumen"
+        "albumen",
+        "eiwit"
       ],
       "values": {
         "his": 0.2753,
@@ -801,7 +809,10 @@
       "aliases": [
         "milk",
         "full-fat milk",
-        "cow's milk"
+        "cow's milk",
+        "volle melk",
+        "melk",
+        "süt"
       ],
       "values": {
         "his": 0.0951,
@@ -1077,7 +1088,8 @@
       "category": "Eggs and dairy",
       "aliases": [
         "skim milk",
-        "fat-free milk"
+        "fat-free milk",
+        "magere melk"
       ],
       "values": {
         "his": 0.0977,
@@ -1358,7 +1370,9 @@
       "category": "Eggs and dairy",
       "aliases": [
         "yoghurt",
-        "natural yogurt"
+        "natural yogurt",
+        "volle yoghurt",
+        "yoğurt"
       ],
       "values": {
         "his": 0.0995,
@@ -1615,7 +1629,8 @@
         "quark",
         "skyr",
         "kwark",
-        "fresh cheese"
+        "fresh cheese",
+        "magere kwark"
       ],
       "values": {
         "his": 0.3006,
@@ -1829,7 +1844,9 @@
       "name": "Cottage cheese",
       "category": "Eggs and dairy",
       "aliases": [
-        "cottage cheese"
+        "cottage cheese",
+        "cheese",
+        "kaas"
       ],
       "values": {
         "his": 0.3756,
@@ -2087,7 +2104,12 @@
       "category": "Eggs and dairy",
       "aliases": [
         "gouda",
-        "hard cheese"
+        "hard cheese",
+        "goudse kaas",
+        "kaas",
+        "jonge kaas",
+        "belegen kaas",
+        "oude kaas"
       ],
       "values": {
         "his": 0.7619,
@@ -2320,7 +2342,9 @@
       "name": "Cheese, Cheddar",
       "category": "Eggs and dairy",
       "aliases": [
-        "cheddar"
+        "cheddar",
+        "cheese",
+        "kaas"
       ],
       "values": {
         "his": 0.7523,
@@ -2601,7 +2625,11 @@
       "category": "Eggs and dairy",
       "aliases": [
         "parmesan",
-        "parmigiano"
+        "parmigiano",
+        "parmezaanse kaas",
+        "parmezaan",
+        "cheese",
+        "kaas"
       ],
       "values": {
         "his": 1.0432,
@@ -2878,7 +2906,9 @@
       "name": "Cheese, Mozzarella",
       "category": "Eggs and dairy",
       "aliases": [
-        "mozzarella"
+        "mozzarella",
+        "cheese",
+        "kaas"
       ],
       "values": {
         "his": 0.6053,
@@ -3112,7 +3142,11 @@
       "category": "Eggs and dairy",
       "aliases": [
         "cream cheese",
-        "soft cheese"
+        "soft cheese",
+        "roomkaas",
+        "smeerkaas",
+        "cheese",
+        "kaas"
       ],
       "values": {
         "his": 0.2438,
@@ -3392,12 +3426,773 @@
       ]
     },
     {
+      "id": "milk-semi-skimmed",
+      "name": "Milk, semi-skimmed (1.5% fat)",
+      "category": "Eggs and dairy",
+      "aliases": [
+        "semi-skimmed milk",
+        "low-fat milk",
+        "reduced-fat milk",
+        "halfvolle melk"
+      ],
+      "values": {
+        "his": 0.1008,
+        "ile": 0.1801,
+        "leu": 0.3357,
+        "lys": 0.2956,
+        "met": 0.0869,
+        "cys": 0.0271,
+        "phe": 0.1719,
+        "tyr": 0.172,
+        "thr": 0.1497,
+        "trp": 0.0478,
+        "val": 0.2266,
+        "protein": 3.46
+      },
+      "water": 89.4,
+      "quality": {
+        "origins": [
+          "de-mri",
+          "dk",
+          "jp",
+          "usda"
+        ],
+        "independentSources": 4,
+        "maxSpread": 0.173,
+        "estimated": [],
+        "flags": [
+          "cys: sources differ by 28% (usda 38, dk 49, jp 52 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 182,
+          "byOrigin": {
+            "usda": 192,
+            "de-mri": 161,
+            "dk": 180,
+            "jp": 185
+          },
+          "outliers": {},
+          "spread": 0.173
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 326,
+          "byOrigin": {
+            "usda": 330,
+            "de-mri": 321,
+            "dk": 370,
+            "jp": 319
+          },
+          "outliers": {},
+          "spread": 0.157
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 607,
+          "byOrigin": {
+            "usda": 605,
+            "de-mri": 571,
+            "dk": 610,
+            "jp": 621
+          },
+          "outliers": {},
+          "spread": 0.081
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 535,
+          "byOrigin": {
+            "usda": 534,
+            "de-mri": 536,
+            "dk": 570,
+            "jp": 520
+          },
+          "outliers": {},
+          "spread": 0.094
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 157,
+          "byOrigin": {
+            "usda": 167,
+            "de-mri": 143,
+            "dk": 160,
+            "jp": 154
+          },
+          "outliers": {},
+          "spread": 0.156
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 49,
+          "byOrigin": {
+            "usda": 38,
+            "dk": 49,
+            "jp": 52
+          },
+          "outliers": {},
+          "spread": 0.28
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 311,
+          "byOrigin": {
+            "usda": 330,
+            "de-mri": 286,
+            "dk": 320,
+            "jp": 302
+          },
+          "outliers": {},
+          "spread": 0.142
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 311,
+          "byOrigin": {
+            "usda": 322,
+            "de-mri": 304,
+            "dk": 270,
+            "jp": 319
+          },
+          "outliers": {},
+          "spread": 0.168
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 271,
+          "byOrigin": {
+            "usda": 272,
+            "de-mri": 268,
+            "dk": 270,
+            "jp": 285
+          },
+          "outliers": {},
+          "spread": 0.064
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 86,
+          "byOrigin": {
+            "usda": 81,
+            "de-mri": 87,
+            "dk": 86,
+            "jp": 87
+          },
+          "outliers": {},
+          "spread": 0.069
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 410,
+          "byOrigin": {
+            "usda": 417,
+            "de-mri": 375,
+            "dk": 440,
+            "jp": 403
+          },
+          "outliers": {},
+          "spread": 0.159
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "171267",
+          "name": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Reduced fat milk, 2% fat",
+          "water": 89.21,
+          "nitrogen": 0.517
+        },
+        {
+          "source": "usda",
+          "id": "170872",
+          "name": "Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Low fat milk, 1% fat",
+          "water": 89.92,
+          "nitrogen": 0.528
+        },
+        {
+          "source": "bls",
+          "id": "M111200",
+          "name": "Milk low-fat, fresh, 1.5 % fat, pasteurised",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Low-fat milk, fresh, 1.5% fat, pasteurised",
+          "water": 89.6,
+          "nitrogen": 0.56
+        },
+        {
+          "source": "frida",
+          "id": "33",
+          "name": "Milk, partly skimmed, konventional (not organic), 1.5 % fat",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Milk, partly skimmed, 1.5% fat",
+          "water": 89.3152533333333,
+          "nitrogen": 0.55
+        },
+        {
+          "source": "mext",
+          "id": "13005",
+          "name": "＜牛乳及び乳製品＞　（液状乳類）　加工乳　低脂肪",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Processed milk, low fat (about 1% fat)",
+          "water": 88.8,
+          "nitrogen": 0.596
+        }
+      ]
+    },
+    {
+      "id": "buttermilk",
+      "name": "Buttermilk",
+      "category": "Eggs and dairy",
+      "aliases": [
+        "buttermilk",
+        "cultured buttermilk",
+        "karnemelk",
+        "ayran",
+        "lben",
+        "chaas",
+        "chaach"
+      ],
+      "values": {
+        "his": 0.0889,
+        "ile": 0.1779,
+        "leu": 0.298,
+        "lys": 0.2744,
+        "met": 0.0836,
+        "cys": 0.0218,
+        "phe": 0.157,
+        "tyr": 0.1463,
+        "thr": 0.1437,
+        "trp": 0.0481,
+        "val": 0.2068,
+        "protein": 3.33
+      },
+      "water": 90.6,
+      "quality": {
+        "origins": [
+          "de-mri",
+          "dk"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.216,
+        "estimated": [],
+        "flags": []
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 167,
+          "byOrigin": {
+            "de-mri": 154,
+            "dk": 180
+          },
+          "outliers": {},
+          "spread": 0.157
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 334,
+          "byOrigin": {
+            "de-mri": 308,
+            "dk": 360
+          },
+          "outliers": {},
+          "spread": 0.157
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 559,
+          "byOrigin": {
+            "de-mri": 538,
+            "dk": 580
+          },
+          "outliers": {},
+          "spread": 0.074
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 515,
+          "byOrigin": {
+            "de-mri": 500,
+            "dk": 530
+          },
+          "outliers": {},
+          "spread": 0.058
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 157,
+          "byOrigin": {
+            "de-mri": 154,
+            "dk": 160
+          },
+          "outliers": {},
+          "spread": 0.039
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk"
+          ],
+          "mgPerGramNitrogen": 41,
+          "byOrigin": {
+            "dk": 41
+          },
+          "outliers": {},
+          "spread": null
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 295,
+          "byOrigin": {
+            "de-mri": 269,
+            "dk": 320
+          },
+          "outliers": {},
+          "spread": 0.172
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 275,
+          "byOrigin": {
+            "de-mri": 269,
+            "dk": 280
+          },
+          "outliers": {},
+          "spread": 0.039
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 270,
+          "byOrigin": {
+            "de-mri": 269,
+            "dk": 270
+          },
+          "outliers": {},
+          "spread": 0.003
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 90,
+          "byOrigin": {
+            "de-mri": 90,
+            "dk": 90
+          },
+          "outliers": {},
+          "spread": 0.004
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 388,
+          "byOrigin": {
+            "de-mri": 346,
+            "dk": 430
+          },
+          "outliers": {},
+          "spread": 0.216
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "170874",
+          "name": "Milk, buttermilk, fluid, cultured, lowfat",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Buttermilk, cultured, low fat (1% fat)",
+          "water": 90.13,
+          "nitrogen": 0.519
+        },
+        {
+          "source": "bls",
+          "id": "M150000",
+          "name": "Buttermilk",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Buttermilk",
+          "water": 91,
+          "nitrogen": 0.52
+        },
+        {
+          "source": "frida",
+          "id": "32",
+          "name": "Milk, buttermilk",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Buttermilk",
+          "water": 90.62,
+          "nitrogen": 0.533
+        }
+      ]
+    },
+    {
+      "id": "cheese-feta",
+      "name": "Cheese, feta",
+      "category": "Eggs and dairy",
+      "aliases": [
+        "feta",
+        "white cheese",
+        "beyaz peynir",
+        "witte kaas",
+        "fetakaas",
+        "cheese",
+        "kaas"
+      ],
+      "values": {
+        "his": 0.4677,
+        "ile": 0.8525,
+        "leu": 1.5765,
+        "lys": 1.3301,
+        "met": 0.4426,
+        "cys": 0.0742,
+        "phe": 0.8625,
+        "tyr": 0.8776,
+        "thr": 0.6285,
+        "trp": 0.2263,
+        "val": 1.1189,
+        "protein": 15.74
+      },
+      "water": 55.2,
+      "quality": {
+        "origins": [
+          "de-mri",
+          "dk"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.236,
+        "estimated": [],
+        "flags": [
+          "cys: sources differ by 44% (de-mri 36, dk 23 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 186,
+          "byOrigin": {
+            "de-mri": 191,
+            "dk": 180
+          },
+          "outliers": {},
+          "spread": 0.061
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 338,
+          "byOrigin": {
+            "de-mri": 327,
+            "dk": 350
+          },
+          "outliers": {},
+          "spread": 0.068
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 626,
+          "byOrigin": {
+            "de-mri": 662,
+            "dk": 590
+          },
+          "outliers": {},
+          "spread": 0.114
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 528,
+          "byOrigin": {
+            "de-mri": 546,
+            "dk": 510
+          },
+          "outliers": {},
+          "spread": 0.068
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 176,
+          "byOrigin": {
+            "de-mri": 171,
+            "dk": 180
+          },
+          "outliers": {},
+          "spread": 0.049
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 29,
+          "byOrigin": {
+            "de-mri": 36,
+            "dk": 23
+          },
+          "outliers": {},
+          "spread": 0.437
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 342,
+          "byOrigin": {
+            "de-mri": 355,
+            "dk": 330
+          },
+          "outliers": {},
+          "spread": 0.072
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 348,
+          "byOrigin": {
+            "de-mri": 347,
+            "dk": 350
+          },
+          "outliers": {},
+          "spread": 0.009
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 249,
+          "byOrigin": {
+            "de-mri": 279,
+            "dk": 220
+          },
+          "outliers": {},
+          "spread": 0.236
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 90,
+          "byOrigin": {
+            "de-mri": 92,
+            "dk": 88
+          },
+          "outliers": {},
+          "spread": 0.041
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk"
+          ],
+          "mgPerGramNitrogen": 444,
+          "byOrigin": {
+            "de-mri": 458,
+            "dk": 430
+          },
+          "outliers": {},
+          "spread": 0.064
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "173420",
+          "name": "Cheese, feta",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Feta",
+          "water": 55.22,
+          "nitrogen": 2.227
+        },
+        {
+          "source": "bls",
+          "id": "M012200",
+          "name": "Feta min. 45 % fat in dry matter",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Feta, min. 45% fat in dry matter",
+          "water": 55.4,
+          "nitrogen": 2.509
+        },
+        {
+          "source": "frida",
+          "id": "73",
+          "name": "Cheese, semihard, Feta, 40 % fidm",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Feta, 40% fat in dry matter",
+          "water": 57.232,
+          "nitrogen": 2.833
+        },
+        {
+          "source": "frida",
+          "id": "1243",
+          "name": "Cheese, semihard, Feta, 50 % fidm",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Feta, 50% fat in dry matter",
+          "water": 50.9386363636364,
+          "nitrogen": 2.79
+        }
+      ]
+    },
+    {
       "id": "chicken-breast-raw",
       "name": "Chicken breast, skinless, raw",
       "category": "Meat and fish",
       "aliases": [
         "chicken",
-        "chicken fillet"
+        "chicken fillet",
+        "kipfilet",
+        "kip",
+        "kippenborst",
+        "tavuk",
+        "ayam",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 0.7736,
@@ -3691,7 +4486,11 @@
       "category": "Meat and fish",
       "aliases": [
         "grilled chicken",
-        "roasted chicken breast"
+        "roasted chicken breast",
+        "gebakken kipfilet",
+        "gegrilde kip",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 1.5144,
@@ -3903,7 +4702,12 @@
       "aliases": [
         "ground beef",
         "minced beef",
-        "hamburger meat"
+        "hamburger meat",
+        "rundergehakt",
+        "gehakt",
+        "kıyma",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 0.6496,
@@ -4162,7 +4966,13 @@
       "aliases": [
         "beef steak",
         "lean beef",
-        "round steak"
+        "round steak",
+        "rundvlees",
+        "biefstuk",
+        "runderlappen",
+        "dana eti",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 0.7688,
@@ -4466,7 +5276,12 @@
       "aliases": [
         "pork",
         "pork chop",
-        "pork tenderloin"
+        "pork tenderloin",
+        "varkensvlees",
+        "varkenshaas",
+        "karbonade",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 0.9791,
@@ -4756,7 +5571,12 @@
       "name": "Turkey breast, raw",
       "category": "Meat and fish",
       "aliases": [
-        "turkey"
+        "turkey",
+        "kalkoen",
+        "kalkoenfilet",
+        "hindi",
+        "meat",
+        "vlees"
       ],
       "values": {
         "his": 0.706,
@@ -5042,7 +5862,11 @@
       "name": "Salmon, Atlantic, raw",
       "category": "Meat and fish",
       "aliases": [
-        "salmon"
+        "salmon",
+        "zalm",
+        "zalmfilet",
+        "fish",
+        "vis"
       ],
       "values": {
         "his": 0.5168,
@@ -5333,7 +6157,11 @@
       "category": "Meat and fish",
       "aliases": [
         "canned tuna",
-        "tuna"
+        "tuna",
+        "tonijn",
+        "tonijn in blik",
+        "fish",
+        "vis"
       ],
       "values": {
         "his": 1.124,
@@ -5568,7 +6396,12 @@
       "category": "Meat and fish",
       "aliases": [
         "cod",
-        "white fish"
+        "white fish",
+        "kabeljauw",
+        "kabeljauwfilet",
+        "witvis",
+        "fish",
+        "vis"
       ],
       "values": {
         "his": 0.4483,
@@ -5826,7 +6659,12 @@
       "category": "Meat and fish",
       "aliases": [
         "shrimp",
-        "prawns"
+        "prawns",
+        "garnalen",
+        "gamba",
+        "udang",
+        "seafood",
+        "zeevruchten"
       ],
       "values": {
         "his": 0.3641,
@@ -6110,7 +6948,11 @@
       "name": "Mackerel, raw",
       "category": "Meat and fish",
       "aliases": [
-        "mackerel"
+        "mackerel",
+        "makreel",
+        "uskumru",
+        "fish",
+        "vis"
       ],
       "values": {
         "his": 0.9626,
@@ -6340,11 +7182,1853 @@
       ]
     },
     {
+      "id": "beef-mince-cooked",
+      "name": "Beef, minced, cooked (pan-fried)",
+      "category": "Meat and fish",
+      "aliases": [
+        "cooked ground beef",
+        "cooked minced beef",
+        "fried mince",
+        "rundergehakt",
+        "rundergehakt gebakken",
+        "gehakt gebakken",
+        "kıyma",
+        "kefta",
+        "keema",
+        "meat",
+        "vlees"
+      ],
+      "values": {
+        "his": 0.9726,
+        "ile": 1.2189,
+        "leu": 2.2367,
+        "lys": 2.4134,
+        "met": 0.7091,
+        "cys": 0.3022,
+        "phe": 1.1458,
+        "tyr": 0.9158,
+        "thr": 1.1958,
+        "trp": 0.2343,
+        "val": 1.3968,
+        "protein": 28.13
+      },
+      "water": 57.2,
+      "quality": {
+        "origins": [
+          "jp",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.782,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for bls U070182 (water 66.595), mext 11272 (water 52.2); nitrogen adjusted to 57.2 g water",
+          "trp: sources differ by 78% (usda 32, jp 72 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 216,
+          "byOrigin": {
+            "usda": 203,
+            "jp": 229
+          },
+          "outliers": {},
+          "spread": 0.122
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 271,
+          "byOrigin": {
+            "usda": 276,
+            "jp": 266
+          },
+          "outliers": {},
+          "spread": 0.039
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 497,
+          "byOrigin": {
+            "usda": 487,
+            "jp": 507
+          },
+          "outliers": {},
+          "spread": 0.04
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 536,
+          "byOrigin": {
+            "usda": 517,
+            "jp": 555
+          },
+          "outliers": {},
+          "spread": 0.071
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 158,
+          "byOrigin": {
+            "usda": 161,
+            "jp": 154
+          },
+          "outliers": {},
+          "spread": 0.039
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "usda": 64,
+            "jp": 70
+          },
+          "outliers": {},
+          "spread": 0.085
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 255,
+          "byOrigin": {
+            "usda": 244,
+            "jp": 266
+          },
+          "outliers": {},
+          "spread": 0.086
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 203,
+          "byOrigin": {
+            "usda": 192,
+            "jp": 215
+          },
+          "outliers": {},
+          "spread": 0.112
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 266,
+          "byOrigin": {
+            "usda": 242,
+            "jp": 290
+          },
+          "outliers": {},
+          "spread": 0.18
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 52,
+          "byOrigin": {
+            "usda": 32,
+            "jp": 72
+          },
+          "outliers": {},
+          "spread": 0.782
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 310,
+          "byOrigin": {
+            "usda": 307,
+            "jp": 314
+          },
+          "outliers": {},
+          "spread": 0.022
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "171794",
+          "name": "Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Ground beef, 90% lean, crumbles, pan-browned",
+          "water": 58.58,
+          "nitrogen": 4.552
+        },
+        {
+          "source": "usda",
+          "id": "174034",
+          "name": "Beef, ground, 85% lean meat / 15% fat, crumbles, cooked, pan-browned",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Ground beef, 85% lean, crumbles, pan-browned",
+          "water": 55.9,
+          "nitrogen": 4.437
+        },
+        {
+          "source": "bls",
+          "id": "U070182",
+          "name": "Beef mince, lean, fried without fat (pan)",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Beef mince, lean, fried without fat (pan)",
+          "water": 66.595,
+          "nitrogen": 4.566
+        },
+        {
+          "source": "mext",
+          "id": "11272",
+          "name": "＜畜肉類＞　うし　［ひき肉］　焼き",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Beef, minced, grilled (fattier)",
+          "water": 52.2,
+          "nitrogen": 4.143
+        }
+      ]
+    },
+    {
+      "id": "ham-cooked",
+      "name": "Ham, cooked",
+      "category": "Meat and fish",
+      "aliases": [
+        "ham",
+        "boiled ham",
+        "cooked ham",
+        "gekookte ham",
+        "beenham",
+        "achterham",
+        "hamlappen",
+        "meat",
+        "vlees"
+      ],
+      "values": {
+        "his": 0.8453,
+        "ile": 0.9193,
+        "leu": 1.5593,
+        "lys": 1.6513,
+        "met": 0.4798,
+        "cys": 0.2183,
+        "phe": 0.788,
+        "tyr": 0.6937,
+        "thr": 0.9531,
+        "trp": 0.2425,
+        "val": 0.9967,
+        "protein": 19.47
+      },
+      "water": 71.4,
+      "quality": {
+        "origins": [
+          "jp",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.295,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for usda 167916 (water 77.03), usda 167876 (water 68.26), mext 11174 (water 62.9); nitrogen adjusted to 71.4 g water",
+          "cys: sources differ by 35% (souci 90, usda 70, jp 66 mg/g N)",
+          "tyr: sources differ by 27% (souci 263, usda 203, jp 223 mg/g N)",
+          "trp: sources differ by 29% (souci 82, usda 59, jp 78 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 271,
+          "byOrigin": {
+            "souci": 271,
+            "usda": 272,
+            "jp": 238
+          },
+          "outliers": {},
+          "spread": 0.127
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 295,
+          "byOrigin": {
+            "souci": 342,
+            "usda": 282,
+            "jp": 295
+          },
+          "outliers": {},
+          "spread": 0.201
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 501,
+          "byOrigin": {
+            "souci": 569,
+            "usda": 501,
+            "jp": 495
+          },
+          "outliers": {},
+          "spread": 0.149
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 530,
+          "byOrigin": {
+            "souci": 644,
+            "usda": 528,
+            "jp": 530
+          },
+          "outliers": {},
+          "spread": 0.219
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 154,
+          "byOrigin": {
+            "souci": 169,
+            "usda": 149,
+            "jp": 154
+          },
+          "outliers": {},
+          "spread": 0.13
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 70,
+          "byOrigin": {
+            "souci": 90,
+            "usda": 70,
+            "jp": 66
+          },
+          "outliers": {},
+          "spread": 0.353
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 253,
+          "byOrigin": {
+            "souci": 274,
+            "usda": 250,
+            "jp": 253
+          },
+          "outliers": {},
+          "spread": 0.097
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 223,
+          "byOrigin": {
+            "souci": 263,
+            "usda": 203,
+            "jp": 223
+          },
+          "outliers": {},
+          "spread": 0.269
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 306,
+          "byOrigin": {
+            "souci": 314,
+            "usda": 279,
+            "jp": 306
+          },
+          "outliers": {},
+          "spread": 0.112
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 78,
+          "byOrigin": {
+            "souci": 82,
+            "usda": 59,
+            "jp": 78
+          },
+          "outliers": {},
+          "spread": 0.295
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 320,
+          "byOrigin": {
+            "souci": 386,
+            "usda": 316,
+            "jp": 320
+          },
+          "outliers": {},
+          "spread": 0.218
+        }
+      },
+      "links": [
+        {
+          "source": "bls",
+          "id": "W424000",
+          "name": "Pork ham, cooked cured",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pork ham, cooked cured",
+          "water": 70.22,
+          "nitrogen": 3.6
+        },
+        {
+          "source": "usda",
+          "id": "167916",
+          "name": "Pork, cured, ham -- water added, rump, bone-in, separable lean only, unheated",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Cured ham, water added, rump, lean only, unheated",
+          "water": 77.03,
+          "nitrogen": 2.469
+        },
+        {
+          "source": "usda",
+          "id": "167876",
+          "name": "Pork, cured, ham, whole, separable lean only, unheated",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cured ham, whole, lean only, unheated",
+          "water": 68.26,
+          "nitrogen": 3.571
+        },
+        {
+          "source": "frida",
+          "id": "693",
+          "name": "Pork, ham, boiled, sliced",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pork, ham, boiled, sliced",
+          "water": 73.4940909090909,
+          "nitrogen": 2.864
+        },
+        {
+          "source": "mext",
+          "id": "11175",
+          "name": "＜畜肉類＞　ぶた　［ハム類］　ボンレスハム",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pork, boneless ham",
+          "water": 72,
+          "nitrogen": 3
+        },
+        {
+          "source": "mext",
+          "id": "11174",
+          "name": "＜畜肉類＞　ぶた　［ハム類］　骨付きハム",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Pork, bone-in ham",
+          "water": 62.9,
+          "nitrogen": 2.656
+        }
+      ]
+    },
+    {
+      "id": "lamb-raw",
+      "name": "Lamb, lean, raw",
+      "category": "Meat and fish",
+      "aliases": [
+        "lamb",
+        "lamb meat",
+        "leg of lamb",
+        "lamsvlees",
+        "lamsbout",
+        "kuzu eti",
+        "meat",
+        "vlees"
+      ],
+      "values": {
+        "his": 0.5876,
+        "ile": 0.9895,
+        "leu": 1.7459,
+        "lys": 1.9152,
+        "met": 0.5477,
+        "cys": 0.233,
+        "phe": 0.8558,
+        "tyr": 0.7874,
+        "thr": 0.9243,
+        "trp": 0.2282,
+        "val": 1.064,
+        "protein": 21.4
+      },
+      "water": 72.9,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.342,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for mext 11203 (water 69.7); nitrogen adjusted to 72.9 g water",
+          "his: jp (252 mg/g N) left out as an outlier against usda 163, dk 180",
+          "cys: sources differ by 32% (usda 68, dk 53, jp 75 mg/g N)",
+          "trp: sources differ by 34% (usda 67, dk 58, jp 81 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 172,
+          "byOrigin": {
+            "usda": 163,
+            "dk": 180
+          },
+          "outliers": {
+            "jp": 252
+          },
+          "spread": 0.098
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 289,
+          "byOrigin": {
+            "usda": 276,
+            "dk": 310,
+            "jp": 289
+          },
+          "outliers": {},
+          "spread": 0.119
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 510,
+          "byOrigin": {
+            "usda": 446,
+            "dk": 510,
+            "jp": 528
+          },
+          "outliers": {},
+          "spread": 0.161
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 559,
+          "byOrigin": {
+            "usda": 506,
+            "dk": 570,
+            "jp": 559
+          },
+          "outliers": {},
+          "spread": 0.115
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 160,
+          "byOrigin": {
+            "usda": 151,
+            "dk": 160,
+            "jp": 168
+          },
+          "outliers": {},
+          "spread": 0.106
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 68,
+          "byOrigin": {
+            "usda": 68,
+            "dk": 53,
+            "jp": 75
+          },
+          "outliers": {},
+          "spread": 0.317
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 250,
+          "byOrigin": {
+            "usda": 232,
+            "dk": 250,
+            "jp": 258
+          },
+          "outliers": {},
+          "spread": 0.102
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 230,
+          "byOrigin": {
+            "usda": 195,
+            "dk": 250,
+            "jp": 230
+          },
+          "outliers": {},
+          "spread": 0.238
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 270,
+          "byOrigin": {
+            "usda": 255,
+            "dk": 270,
+            "jp": 311
+          },
+          "outliers": {},
+          "spread": 0.206
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "usda": 67,
+            "dk": 58,
+            "jp": 81
+          },
+          "outliers": {},
+          "spread": 0.342
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 311,
+          "byOrigin": {
+            "usda": 308,
+            "dk": 340,
+            "jp": 311
+          },
+          "outliers": {},
+          "spread": 0.102
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "172515",
+          "name": "Lamb, New Zealand, imported, leg chop/steak, bone-in, separable lean only, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Lamb, New Zealand, leg chop, lean only, raw",
+          "water": 74.35,
+          "nitrogen": 3.376
+        },
+        {
+          "source": "usda",
+          "id": "172653",
+          "name": "Lamb, Australian, imported, fresh, leg, bottom, boneless, separable lean only, trimmed to 1/8\" fat, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Lamb, Australian, leg bottom, lean only, raw",
+          "water": 72.94,
+          "nitrogen": 3.565
+        },
+        {
+          "source": "bls",
+          "id": "U881100",
+          "name": "Sheep leg, lean, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sheep leg, lean, raw (amino acids from USDA)",
+          "water": 72.2,
+          "nitrogen": 3.6
+        },
+        {
+          "source": "frida",
+          "id": "796",
+          "name": "Lamb, leg, trimmed, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Lamb, leg, trimmed, raw",
+          "water": 73.8,
+          "nitrogen": 3.232
+        },
+        {
+          "source": "mext",
+          "id": "11203",
+          "name": "＜畜肉類＞　めんよう　［ラム］　もも　脂身つき　生",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Lamb, leg, with fat, raw",
+          "water": 69.7,
+          "nitrogen": 3.217
+        }
+      ]
+    },
+    {
+      "id": "chicken-thigh-raw",
+      "name": "Chicken thigh, skinless, raw",
+      "category": "Meat and fish",
+      "aliases": [
+        "chicken thigh",
+        "boneless chicken thigh",
+        "chicken leg meat",
+        "kippendij",
+        "kippendijfilet",
+        "paha ayam",
+        "kip",
+        "meat",
+        "vlees"
+      ],
+      "values": {
+        "his": 0.5789,
+        "ile": 0.9372,
+        "leu": 1.5621,
+        "lys": 1.776,
+        "met": 0.5415,
+        "cys": 0.2208,
+        "phe": 0.7773,
+        "tyr": 0.6926,
+        "thr": 0.8792,
+        "trp": 0.2224,
+        "val": 0.9913,
+        "protein": 19.82
+      },
+      "water": 75.5,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.383,
+        "estimated": [],
+        "flags": [
+          "his: sources differ by 38% (usda 183, dk 160, jp 230 mg/g N)",
+          "cys: dk (40 mg/g N) left out as an outlier against usda 67, jp 72"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 183,
+          "byOrigin": {
+            "usda": 183,
+            "dk": 160,
+            "jp": 230
+          },
+          "outliers": {},
+          "spread": 0.383
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 296,
+          "byOrigin": {
+            "usda": 305,
+            "dk": 290,
+            "jp": 296
+          },
+          "outliers": {},
+          "spread": 0.052
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 493,
+          "byOrigin": {
+            "usda": 494,
+            "dk": 440,
+            "jp": 493
+          },
+          "outliers": {},
+          "spread": 0.109
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 560,
+          "byOrigin": {
+            "usda": 569,
+            "dk": 560,
+            "jp": 558
+          },
+          "outliers": {},
+          "spread": 0.019
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 171,
+          "byOrigin": {
+            "usda": 173,
+            "dk": 160,
+            "jp": 171
+          },
+          "outliers": {},
+          "spread": 0.077
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 70,
+          "byOrigin": {
+            "usda": 67,
+            "jp": 72
+          },
+          "outliers": {
+            "dk": 40
+          },
+          "spread": 0.075
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 245,
+          "byOrigin": {
+            "usda": 245,
+            "dk": 230,
+            "jp": 250
+          },
+          "outliers": {},
+          "spread": 0.08
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 218,
+          "byOrigin": {
+            "usda": 218,
+            "dk": 190,
+            "jp": 220
+          },
+          "outliers": {},
+          "spread": 0.137
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 277,
+          "byOrigin": {
+            "usda": 277,
+            "dk": 250,
+            "jp": 302
+          },
+          "outliers": {},
+          "spread": 0.188
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 70,
+          "byOrigin": {
+            "usda": 70,
+            "dk": 65,
+            "jp": 79
+          },
+          "outliers": {},
+          "spread": 0.197
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 313,
+          "byOrigin": {
+            "usda": 313,
+            "dk": 330,
+            "jp": 312
+          },
+          "outliers": {},
+          "spread": 0.058
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "173627",
+          "name": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Chicken, broilers or fryers, thigh, meat only, raw",
+          "water": 76.22,
+          "nitrogen": 3.146
+        },
+        {
+          "source": "bls",
+          "id": "V413000",
+          "name": "Chicken meat, without skin, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Chicken meat without skin, raw (not thigh only, amino acids from USDA)",
+          "water": 75,
+          "nitrogen": 3.3
+        },
+        {
+          "source": "frida",
+          "id": "795",
+          "name": "Chicken, flesh only, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Chicken meat without skin, raw (not thigh only)",
+          "water": 74.0666666666667,
+          "nitrogen": 3.21
+        },
+        {
+          "source": "mext",
+          "id": "11224",
+          "name": "＜鳥肉類＞　にわとり　［若どり・主品目］　もも　皮なし　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Young chicken, thigh, skinless, raw",
+          "water": 76.1,
+          "nitrogen": 3.045
+        }
+      ]
+    },
+    {
+      "id": "herring-raw",
+      "name": "Herring, Atlantic, raw",
+      "category": "Meat and fish",
+      "aliases": [
+        "herring",
+        "raw herring",
+        "maatjes",
+        "haring",
+        "hollandse nieuwe",
+        "fish",
+        "vis"
+      ],
+      "values": {
+        "his": 0.471,
+        "ile": 0.8908,
+        "leu": 1.4621,
+        "lys": 1.7406,
+        "met": 0.5447,
+        "cys": 0.1915,
+        "phe": 0.7068,
+        "tyr": 0.602,
+        "thr": 0.8332,
+        "trp": 0.1806,
+        "val": 1.0247,
+        "protein": 17.92
+      },
+      "water": 69.1,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "souci"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.199,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for bls T102100 (water 78.4), frida 1132 (water 60.3); nitrogen adjusted to 69.1 g water",
+          "cys: sources differ by 37% (souci 67, dk 54, jp 79 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 164,
+          "byOrigin": {
+            "souci": 160,
+            "dk": 180,
+            "jp": 164
+          },
+          "outliers": {},
+          "spread": 0.121
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 311,
+          "byOrigin": {
+            "souci": 329,
+            "dk": 300,
+            "jp": 311
+          },
+          "outliers": {},
+          "spread": 0.094
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 510,
+          "byOrigin": {
+            "souci": 515,
+            "dk": 510,
+            "jp": 500
+          },
+          "outliers": {},
+          "spread": 0.029
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 607,
+          "byOrigin": {
+            "souci": 564,
+            "dk": 610,
+            "jp": 607
+          },
+          "outliers": {},
+          "spread": 0.076
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 190,
+          "byOrigin": {
+            "souci": 180,
+            "dk": 190,
+            "jp": 200
+          },
+          "outliers": {},
+          "spread": 0.103
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "souci": 67,
+            "dk": 54,
+            "jp": 79
+          },
+          "outliers": {},
+          "spread": 0.368
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 247,
+          "byOrigin": {
+            "souci": 247,
+            "dk": 240,
+            "jp": 257
+          },
+          "outliers": {},
+          "spread": 0.07
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 210,
+          "byOrigin": {
+            "souci": 191,
+            "dk": 210,
+            "jp": 218
+          },
+          "outliers": {},
+          "spread": 0.129
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 291,
+          "byOrigin": {
+            "souci": 291,
+            "dk": 280,
+            "jp": 293
+          },
+          "outliers": {},
+          "spread": 0.044
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 63,
+          "byOrigin": {
+            "souci": 59,
+            "dk": 63,
+            "jp": 71
+          },
+          "outliers": {},
+          "spread": 0.199
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 357,
+          "byOrigin": {
+            "souci": 357,
+            "dk": 370,
+            "jp": 357
+          },
+          "outliers": {},
+          "spread": 0.036
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "175116",
+          "name": "Fish, herring, Atlantic, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Atlantic herring, raw",
+          "water": 72.05,
+          "nitrogen": 2.874
+        },
+        {
+          "source": "bls",
+          "id": "T102100",
+          "name": "Herring raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Herring, raw",
+          "water": 78.4,
+          "nitrogen": 2.904
+        },
+        {
+          "source": "frida",
+          "id": "48",
+          "name": "Herring, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Herring, raw",
+          "water": 68.6635714285714,
+          "nitrogen": 2.723
+        },
+        {
+          "source": "frida",
+          "id": "1132",
+          "name": "Herring, autumn, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Herring, autumn catch, raw (fattier)",
+          "water": 60.3,
+          "nitrogen": 3.088
+        },
+        {
+          "source": "mext",
+          "id": "10218",
+          "name": "＜魚類＞　にしん　生",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Pacific herring, raw",
+          "water": 66.1,
+          "nitrogen": 2.8
+        }
+      ]
+    },
+    {
+      "id": "sardines-canned",
+      "name": "Sardines, canned in oil, drained",
+      "category": "Meat and fish",
+      "aliases": [
+        "sardines",
+        "canned sardines",
+        "sardines in oil",
+        "sardines in blik",
+        "sardientjes",
+        "fish",
+        "vis"
+      ],
+      "values": {
+        "his": 0.7625,
+        "ile": 1.1423,
+        "leu": 1.8211,
+        "lys": 2.0092,
+        "met": 0.7319,
+        "cys": 0.2032,
+        "phe": 0.9462,
+        "tyr": 0.7465,
+        "thr": 1.049,
+        "trp": 0.2233,
+        "val": 1.3129,
+        "protein": 24.6
+      },
+      "water": 59.6,
+      "quality": {
+        "origins": [
+          "dk",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.581,
+        "estimated": [],
+        "flags": [
+          "his: sources differ by 58% (souci 137, dk 250 mg/g N)",
+          "lys: sources differ by 28% (souci 581, dk 440 mg/g N)",
+          "cys: sources differ by 41% (souci 62, dk 41 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 194,
+          "byOrigin": {
+            "souci": 137,
+            "dk": 250
+          },
+          "outliers": {},
+          "spread": 0.581
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 290,
+          "byOrigin": {
+            "souci": 290,
+            "dk": 290
+          },
+          "outliers": {},
+          "spread": 0.002
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 463,
+          "byOrigin": {
+            "souci": 495,
+            "dk": 430
+          },
+          "outliers": {},
+          "spread": 0.141
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 510,
+          "byOrigin": {
+            "souci": 581,
+            "dk": 440
+          },
+          "outliers": {},
+          "spread": 0.276
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 186,
+          "byOrigin": {
+            "souci": 192,
+            "dk": 180
+          },
+          "outliers": {},
+          "spread": 0.064
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 52,
+          "byOrigin": {
+            "souci": 62,
+            "dk": 41
+          },
+          "outliers": {},
+          "spread": 0.411
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 240,
+          "byOrigin": {
+            "souci": 231,
+            "dk": 250
+          },
+          "outliers": {},
+          "spread": 0.08
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 190,
+          "byOrigin": {
+            "souci": 189,
+            "dk": 190
+          },
+          "outliers": {},
+          "spread": 0.004
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 267,
+          "byOrigin": {
+            "souci": 293,
+            "dk": 240
+          },
+          "outliers": {},
+          "spread": 0.199
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 57,
+          "byOrigin": {
+            "souci": 54,
+            "dk": 59
+          },
+          "outliers": {},
+          "spread": 0.08
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 334,
+          "byOrigin": {
+            "souci": 337,
+            "dk": 330
+          },
+          "outliers": {},
+          "spread": 0.021
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "175139",
+          "name": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Atlantic sardine, canned in oil, drained solids with bone",
+          "water": 59.61,
+          "nitrogen": 3.939
+        },
+        {
+          "source": "bls",
+          "id": "T105702",
+          "name": "Sardine in oil, canned, drained",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sardine in oil, canned, drained",
+          "water": 55.6,
+          "nitrogen": 3.856
+        },
+        {
+          "source": "frida",
+          "id": "1121",
+          "name": "Sardine, in oil, canned",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sardine, in oil, canned",
+          "water": 59.6,
+          "nitrogen": 3.936
+        }
+      ]
+    },
+    {
+      "id": "trout-raw",
+      "name": "Trout, raw",
+      "category": "Meat and fish",
+      "aliases": [
+        "trout",
+        "rainbow trout",
+        "forel",
+        "fish",
+        "vis"
+      ],
+      "values": {
+        "his": 0.6415,
+        "ile": 1.005,
+        "leu": 1.7207,
+        "lys": 1.9527,
+        "met": 0.6456,
+        "cys": 0.2245,
+        "phe": 0.8514,
+        "tyr": 0.7149,
+        "thr": 1.0439,
+        "trp": 0.2348,
+        "val": 1.1231,
+        "protein": 20.83
+      },
+      "water": 71,
+      "quality": {
+        "origins": [
+          "jp",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.418,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for mext 10148 (water 74.5), mext 10402 (water 67.5); nitrogen adjusted to 71 g water",
+          "his: sources differ by 42% (usda 192, souci 165, jp 246 mg/g N)",
+          "cys: sources differ by 31% (usda 70, souci 49, jp 67 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 192,
+          "byOrigin": {
+            "usda": 192,
+            "souci": 165,
+            "jp": 246
+          },
+          "outliers": {},
+          "spread": 0.418
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 302,
+          "byOrigin": {
+            "usda": 302,
+            "souci": 310,
+            "jp": 274
+          },
+          "outliers": {},
+          "spread": 0.12
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 516,
+          "byOrigin": {
+            "usda": 532,
+            "souci": 516,
+            "jp": 470
+          },
+          "outliers": {},
+          "spread": 0.119
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 586,
+          "byOrigin": {
+            "usda": 601,
+            "souci": 586,
+            "jp": 548
+          },
+          "outliers": {},
+          "spread": 0.089
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 194,
+          "byOrigin": {
+            "usda": 194,
+            "souci": 191,
+            "jp": 196
+          },
+          "outliers": {},
+          "spread": 0.023
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "usda": 70,
+            "souci": 49,
+            "jp": 67
+          },
+          "outliers": {},
+          "spread": 0.31
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 255,
+          "byOrigin": {
+            "usda": 255,
+            "souci": 267,
+            "jp": 254
+          },
+          "outliers": {},
+          "spread": 0.051
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 215,
+          "byOrigin": {
+            "usda": 221,
+            "souci": 197,
+            "jp": 215
+          },
+          "outliers": {},
+          "spread": 0.109
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 313,
+          "byOrigin": {
+            "usda": 287,
+            "souci": 313,
+            "jp": 313
+          },
+          "outliers": {},
+          "spread": 0.084
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 70,
+          "byOrigin": {
+            "usda": 73,
+            "souci": 70,
+            "jp": 70
+          },
+          "outliers": {},
+          "spread": 0.053
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 337,
+          "byOrigin": {
+            "usda": 337,
+            "souci": 363,
+            "jp": 330
+          },
+          "outliers": {},
+          "spread": 0.096
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "173717",
+          "name": "Fish, trout, rainbow, farmed, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Rainbow trout, farmed, raw",
+          "water": 73.8,
+          "nitrogen": 3.19
+        },
+        {
+          "source": "bls",
+          "id": "T422100",
+          "name": "Trout raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Trout, raw",
+          "water": 70,
+          "nitrogen": 3.448
+        },
+        {
+          "source": "mext",
+          "id": "10148",
+          "name": "＜魚類＞　（さけ・ます類）　にじます　淡水養殖　皮つき　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Rainbow trout, freshwater farmed, with skin, raw",
+          "water": 74.5,
+          "nitrogen": 3.138
+        },
+        {
+          "source": "mext",
+          "id": "10402",
+          "name": "＜魚類＞　（さけ・ます類）　にじます　海面養殖　皮なし　生",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Rainbow trout, sea farmed, skinless, raw",
+          "water": 67.5,
+          "nitrogen": 3.239
+        }
+      ]
+    },
+    {
       "id": "lentils-dry",
       "name": "Lentils, dry",
       "category": "Legumes and soy",
       "aliases": [
-        "lentils"
+        "lentils",
+        "linzen",
+        "mercimek",
+        "adas",
+        "dal"
       ],
       "values": {
         "his": 0.6789,
@@ -6585,7 +9269,8 @@
       "name": "Lentils, cooked",
       "category": "Legumes and soy",
       "aliases": [
-        "cooked lentils"
+        "cooked lentils",
+        "gekookte linzen"
       ],
       "values": {
         "his": 0.2122,
@@ -6796,7 +9481,9 @@
       "category": "Legumes and soy",
       "aliases": [
         "chickpeas",
-        "garbanzo beans"
+        "garbanzo beans",
+        "kikkererwten",
+        "nohut"
       ],
       "values": {
         "his": 0.5346,
@@ -7052,7 +9739,8 @@
       "name": "Chickpeas, cooked",
       "category": "Legumes and soy",
       "aliases": [
-        "cooked chickpeas"
+        "cooked chickpeas",
+        "gekookte kikkererwten"
       ],
       "values": {
         "his": 0.2171,
@@ -7297,7 +9985,12 @@
       "category": "Legumes and soy",
       "aliases": [
         "kidney beans",
-        "red beans"
+        "red beans",
+        "kidneybonen",
+        "rode bonen",
+        "rajma",
+        "beans",
+        "bonen"
       ],
       "values": {
         "his": 0.6481,
@@ -7553,7 +10246,8 @@
       "name": "Kidney beans, cooked",
       "category": "Legumes and soy",
       "aliases": [
-        "cooked kidney beans"
+        "cooked kidney beans",
+        "gekookte kidneybonen"
       ],
       "values": {
         "his": 0.2693,
@@ -7764,7 +10458,9 @@
       "category": "Legumes and soy",
       "aliases": [
         "split peas",
-        "dried peas"
+        "dried peas",
+        "spliterwten",
+        "gedroogde erwten"
       ],
       "values": {
         "his": 0.5742,
@@ -8024,7 +10720,10 @@
       "category": "Legumes and soy",
       "aliases": [
         "green peas",
-        "garden peas"
+        "garden peas",
+        "doperwten",
+        "erwten",
+        "erwtjes"
       ],
       "values": {
         "his": 0.1096,
@@ -8262,7 +10961,10 @@
       "category": "Legumes and soy",
       "aliases": [
         "soybeans",
-        "soya beans"
+        "soya beans",
+        "sojabonen",
+        "beans",
+        "bonen"
       ],
       "values": {
         "his": 0.9411,
@@ -8527,7 +11229,9 @@
       "category": "Legumes and soy",
       "aliases": [
         "tofu",
-        "bean curd"
+        "bean curd",
+        "tahoe",
+        "tahu"
       ],
       "values": {
         "his": 0.2996,
@@ -8807,7 +11511,9 @@
       "name": "Tempeh",
       "category": "Legumes and soy",
       "aliases": [
-        "tempeh"
+        "tempeh",
+        "tempé",
+        "tempe"
       ],
       "values": {
         "his": 0.4767,
@@ -8996,7 +11702,9 @@
       "category": "Legumes and soy",
       "aliases": [
         "soy drink",
-        "soya milk"
+        "soya milk",
+        "sojamelk",
+        "sojadrink"
       ],
       "values": {
         "his": 0.0914,
@@ -9539,13 +12247,1559 @@
       ]
     },
     {
+      "id": "black-beans-dry",
+      "name": "Black beans, dry",
+      "category": "Legumes and soy",
+      "aliases": [
+        "black beans",
+        "black turtle beans",
+        "frijoles negros",
+        "zwarte bonen",
+        "beans",
+        "bonen"
+      ],
+      "values": {
+        "his": 0.6938,
+        "ile": 1.2581,
+        "leu": 2.0023,
+        "lys": 1.6534,
+        "met": 0.2737,
+        "cys": 0.2638,
+        "phe": 1.3158,
+        "tyr": 0.8237,
+        "thr": 1.0625,
+        "trp": 0.2433,
+        "val": 1.4308,
+        "protein": 22.62
+      },
+      "water": 11.3,
+      "quality": {
+        "origins": [
+          "jp",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.369,
+        "estimated": [],
+        "flags": [
+          "ile: sources differ by 37% (souci 412, jp 284 mg/g N)",
+          "leu: sources differ by 26% (souci 624, jp 482 mg/g N)",
+          "lys: sources differ by 26% (souci 517, jp 397 mg/g N)",
+          "cys: sources differ by 26% (souci 64, jp 82 mg/g N)",
+          "tyr: sources differ by 36% (souci 268, jp 187 mg/g N)",
+          "val: sources differ by 28% (souci 450, jp 340 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 192,
+          "byOrigin": {
+            "souci": 193,
+            "jp": 190
+          },
+          "outliers": {},
+          "spread": 0.018
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 348,
+          "byOrigin": {
+            "souci": 412,
+            "jp": 284
+          },
+          "outliers": {},
+          "spread": 0.369
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 553,
+          "byOrigin": {
+            "souci": 624,
+            "jp": 482
+          },
+          "outliers": {},
+          "spread": 0.257
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 457,
+          "byOrigin": {
+            "souci": 517,
+            "jp": 397
+          },
+          "outliers": {},
+          "spread": 0.262
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 76,
+          "byOrigin": {
+            "souci": 72,
+            "jp": 79
+          },
+          "outliers": {},
+          "spread": 0.1
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 73,
+          "byOrigin": {
+            "souci": 64,
+            "jp": 82
+          },
+          "outliers": {},
+          "spread": 0.256
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 364,
+          "byOrigin": {
+            "souci": 387,
+            "jp": 340
+          },
+          "outliers": {},
+          "spread": 0.128
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 228,
+          "byOrigin": {
+            "souci": 268,
+            "jp": 187
+          },
+          "outliers": {},
+          "spread": 0.355
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 294,
+          "byOrigin": {
+            "souci": 318,
+            "jp": 269
+          },
+          "outliers": {},
+          "spread": 0.165
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "souci": 64,
+            "jp": 71
+          },
+          "outliers": {},
+          "spread": 0.109
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 395,
+          "byOrigin": {
+            "souci": 450,
+            "jp": 340
+          },
+          "outliers": {},
+          "spread": 0.278
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "175186",
+          "name": "Beans, black turtle, mature seeds, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Black turtle beans, raw",
+          "water": 11,
+          "nitrogen": 3.4
+        },
+        {
+          "source": "usda",
+          "id": "173734",
+          "name": "Beans, black, mature seeds, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Black beans, raw",
+          "water": 11.02,
+          "nitrogen": 3.456
+        },
+        {
+          "source": "bls",
+          "id": "H739400",
+          "name": "Haricot bean mature",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Haricot (common) beans, mature",
+          "water": 11.3,
+          "nitrogen": 3.619
+        },
+        {
+          "source": "mext",
+          "id": "04007",
+          "name": "いんげんまめ　全粒　乾",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Common beans (ingen-mame), whole, dry",
+          "water": 15.3,
+          "nitrogen": 3.526
+        }
+      ]
+    },
+    {
+      "id": "white-beans-dry",
+      "name": "White beans, dry",
+      "category": "Legumes and soy",
+      "aliases": [
+        "white beans",
+        "navy beans",
+        "haricot beans",
+        "witte bonen",
+        "kuru fasulye",
+        "loubia",
+        "beans",
+        "bonen"
+      ],
+      "values": {
+        "his": 0.6842,
+        "ile": 0.9988,
+        "leu": 1.7825,
+        "lys": 1.5458,
+        "met": 0.2587,
+        "cys": 0.2521,
+        "phe": 1.2788,
+        "tyr": 0.7385,
+        "thr": 1.0081,
+        "trp": 0.2553,
+        "val": 1.2254,
+        "protein": 22.51
+      },
+      "water": 12.4,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.391,
+        "estimated": [],
+        "flags": [
+          "ile: souci (412 mg/g N) left out as an outlier against dk 271, jp 284",
+          "leu: sources differ by 29% (souci 624, dk 495, jp 482 mg/g N)",
+          "lys: sources differ by 28% (souci 517, dk 429, jp 397 mg/g N)",
+          "cys: sources differ by 27% (souci 64, dk 70, jp 82 mg/g N)",
+          "tyr: sources differ by 39% (souci 268, dk 205, jp 187 mg/g N)",
+          "val: sources differ by 39% (souci 450, dk 317, jp 340 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 190,
+          "byOrigin": {
+            "souci": 193,
+            "dk": 176,
+            "jp": 190
+          },
+          "outliers": {},
+          "spread": 0.091
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 277,
+          "byOrigin": {
+            "dk": 271,
+            "jp": 284
+          },
+          "outliers": {
+            "souci": 412
+          },
+          "spread": 0.045
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 495,
+          "byOrigin": {
+            "souci": 624,
+            "dk": 495,
+            "jp": 482
+          },
+          "outliers": {},
+          "spread": 0.288
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 429,
+          "byOrigin": {
+            "souci": 517,
+            "dk": 429,
+            "jp": 397
+          },
+          "outliers": {},
+          "spread": 0.279
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 72,
+          "byOrigin": {
+            "souci": 72,
+            "dk": 67,
+            "jp": 79
+          },
+          "outliers": {},
+          "spread": 0.177
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 70,
+          "byOrigin": {
+            "souci": 64,
+            "dk": 70,
+            "jp": 82
+          },
+          "outliers": {},
+          "spread": 0.267
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 355,
+          "byOrigin": {
+            "souci": 387,
+            "dk": 355,
+            "jp": 340
+          },
+          "outliers": {},
+          "spread": 0.131
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 205,
+          "byOrigin": {
+            "souci": 268,
+            "dk": 205,
+            "jp": 187
+          },
+          "outliers": {},
+          "spread": 0.394
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 280,
+          "byOrigin": {
+            "souci": 318,
+            "dk": 280,
+            "jp": 269
+          },
+          "outliers": {},
+          "spread": 0.173
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 71,
+          "byOrigin": {
+            "souci": 64,
+            "dk": 79,
+            "jp": 71
+          },
+          "outliers": {},
+          "spread": 0.218
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 340,
+          "byOrigin": {
+            "souci": 450,
+            "dk": 317,
+            "jp": 340
+          },
+          "outliers": {},
+          "spread": 0.391
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "173745",
+          "name": "Beans, navy, mature seeds, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Navy beans, raw",
+          "water": 12.1,
+          "nitrogen": 3.573
+        },
+        {
+          "source": "usda",
+          "id": "175202",
+          "name": "Beans, white, mature seeds, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "White beans, raw",
+          "water": 11.32,
+          "nitrogen": 3.738
+        },
+        {
+          "source": "bls",
+          "id": "H739400",
+          "name": "Haricot bean mature",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Haricot beans, mature",
+          "water": 11.3,
+          "nitrogen": 3.619
+        },
+        {
+          "source": "frida",
+          "id": "1801",
+          "name": "Beans, white, dried, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "White beans, dried",
+          "water": 13.04875,
+          "nitrogen": 3.411
+        },
+        {
+          "source": "mext",
+          "id": "04007",
+          "name": "いんげんまめ　全粒　乾",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Common beans (ingen-mame), whole, dry",
+          "water": 15.3,
+          "nitrogen": 3.526
+        }
+      ]
+    },
+    {
+      "id": "mung-beans-dry",
+      "name": "Mung beans, dry",
+      "category": "Legumes and soy",
+      "aliases": [
+        "mung beans",
+        "green gram",
+        "mungbonen",
+        "katjang idjo",
+        "kacang hijau",
+        "moong dal",
+        "beans",
+        "bonen"
+      ],
+      "values": {
+        "his": 0.6904,
+        "ile": 1.0202,
+        "leu": 1.8653,
+        "lys": 1.6379,
+        "met": 0.3037,
+        "cys": 0.19,
+        "phe": 1.4312,
+        "tyr": 0.6857,
+        "thr": 0.7973,
+        "trp": 0.243,
+        "val": 1.2295,
+        "protein": 23.81
+      },
+      "water": 9.7,
+      "quality": {
+        "origins": [
+          "jp",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.115,
+        "estimated": [],
+        "flags": []
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 181,
+          "byOrigin": {
+            "usda": 181,
+            "jp": 181
+          },
+          "outliers": {},
+          "spread": 0.002
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 268,
+          "byOrigin": {
+            "usda": 263,
+            "jp": 273
+          },
+          "outliers": {},
+          "spread": 0.037
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 490,
+          "byOrigin": {
+            "usda": 483,
+            "jp": 496
+          },
+          "outliers": {},
+          "spread": 0.026
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 430,
+          "byOrigin": {
+            "usda": 438,
+            "jp": 422
+          },
+          "outliers": {},
+          "spread": 0.039
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 80,
+          "byOrigin": {
+            "usda": 75,
+            "jp": 84
+          },
+          "outliers": {},
+          "spread": 0.115
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 50,
+          "byOrigin": {
+            "usda": 55,
+            "jp": 45
+          },
+          "outliers": {},
+          "spread": 0.21
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 376,
+          "byOrigin": {
+            "usda": 379,
+            "jp": 372
+          },
+          "outliers": {},
+          "spread": 0.02
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 180,
+          "byOrigin": {
+            "usda": 189,
+            "jp": 171
+          },
+          "outliers": {},
+          "spread": 0.099
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 209,
+          "byOrigin": {
+            "usda": 203,
+            "jp": 216
+          },
+          "outliers": {},
+          "spread": 0.061
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 64,
+          "byOrigin": {
+            "usda": 66,
+            "jp": 62
+          },
+          "outliers": {},
+          "spread": 0.056
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 323,
+          "byOrigin": {
+            "usda": 323,
+            "jp": 322
+          },
+          "outliers": {},
+          "spread": 0.002
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "174256",
+          "name": "Mung beans, mature seeds, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Mung beans, raw",
+          "water": 9.05,
+          "nitrogen": 3.818
+        },
+        {
+          "source": "bls",
+          "id": "H770100",
+          "name": "Mung bean mature",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Mung beans, mature (amino acids from USDA)",
+          "water": 9.8,
+          "nitrogen": 3.8
+        },
+        {
+          "source": "frida",
+          "id": "58",
+          "name": "Beans, mung, dried, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Mung beans, dried (amino acids from USDA)",
+          "water": 9.5,
+          "nitrogen": 3.818
+        },
+        {
+          "source": "mext",
+          "id": "04071",
+          "name": "りょくとう　全粒　乾",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Mung beans, whole, dry",
+          "water": 10.8,
+          "nitrogen": 4.032
+        }
+      ]
+    },
+    {
+      "id": "red-lentils-dry",
+      "name": "Red lentils, dry",
+      "category": "Legumes and soy",
+      "aliases": [
+        "red lentils",
+        "rode linzen",
+        "kırmızı mercimek",
+        "masoor dal"
+      ],
+      "values": {
+        "his": 0.6885,
+        "ile": 1.0935,
+        "leu": 1.944,
+        "lys": 1.8225,
+        "met": 0.2025,
+        "cys": 0.2531,
+        "phe": 1.3365,
+        "tyr": 0.81,
+        "thr": 1.0125,
+        "trp": 0.243,
+        "val": 1.2555,
+        "protein": 25.31
+      },
+      "water": 9.6,
+      "quality": {
+        "origins": [
+          "dk",
+          "mccance",
+          "souci"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.234,
+        "estimated": [],
+        "flags": []
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 170,
+          "byOrigin": {
+            "dk": 164,
+            "souci": 178,
+            "mccance": 170
+          },
+          "outliers": {},
+          "spread": 0.082
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 270,
+          "byOrigin": {
+            "dk": 250,
+            "souci": 298,
+            "mccance": 270
+          },
+          "outliers": {},
+          "spread": 0.174
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 480,
+          "byOrigin": {
+            "dk": 453,
+            "souci": 528,
+            "mccance": 480
+          },
+          "outliers": {},
+          "spread": 0.155
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 450,
+          "byOrigin": {
+            "dk": 410,
+            "souci": 473,
+            "mccance": 450
+          },
+          "outliers": {},
+          "spread": 0.14
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 50,
+          "byOrigin": {
+            "dk": 48,
+            "souci": 55,
+            "mccance": 50
+          },
+          "outliers": {},
+          "spread": 0.138
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 63,
+          "byOrigin": {
+            "dk": 64,
+            "souci": 63,
+            "mccance": 60
+          },
+          "outliers": {},
+          "spread": 0.069
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 330,
+          "byOrigin": {
+            "dk": 306,
+            "souci": 350,
+            "mccance": 330
+          },
+          "outliers": {},
+          "spread": 0.134
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 200,
+          "byOrigin": {
+            "dk": 186,
+            "souci": 210,
+            "mccance": 200
+          },
+          "outliers": {},
+          "spread": 0.119
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 250,
+          "byOrigin": {
+            "dk": 235,
+            "souci": 280,
+            "mccance": 250
+          },
+          "outliers": {},
+          "spread": 0.18
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 60,
+          "byOrigin": {
+            "dk": 48,
+            "souci": 63,
+            "mccance": 60
+          },
+          "outliers": {},
+          "spread": 0.234
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 310,
+          "byOrigin": {
+            "dk": 294,
+            "souci": 348,
+            "mccance": 310
+          },
+          "outliers": {},
+          "spread": 0.172
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "174284",
+          "name": "Lentils, pink or red, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Lentils, pink or red, raw",
+          "water": 7.82,
+          "nitrogen": 3.826
+        },
+        {
+          "source": "bls",
+          "id": "H730000",
+          "name": "Lentil red mature",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Red lentils, mature",
+          "water": 8.5,
+          "nitrogen": 4.1
+        },
+        {
+          "source": "frida",
+          "id": "1799",
+          "name": "Lentils, red, dried, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Lentils, red, dried",
+          "water": 10.1916666666667,
+          "nitrogen": 4.172
+        },
+        {
+          "source": "bls",
+          "id": "H725100",
+          "name": "Lentil mature",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Lentils, mature",
+          "water": 10.7,
+          "nitrogen": 4
+        },
+        {
+          "source": "frida",
+          "id": "681",
+          "name": "Lentils, dried",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Lentils, dried",
+          "water": 9.7,
+          "nitrogen": 4.192
+        }
+      ]
+    },
+    {
+      "id": "black-eyed-peas-dry",
+      "name": "Black-eyed peas, dry",
+      "category": "Legumes and soy",
+      "aliases": [
+        "black-eyed peas",
+        "black-eyed beans",
+        "cowpeas",
+        "zwartoogbonen",
+        "blackeye",
+        "lobia",
+        "börülce",
+        "beans",
+        "bonen"
+      ],
+      "values": {
+        "his": 0.754,
+        "ile": 1.0266,
+        "leu": 1.7977,
+        "lys": 1.593,
+        "met": 0.357,
+        "cys": 0.3096,
+        "phe": 1.3334,
+        "tyr": 0.7491,
+        "thr": 0.9163,
+        "trp": 0.2847,
+        "val": 1.1585,
+        "protein": 23.75
+      },
+      "water": 12,
+      "quality": {
+        "origins": [
+          "jp",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.138,
+        "estimated": [],
+        "flags": [
+          "cys: sources differ by 32% (usda 68, jp 95 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 198,
+          "byOrigin": {
+            "usda": 192,
+            "jp": 205
+          },
+          "outliers": {},
+          "spread": 0.064
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 270,
+          "byOrigin": {
+            "usda": 252,
+            "jp": 289
+          },
+          "outliers": {},
+          "spread": 0.138
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 473,
+          "byOrigin": {
+            "usda": 474,
+            "jp": 473
+          },
+          "outliers": {},
+          "spread": 0.003
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 419,
+          "byOrigin": {
+            "usda": 418,
+            "jp": 420
+          },
+          "outliers": {},
+          "spread": 0.004
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 94,
+          "byOrigin": {
+            "usda": 88,
+            "jp": 100
+          },
+          "outliers": {},
+          "spread": 0.123
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 81,
+          "byOrigin": {
+            "usda": 68,
+            "jp": 95
+          },
+          "outliers": {},
+          "spread": 0.32
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 351,
+          "byOrigin": {
+            "usda": 361,
+            "jp": 341
+          },
+          "outliers": {},
+          "spread": 0.055
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 197,
+          "byOrigin": {
+            "usda": 200,
+            "jp": 194
+          },
+          "outliers": {},
+          "spread": 0.029
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 241,
+          "byOrigin": {
+            "usda": 236,
+            "jp": 247
+          },
+          "outliers": {},
+          "spread": 0.047
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 75,
+          "byOrigin": {
+            "usda": 76,
+            "jp": 74
+          },
+          "outliers": {},
+          "spread": 0.038
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 305,
+          "byOrigin": {
+            "usda": 295,
+            "jp": 315
+          },
+          "outliers": {},
+          "spread": 0.066
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "173758",
+          "name": "Cowpeas, common (blackeyes, crowder, southern), mature seeds, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cowpeas, common (blackeyes), raw",
+          "water": 11.95,
+          "nitrogen": 3.763
+        },
+        {
+          "source": "bls",
+          "id": "H702100",
+          "name": "Cowpea/black-eyed pea, mature",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cowpea/black-eyed pea, mature (amino acids from USDA)",
+          "water": 12,
+          "nitrogen": 3.8
+        },
+        {
+          "source": "mext",
+          "id": "04017",
+          "name": "ささげ　全粒　乾",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Cowpeas (sasage), whole, dry",
+          "water": 15.5,
+          "nitrogen": 3.81
+        }
+      ]
+    },
+    {
+      "id": "chickpea-flour",
+      "name": "Chickpea flour",
+      "category": "Legumes and soy",
+      "aliases": [
+        "gram flour",
+        "besan",
+        "kikkererwtenmeel",
+        "chickpea flour",
+        "nohut unu"
+      ],
+      "values": {
+        "his": 0.5515,
+        "ile": 0.8489,
+        "leu": 1.4844,
+        "lys": 1.3867,
+        "met": 0.2771,
+        "cys": 0.3128,
+        "phe": 1.1069,
+        "tyr": 0.5107,
+        "thr": 0.7598,
+        "trp": 0.2056,
+        "val": 0.8851,
+        "protein": 20.39
+      },
+      "water": 8,
+      "quality": {
+        "origins": [
+          "de-literature",
+          "dk",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.433,
+        "estimated": [],
+        "flags": [
+          "ile: souci (383 mg/g N) left out as an outlier against de-literature 238, usda 269, dk 260",
+          "tyr: souci (222 mg/g N) left out as an outlier against de-literature 157, usda 156, dk 181",
+          "trp: sources differ by 43% (de-literature 81, usda 61, dk 65, souci 54 mg/g N)",
+          "val: sources differ by 32% (de-literature 243, usda 264, dk 278, souci 330 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 169,
+          "byOrigin": {
+            "de-literature": 157,
+            "usda": 173,
+            "dk": 165,
+            "souci": 178
+          },
+          "outliers": {},
+          "spread": 0.129
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 260,
+          "byOrigin": {
+            "de-literature": 238,
+            "usda": 269,
+            "dk": 260
+          },
+          "outliers": {
+            "souci": 383
+          },
+          "spread": 0.122
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 455,
+          "byOrigin": {
+            "de-literature": 446,
+            "usda": 447,
+            "dk": 463,
+            "souci": 491
+          },
+          "outliers": {},
+          "spread": 0.099
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 425,
+          "byOrigin": {
+            "de-literature": 406,
+            "usda": 420,
+            "dk": 430,
+            "souci": 461
+          },
+          "outliers": {},
+          "spread": 0.13
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 85,
+          "byOrigin": {
+            "de-literature": 93,
+            "usda": 82,
+            "dk": 81,
+            "souci": 87
+          },
+          "outliers": {},
+          "spread": 0.136
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 96,
+          "byOrigin": {
+            "de-literature": 99,
+            "usda": 85,
+            "dk": 98,
+            "souci": 94
+          },
+          "outliers": {},
+          "spread": 0.139
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 339,
+          "byOrigin": {
+            "de-literature": 342,
+            "usda": 337,
+            "dk": 365,
+            "souci": 323
+          },
+          "outliers": {},
+          "spread": 0.124
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 157,
+          "byOrigin": {
+            "de-literature": 157,
+            "usda": 156,
+            "dk": 181
+          },
+          "outliers": {
+            "souci": 222
+          },
+          "spread": 0.159
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 233,
+          "byOrigin": {
+            "de-literature": 226,
+            "usda": 234,
+            "dk": 232,
+            "souci": 235
+          },
+          "outliers": {},
+          "spread": 0.04
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 63,
+          "byOrigin": {
+            "de-literature": 81,
+            "usda": 61,
+            "dk": 65,
+            "souci": 54
+          },
+          "outliers": {},
+          "spread": 0.433
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-literature",
+            "dk",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 271,
+          "byOrigin": {
+            "de-literature": 243,
+            "usda": 264,
+            "dk": 278,
+            "souci": 330
+          },
+          "outliers": {},
+          "spread": 0.319
+        }
+      },
+      "links": [
+        {
+          "source": "bls",
+          "id": "H720400",
+          "name": "Chickpea flour",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Chickpea flour",
+          "water": 7.3,
+          "nitrogen": 3.207
+        },
+        {
+          "source": "usda",
+          "id": "173756",
+          "name": "Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Chickpeas, raw",
+          "water": 7.68,
+          "nitrogen": 3.275
+        },
+        {
+          "source": "frida",
+          "id": "1803",
+          "name": "Chickpeas, dry, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Chickpeas, dry",
+          "water": 9.92,
+          "nitrogen": 3.48
+        },
+        {
+          "source": "bls",
+          "id": "G770400",
+          "name": "Chick pea mature",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Chickpeas, mature",
+          "water": 8.767,
+          "nitrogen": 2.973
+        }
+      ]
+    },
+    {
       "id": "oats-rolled",
       "name": "Oats, rolled",
       "category": "Grains",
       "aliases": [
         "oats",
         "oatmeal",
-        "porridge oats"
+        "porridge oats",
+        "havermout",
+        "haver",
+        "yulaf"
       ],
       "values": {
         "his": 0.316,
@@ -9828,7 +14082,11 @@
       "aliases": [
         "flour",
         "plain flour",
-        "all-purpose flour"
+        "all-purpose flour",
+        "bloem",
+        "tarwebloem",
+        "patentbloem",
+        "un"
       ],
       "values": {
         "his": 0.2392,
@@ -10093,7 +14351,9 @@
       "category": "Grains",
       "aliases": [
         "whole wheat flour",
-        "wholegrain flour"
+        "wholegrain flour",
+        "volkorenmeel",
+        "tarwemeel"
       ],
       "values": {
         "his": 0.2943,
@@ -10350,7 +14610,10 @@
       "category": "Grains",
       "aliases": [
         "white bread",
-        "toast"
+        "toast",
+        "witbrood",
+        "wit brood",
+        "ekmek"
       ],
       "values": {
         "his": 0.1864,
@@ -10618,7 +14881,9 @@
       "category": "Grains",
       "aliases": [
         "whole wheat bread",
-        "wholegrain bread"
+        "wholegrain bread",
+        "volkorenbrood",
+        "volkoren brood"
       ],
       "values": {
         "his": 0.207,
@@ -10844,7 +15109,11 @@
       "category": "Grains",
       "aliases": [
         "rice",
-        "white rice"
+        "white rice",
+        "rijst",
+        "witte rijst",
+        "pirinç",
+        "beras"
       ],
       "values": {
         "his": 0.1695,
@@ -11104,7 +15373,9 @@
       "category": "Grains",
       "aliases": [
         "cooked rice",
-        "boiled rice"
+        "boiled rice",
+        "gekookte rijst",
+        "nasi"
       ],
       "values": {
         "his": 0.0681,
@@ -11305,7 +15576,9 @@
       "category": "Grains",
       "aliases": [
         "brown rice",
-        "wholegrain rice"
+        "wholegrain rice",
+        "zilvervliesrijst",
+        "bruine rijst"
       ],
       "values": {
         "his": 0.1848,
@@ -11565,7 +15838,9 @@
       "aliases": [
         "pasta",
         "spaghetti",
-        "macaroni"
+        "macaroni",
+        "deegwaren",
+        "makarna"
       ],
       "values": {
         "his": 0.31,
@@ -12104,7 +16379,9 @@
       "name": "Buckwheat, raw",
       "category": "Grains",
       "aliases": [
-        "buckwheat"
+        "buckwheat",
+        "boekweit",
+        "karabuğday"
       ],
       "values": {
         "his": 0.2988,
@@ -12354,12 +16631,1747 @@
       ]
     },
     {
+      "id": "bread-rye",
+      "name": "Bread, rye, wholemeal",
+      "category": "Grains",
+      "aliases": [
+        "rye bread",
+        "wholegrain rye bread",
+        "pumpernickel",
+        "roggebrood"
+      ],
+      "values": {
+        "his": 0.168,
+        "ile": 0.2059,
+        "leu": 0.3696,
+        "lys": 0.2196,
+        "met": 0.0658,
+        "cys": 0.1172,
+        "phe": 0.2808,
+        "tyr": 0.1309,
+        "thr": 0.2012,
+        "trp": 0.0499,
+        "val": 0.2715,
+        "protein": 5.78
+      },
+      "water": 45.4,
+      "quality": {
+        "origins": [
+          "de-mri",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.639,
+        "estimated": [],
+        "flags": [
+          "his: sources differ by 64% (de-mri 124, souci 240 mg/g N)",
+          "ile: sources differ by 33% (de-mri 186, souci 260 mg/g N)",
+          "leu: sources differ by 35% (de-mri 330, souci 470 mg/g N)",
+          "lys: sources differ by 52% (de-mri 175, souci 300 mg/g N)",
+          "met: sources differ by 32% (de-mri 82, souci 60 mg/g N)",
+          "phe: sources differ by 30% (de-mri 258, souci 350 mg/g N)",
+          "tyr: sources differ by 40% (de-mri 113, souci 170 mg/g N)",
+          "thr: sources differ by 30% (de-mri 186, souci 250 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 182,
+          "byOrigin": {
+            "de-mri": 124,
+            "souci": 240
+          },
+          "outliers": {},
+          "spread": 0.639
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 223,
+          "byOrigin": {
+            "de-mri": 186,
+            "souci": 260
+          },
+          "outliers": {},
+          "spread": 0.334
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 400,
+          "byOrigin": {
+            "de-mri": 330,
+            "souci": 470
+          },
+          "outliers": {},
+          "spread": 0.35
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 238,
+          "byOrigin": {
+            "de-mri": 175,
+            "souci": 300
+          },
+          "outliers": {},
+          "spread": 0.525
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 71,
+          "byOrigin": {
+            "de-mri": 82,
+            "souci": 60
+          },
+          "outliers": {},
+          "spread": 0.315
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 127,
+          "byOrigin": {
+            "de-mri": 124,
+            "souci": 130
+          },
+          "outliers": {},
+          "spread": 0.05
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 304,
+          "byOrigin": {
+            "de-mri": 258,
+            "souci": 350
+          },
+          "outliers": {},
+          "spread": 0.304
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 142,
+          "byOrigin": {
+            "de-mri": 113,
+            "souci": 170
+          },
+          "outliers": {},
+          "spread": 0.399
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 218,
+          "byOrigin": {
+            "de-mri": 186,
+            "souci": 250
+          },
+          "outliers": {},
+          "spread": 0.296
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 54,
+          "byOrigin": {
+            "de-mri": 58,
+            "souci": 50
+          },
+          "outliers": {},
+          "spread": 0.147
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 294,
+          "byOrigin": {
+            "de-mri": 258,
+            "souci": 330
+          },
+          "outliers": {},
+          "spread": 0.246
+        }
+      },
+      "links": [
+        {
+          "source": "bls",
+          "id": "B121000",
+          "name": "Wholemeal rye bread",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Wholemeal rye bread",
+          "water": 46.4,
+          "nitrogen": 0.97
+        },
+        {
+          "source": "bls",
+          "id": "B122000",
+          "name": "Coarse wholemeal rye bread",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Coarse wholemeal rye bread",
+          "water": 46.4,
+          "nitrogen": 0.97
+        },
+        {
+          "source": "bls",
+          "id": "B221000",
+          "name": "Rye bread",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Rye bread (at least 90% rye, not wholemeal)",
+          "water": 44.51,
+          "nitrogen": 1
+        },
+        {
+          "source": "frida",
+          "id": "1671",
+          "name": "Rye bread, dark, whole grains, industrially produced",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Rye bread, dark, whole grains, industrially produced",
+          "water": 45.6548648648649,
+          "nitrogen": 0.874
+        },
+        {
+          "source": "frida",
+          "id": "1674",
+          "name": "Rye bread, dark, whole grains, retail bakery",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Rye bread, dark, whole grains, retail bakery",
+          "water": 43.31,
+          "nitrogen": 0.877
+        }
+      ]
+    },
+    {
+      "id": "sweet-corn-raw",
+      "name": "Sweet corn, raw",
+      "category": "Grains",
+      "aliases": [
+        "sweet corn",
+        "corn on the cob",
+        "maize",
+        "maïs",
+        "suikermaïs",
+        "jagung",
+        "mısır",
+        "makai"
+      ],
+      "values": {
+        "his": 0.0897,
+        "ile": 0.1274,
+        "leu": 0.3692,
+        "lys": 0.1371,
+        "met": 0.0665,
+        "cys": 0.0581,
+        "phe": 0.1772,
+        "tyr": 0.1236,
+        "thr": 0.1333,
+        "trp": 0.0195,
+        "val": 0.164,
+        "protein": 3.46
+      },
+      "water": 76.6,
+      "quality": {
+        "origins": [
+          "jp",
+          "mccance",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.439,
+        "estimated": [],
+        "flags": [
+          "ile: sources differ by 25% (souci 248, mccance 230, jp 189 mg/g N)",
+          "leu: sources differ by 36% (souci 667, mccance 790, jp 550 mg/g N)",
+          "lys: sources differ by 42% (souci 248, mccance 170, jp 275 mg/g N)",
+          "phe: sources differ by 44% (souci 381, mccance 320, jp 241 mg/g N)",
+          "trp: jp (53 mg/g N) left out as an outlier against souci 30, mccance 40",
+          "trp: sources differ by 27% (souci 30, mccance 40 mg/g N)",
+          "val: souci (419 mg/g N) left out as an outlier against mccance 300, jp 292"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 162,
+          "byOrigin": {
+            "souci": 162,
+            "mccance": 170,
+            "jp": 143
+          },
+          "outliers": {},
+          "spread": 0.169
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 230,
+          "byOrigin": {
+            "souci": 248,
+            "mccance": 230,
+            "jp": 189
+          },
+          "outliers": {},
+          "spread": 0.255
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 667,
+          "byOrigin": {
+            "souci": 667,
+            "mccance": 790,
+            "jp": 550
+          },
+          "outliers": {},
+          "spread": 0.36
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 248,
+          "byOrigin": {
+            "souci": 248,
+            "mccance": 170,
+            "jp": 275
+          },
+          "outliers": {},
+          "spread": 0.424
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 120,
+          "byOrigin": {
+            "souci": 107,
+            "mccance": 120,
+            "jp": 134
+          },
+          "outliers": {},
+          "spread": 0.228
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance"
+          ],
+          "mgPerGramNitrogen": 105,
+          "byOrigin": {
+            "mccance": 100,
+            "jp": 110
+          },
+          "outliers": {},
+          "spread": 0.095
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 320,
+          "byOrigin": {
+            "souci": 381,
+            "mccance": 320,
+            "jp": 241
+          },
+          "outliers": {},
+          "spread": 0.439
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance"
+          ],
+          "mgPerGramNitrogen": 223,
+          "byOrigin": {
+            "mccance": 240,
+            "jp": 206
+          },
+          "outliers": {},
+          "spread": 0.151
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 241,
+          "byOrigin": {
+            "souci": 248,
+            "mccance": 230,
+            "jp": 241
+          },
+          "outliers": {},
+          "spread": 0.073
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "mccance",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 35,
+          "byOrigin": {
+            "souci": 30,
+            "mccance": 40
+          },
+          "outliers": {
+            "jp": 53
+          },
+          "spread": 0.27
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "mccance"
+          ],
+          "mgPerGramNitrogen": 296,
+          "byOrigin": {
+            "mccance": 300,
+            "jp": 292
+          },
+          "outliers": {
+            "souci": 419
+          },
+          "spread": 0.026
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "169998",
+          "name": "Corn, sweet, yellow, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Corn, sweet, yellow, raw",
+          "water": 76.05,
+          "nitrogen": 0.523
+        },
+        {
+          "source": "bls",
+          "id": "G570100",
+          "name": "Sweetcorn raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweetcorn raw",
+          "water": 76,
+          "nitrogen": 0.525
+        },
+        {
+          "source": "frida",
+          "id": "31",
+          "name": "Sweetcorn, on-the-cob, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweetcorn, on-the-cob, raw (amino acids from McCance and Widdowson)",
+          "water": 77.5,
+          "nitrogen": 0.592
+        },
+        {
+          "source": "mext",
+          "id": "06175",
+          "name": "（とうもろこし類）　スイートコーン　未熟種子　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweet corn, immature kernels, raw",
+          "water": 77.1,
+          "nitrogen": 0.582
+        }
+      ]
+    },
+    {
+      "id": "spelt-wholemeal-flour",
+      "name": "Spelt flour, wholemeal",
+      "category": "Grains",
+      "aliases": [
+        "spelt",
+        "spelt flour",
+        "dinkel",
+        "speltmeel"
+      ],
+      "values": {
+        "his": 0.34,
+        "ile": 0.4861,
+        "leu": 0.9722,
+        "lys": 0.3879,
+        "met": 0.2346,
+        "cys": 0.3141,
+        "phe": 0.6742,
+        "tyr": 0.3897,
+        "thr": 0.4053,
+        "trp": 0.1771,
+        "val": 0.6193,
+        "protein": 14.29
+      },
+      "water": 11,
+      "quality": {
+        "origins": [
+          "de-mri",
+          "dk",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.373,
+        "estimated": [],
+        "flags": [
+          "trp: sources differ by 37% (de-mri 77, dk 82, usda 53 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 149,
+          "byOrigin": {
+            "de-mri": 150,
+            "dk": 149,
+            "usda": 144
+          },
+          "outliers": {},
+          "spread": 0.042
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 213,
+          "byOrigin": {
+            "de-mri": 206,
+            "dk": 213,
+            "usda": 221
+          },
+          "outliers": {},
+          "spread": 0.069
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 425,
+          "byOrigin": {
+            "de-mri": 399,
+            "dk": 425,
+            "usda": 428
+          },
+          "outliers": {},
+          "spread": 0.068
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 170,
+          "byOrigin": {
+            "de-mri": 170,
+            "dk": 176,
+            "usda": 164
+          },
+          "outliers": {},
+          "spread": 0.073
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 103,
+          "byOrigin": {
+            "de-mri": 103,
+            "dk": 103,
+            "usda": 103
+          },
+          "outliers": {},
+          "spread": 0.006
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 137,
+          "byOrigin": {
+            "de-mri": 146,
+            "dk": 137,
+            "usda": 132
+          },
+          "outliers": {},
+          "spread": 0.105
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 295,
+          "byOrigin": {
+            "de-mri": 288,
+            "dk": 296,
+            "usda": 295
+          },
+          "outliers": {},
+          "spread": 0.028
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 170,
+          "byOrigin": {
+            "de-mri": 174,
+            "dk": 170,
+            "usda": 151
+          },
+          "outliers": {},
+          "spread": 0.134
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 177,
+          "byOrigin": {
+            "de-mri": 177,
+            "dk": 186,
+            "usda": 177
+          },
+          "outliers": {},
+          "spread": 0.052
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 77,
+          "byOrigin": {
+            "de-mri": 77,
+            "dk": 82,
+            "usda": 53
+          },
+          "outliers": {},
+          "spread": 0.373
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "de-mri",
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 271,
+          "byOrigin": {
+            "de-mri": 237,
+            "dk": 271,
+            "usda": 272
+          },
+          "outliers": {},
+          "spread": 0.132
+        }
+      },
+      "links": [
+        {
+          "source": "bls",
+          "id": "C235000",
+          "name": "Spelt wholemeal flour",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Spelt wholemeal flour",
+          "water": 11.86,
+          "nitrogen": 2.15
+        },
+        {
+          "source": "bls",
+          "id": "C236000",
+          "name": "Spelt whole grain, raw",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Spelt whole grain, raw",
+          "water": 12.82,
+          "nitrogen": 2.28
+        },
+        {
+          "source": "frida",
+          "id": "1723",
+          "name": "Spelt wheat flour, whole",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Spelt wheat flour, whole",
+          "water": 10.485,
+          "nitrogen": 2.3
+        },
+        {
+          "source": "usda",
+          "id": "169745",
+          "name": "Spelt, uncooked",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Spelt, uncooked (whole grain)",
+          "water": 11.02,
+          "nitrogen": 2.499
+        }
+      ]
+    },
+    {
+      "id": "barley-pearl-raw",
+      "name": "Barley, pearl, raw",
+      "category": "Grains",
+      "aliases": [
+        "pearl barley",
+        "barley",
+        "parelgort",
+        "gerst",
+        "gort",
+        "arpa",
+        "jau"
+      ],
+      "values": {
+        "his": 0.2069,
+        "ile": 0.3432,
+        "leu": 0.6454,
+        "lys": 0.3295,
+        "met": 0.1647,
+        "cys": 0.2252,
+        "phe": 0.4632,
+        "tyr": 0.3157,
+        "thr": 0.3141,
+        "trp": 0.1222,
+        "val": 0.461,
+        "protein": 9.75
+      },
+      "water": 11.2,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "souci"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.246,
+        "estimated": [],
+        "flags": [
+          "cys: sources differ by 26% (souci 120, dk 144, jp 158 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 133,
+          "byOrigin": {
+            "souci": 108,
+            "dk": 133,
+            "jp": 141
+          },
+          "outliers": {},
+          "spread": 0.246
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 220,
+          "byOrigin": {
+            "souci": 246,
+            "dk": 207,
+            "jp": 220
+          },
+          "outliers": {},
+          "spread": 0.18
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 414,
+          "byOrigin": {
+            "souci": 397,
+            "dk": 414,
+            "jp": 440
+          },
+          "outliers": {},
+          "spread": 0.105
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 211,
+          "byOrigin": {
+            "souci": 192,
+            "dk": 214,
+            "jp": 211
+          },
+          "outliers": {},
+          "spread": 0.105
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 106,
+          "byOrigin": {
+            "souci": 84,
+            "dk": 107,
+            "jp": 106
+          },
+          "outliers": {},
+          "spread": 0.212
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 144,
+          "byOrigin": {
+            "souci": 120,
+            "dk": 144,
+            "jp": 158
+          },
+          "outliers": {},
+          "spread": 0.265
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 297,
+          "byOrigin": {
+            "souci": 294,
+            "dk": 297,
+            "jp": 326
+          },
+          "outliers": {},
+          "spread": 0.105
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 202,
+          "byOrigin": {
+            "souci": 204,
+            "dk": 166,
+            "jp": 202
+          },
+          "outliers": {},
+          "spread": 0.188
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 201,
+          "byOrigin": {
+            "souci": 192,
+            "dk": 201,
+            "jp": 229
+          },
+          "outliers": {},
+          "spread": 0.181
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 78,
+          "byOrigin": {
+            "souci": 72,
+            "dk": 78,
+            "jp": 85
+          },
+          "outliers": {},
+          "spread": 0.169
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 296,
+          "byOrigin": {
+            "souci": 288,
+            "dk": 296,
+            "jp": 308
+          },
+          "outliers": {},
+          "spread": 0.066
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "170284",
+          "name": "Barley, pearled, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Barley, pearled, raw",
+          "water": 10.09,
+          "nitrogen": 1.7
+        },
+        {
+          "source": "bls",
+          "id": "C148000",
+          "name": "Pearl barley",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pearl barley",
+          "water": 11.6,
+          "nitrogen": 1.664
+        },
+        {
+          "source": "frida",
+          "id": "1730",
+          "name": "Pearled barley",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pearled barley",
+          "water": 10.83,
+          "nitrogen": 1.455
+        },
+        {
+          "source": "mext",
+          "id": "01006",
+          "name": "おおむぎ　押麦　乾",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Barley, pressed (oshimugi), dry",
+          "water": 12.7,
+          "nitrogen": 1.136
+        }
+      ]
+    },
+    {
+      "id": "bulgur-dry",
+      "name": "Bulgur, dry",
+      "category": "Grains",
+      "aliases": [
+        "bulgur",
+        "bulghur",
+        "burghul",
+        "cracked wheat"
+      ],
+      "values": {
+        "his": 0.2852,
+        "ile": 0.4387,
+        "leu": 0.8505,
+        "lys": 0.3138,
+        "met": 0.1964,
+        "cys": 0.269,
+        "phe": 0.5854,
+        "tyr": 0.3332,
+        "thr": 0.3511,
+        "trp": 0.1745,
+        "val": 0.5441,
+        "protein": 12.38
+      },
+      "water": 9.6,
+      "quality": {
+        "origins": [
+          "dk",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.178,
+        "estimated": [],
+        "flags": []
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 144,
+          "byOrigin": {
+            "usda": 144,
+            "dk": 144
+          },
+          "outliers": {},
+          "spread": 0.002
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 222,
+          "byOrigin": {
+            "usda": 230,
+            "dk": 213
+          },
+          "outliers": {},
+          "spread": 0.074
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 430,
+          "byOrigin": {
+            "usda": 419,
+            "dk": 440
+          },
+          "outliers": {},
+          "spread": 0.048
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 158,
+          "byOrigin": {
+            "usda": 171,
+            "dk": 146
+          },
+          "outliers": {},
+          "spread": 0.161
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 99,
+          "byOrigin": {
+            "usda": 96,
+            "dk": 102
+          },
+          "outliers": {},
+          "spread": 0.065
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 136,
+          "byOrigin": {
+            "usda": 144,
+            "dk": 128
+          },
+          "outliers": {},
+          "spread": 0.119
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 296,
+          "byOrigin": {
+            "usda": 293,
+            "dk": 298
+          },
+          "outliers": {},
+          "spread": 0.018
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 168,
+          "byOrigin": {
+            "usda": 181,
+            "dk": 156
+          },
+          "outliers": {},
+          "spread": 0.149
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 177,
+          "byOrigin": {
+            "usda": 179,
+            "dk": 176
+          },
+          "outliers": {},
+          "spread": 0.017
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 88,
+          "byOrigin": {
+            "usda": 96,
+            "dk": 80
+          },
+          "outliers": {},
+          "spread": 0.178
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 275,
+          "byOrigin": {
+            "usda": 280,
+            "dk": 270
+          },
+          "outliers": {},
+          "spread": 0.036
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "170688",
+          "name": "Bulgur, dry",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Bulgur, dry",
+          "water": 9,
+          "nitrogen": 2.108
+        },
+        {
+          "source": "bls",
+          "id": "C119100",
+          "name": "Bulgur (durum wheat) raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Bulgur (durum wheat), raw (amino acids from USDA)",
+          "water": 9.6,
+          "nitrogen": 1.98
+        },
+        {
+          "source": "frida",
+          "id": "283",
+          "name": "Bulgur, parboiled, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Bulgur, parboiled, raw",
+          "water": 10.82,
+          "nitrogen": 1.894
+        }
+      ]
+    },
+    {
+      "id": "pasta-cooked",
+      "name": "Pasta, cooked",
+      "category": "Grains",
+      "aliases": [
+        "cooked pasta",
+        "boiled spaghetti",
+        "pasta gekookt",
+        "makaroni"
+      ],
+      "values": {
+        "his": 0.1383,
+        "ile": 0.2245,
+        "leu": 0.4364,
+        "lys": 0.124,
+        "met": 0.081,
+        "cys": 0.1192,
+        "phe": 0.2976,
+        "tyr": 0.1415,
+        "thr": 0.1891,
+        "trp": 0.072,
+        "val": 0.2608,
+        "protein": 6.18
+      },
+      "water": 61.9,
+      "quality": {
+        "origins": [
+          "jp",
+          "usda"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.441,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for frida 1296 (water 67.4); nitrogen adjusted to 61.9 g water",
+          "met: sources differ by 44% (usda 64, jp 100 mg/g N)",
+          "tyr: sources differ by 52% (usda 106, jp 180 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 140,
+          "byOrigin": {
+            "usda": 130,
+            "jp": 150
+          },
+          "outliers": {},
+          "spread": 0.145
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 227,
+          "byOrigin": {
+            "usda": 224,
+            "jp": 230
+          },
+          "outliers": {},
+          "spread": 0.026
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 441,
+          "byOrigin": {
+            "usda": 432,
+            "jp": 450
+          },
+          "outliers": {},
+          "spread": 0.04
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 125,
+          "byOrigin": {
+            "usda": 131,
+            "jp": 120
+          },
+          "outliers": {},
+          "spread": 0.085
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 82,
+          "byOrigin": {
+            "usda": 64,
+            "jp": 100
+          },
+          "outliers": {},
+          "spread": 0.441
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 121,
+          "byOrigin": {
+            "usda": 111,
+            "jp": 130
+          },
+          "outliers": {},
+          "spread": 0.157
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 301,
+          "byOrigin": {
+            "usda": 292,
+            "jp": 310
+          },
+          "outliers": {},
+          "spread": 0.06
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 143,
+          "byOrigin": {
+            "usda": 106,
+            "jp": 180
+          },
+          "outliers": {},
+          "spread": 0.516
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 191,
+          "byOrigin": {
+            "usda": 202,
+            "jp": 180
+          },
+          "outliers": {},
+          "spread": 0.117
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 73,
+          "byOrigin": {
+            "usda": 82,
+            "jp": 64
+          },
+          "outliers": {},
+          "spread": 0.241
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 264,
+          "byOrigin": {
+            "usda": 257,
+            "jp": 270
+          },
+          "outliers": {},
+          "spread": 0.047
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "168928",
+          "name": "Pasta, cooked, unenriched, without added salt",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pasta, cooked, unenriched, without added salt",
+          "water": 62.13,
+          "nitrogen": 1.018
+        },
+        {
+          "source": "bls",
+          "id": "E401032",
+          "name": "Pasta egg-free, boiled",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pasta, egg-free, boiled",
+          "water": 61.6,
+          "nitrogen": 0.9
+        },
+        {
+          "source": "frida",
+          "id": "1296",
+          "name": "Pasta, boiled",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Pasta, boiled",
+          "water": 67.4,
+          "nitrogen": 0.877
+        },
+        {
+          "source": "mext",
+          "id": "01064",
+          "name": "こむぎ　［マカロニ・スパゲッティ類］　マカロニ・スパゲッティ　ゆで",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Macaroni and spaghetti, boiled",
+          "water": 60,
+          "nitrogen": 1
+        }
+      ]
+    },
+    {
+      "id": "seitan",
+      "name": "Seitan (wheat gluten)",
+      "category": "Grains",
+      "aliases": [
+        "seitan",
+        "wheat gluten",
+        "vital wheat gluten",
+        "tarwegluten",
+        "gluten"
+      ],
+      "values": {
+        "his": 0.6027,
+        "ile": 1.0307,
+        "leu": 1.9111,
+        "lys": 0.4895,
+        "met": 0.4069,
+        "cys": 0.5478,
+        "phe": 1.4533,
+        "tyr": 0.931,
+        "thr": 0.7535,
+        "trp": 0.2838,
+        "val": 1.1433,
+        "protein": 28.37
+      },
+      "water": 57.2,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.276,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for mext 01071 (water 6.5); nitrogen adjusted to 57.2 g water",
+          "met: sources differ by 28% (dk 77, jp 102 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 133,
+          "byOrigin": {
+            "dk": 124,
+            "jp": 141
+          },
+          "outliers": {},
+          "spread": 0.128
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 227,
+          "byOrigin": {
+            "dk": 211,
+            "jp": 243
+          },
+          "outliers": {},
+          "spread": 0.143
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 421,
+          "byOrigin": {
+            "dk": 418,
+            "jp": 424
+          },
+          "outliers": {},
+          "spread": 0.013
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 108,
+          "byOrigin": {
+            "dk": 106,
+            "jp": 110
+          },
+          "outliers": {},
+          "spread": 0.038
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 90,
+          "byOrigin": {
+            "dk": 77,
+            "jp": 102
+          },
+          "outliers": {},
+          "spread": 0.276
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 121,
+          "byOrigin": {
+            "dk": 116,
+            "jp": 126
+          },
+          "outliers": {},
+          "spread": 0.081
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 320,
+          "byOrigin": {
+            "dk": 319,
+            "jp": 322
+          },
+          "outliers": {},
+          "spread": 0.01
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 205,
+          "byOrigin": {
+            "dk": 206,
+            "jp": 204
+          },
+          "outliers": {},
+          "spread": 0.01
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 166,
+          "byOrigin": {
+            "dk": 159,
+            "jp": 173
+          },
+          "outliers": {},
+          "spread": 0.08
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 63,
+          "byOrigin": {
+            "dk": 63,
+            "jp": 62
+          },
+          "outliers": {},
+          "spread": 0.017
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp"
+          ],
+          "mgPerGramNitrogen": 252,
+          "byOrigin": {
+            "dk": 237,
+            "jp": 267
+          },
+          "outliers": {},
+          "spread": 0.119
+        }
+      },
+      "links": [
+        {
+          "source": "frida",
+          "id": "1784",
+          "name": "Seitan",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Seitan",
+          "water": 57.1975,
+          "nitrogen": 4.539
+        },
+        {
+          "source": "bls",
+          "id": "C558000",
+          "name": "Meat substitute containing gluten (seitan)",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Meat substitute containing gluten (seitan) (amino acids from Frida)",
+          "water": 57.2,
+          "nitrogen": 4.5
+        },
+        {
+          "source": "mext",
+          "id": "01071",
+          "name": "こむぎ　［その他］　小麦たんぱく　粉末状",
+          "relation": "close",
+          "status": "proposed",
+          "reason": "Wheat protein (vital wheat gluten), powder",
+          "water": 6.5,
+          "nitrogen": 12.742
+        }
+      ]
+    },
+    {
       "id": "peanuts",
       "name": "Peanuts, raw",
       "category": "Nuts and seeds",
       "aliases": [
         "peanuts",
-        "groundnuts"
+        "groundnuts",
+        "pinda",
+        "pinda's",
+        "apenootjes",
+        "kacang tanah",
+        "nuts",
+        "noten"
       ],
       "values": {
         "his": 0.7369,
@@ -12617,7 +18629,8 @@
       "name": "Peanut butter",
       "category": "Nuts and seeds",
       "aliases": [
-        "peanut butter"
+        "peanut butter",
+        "pindakaas"
       ],
       "values": {
         "his": 0.5881,
@@ -12902,7 +18915,11 @@
       "name": "Almonds",
       "category": "Nuts and seeds",
       "aliases": [
-        "almonds"
+        "almonds",
+        "amandelen",
+        "badem",
+        "nuts",
+        "noten"
       ],
       "values": {
         "his": 0.5593,
@@ -13187,7 +19204,11 @@
       "name": "Walnuts",
       "category": "Nuts and seeds",
       "aliases": [
-        "walnuts"
+        "walnuts",
+        "walnoten",
+        "ceviz",
+        "nuts",
+        "noten"
       ],
       "values": {
         "his": 0.3674,
@@ -13467,7 +19488,10 @@
       "name": "Cashew nuts",
       "category": "Nuts and seeds",
       "aliases": [
-        "cashews"
+        "cashews",
+        "cashewnoten",
+        "nuts",
+        "noten"
       ],
       "values": {
         "his": 0.4898,
@@ -13722,7 +19746,11 @@
       "category": "Nuts and seeds",
       "aliases": [
         "hazelnuts",
-        "filberts"
+        "filberts",
+        "hazelnoten",
+        "fındık",
+        "nuts",
+        "noten"
       ],
       "values": {
         "his": 0.3812,
@@ -14001,7 +20029,11 @@
       "name": "Sunflower seeds",
       "category": "Nuts and seeds",
       "aliases": [
-        "sunflower seeds"
+        "sunflower seeds",
+        "zonnebloempitten",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.6265,
@@ -14256,7 +20288,11 @@
       "category": "Nuts and seeds",
       "aliases": [
         "pumpkin seeds",
-        "pepitas"
+        "pepitas",
+        "pompoenpitten",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.7893,
@@ -14487,7 +20523,11 @@
       "name": "Chia seeds",
       "category": "Nuts and seeds",
       "aliases": [
-        "chia"
+        "chia",
+        "chiazaad",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.5995,
@@ -14768,7 +20808,11 @@
       "category": "Nuts and seeds",
       "aliases": [
         "hemp hearts",
-        "hemp seeds"
+        "hemp seeds",
+        "hennepzaad",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.9241,
@@ -14979,7 +21023,12 @@
       "name": "Sesame seeds",
       "category": "Nuts and seeds",
       "aliases": [
-        "sesame"
+        "sesame",
+        "sesamzaad",
+        "susam",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.5159,
@@ -15239,7 +21288,11 @@
       "category": "Nuts and seeds",
       "aliases": [
         "linseed",
-        "flax"
+        "flax",
+        "lijnzaad",
+        "seeds",
+        "zaden",
+        "pitten"
       ],
       "values": {
         "his": 0.5029,
@@ -15487,7 +21540,10 @@
       "category": "Vegetables",
       "aliases": [
         "potato",
-        "potatoes"
+        "potatoes",
+        "aardappel",
+        "aardappelen",
+        "patates"
       ],
       "values": {
         "his": 0.0341,
@@ -16021,7 +22077,9 @@
       "name": "Spinach, raw",
       "category": "Vegetables",
       "aliases": [
-        "spinach"
+        "spinach",
+        "spinazie",
+        "ıspanak"
       ],
       "values": {
         "his": 0.0585,
@@ -16286,7 +22344,8 @@
       "category": "Vegetables",
       "aliases": [
         "mushrooms",
-        "champignons"
+        "champignons",
+        "paddenstoelen"
       ],
       "values": {
         "his": 0.0487,
@@ -16543,6 +22602,1094 @@
           "reason": "White button mushrooms, raw",
           "water": 93.9,
           "nitrogen": 0.467
+        }
+      ]
+    },
+    {
+      "id": "green-beans-raw",
+      "name": "Green beans, raw",
+      "category": "Vegetables",
+      "aliases": [
+        "green beans",
+        "string beans",
+        "french beans",
+        "snap beans",
+        "sperziebonen",
+        "boontjes",
+        "buncis",
+        "taze fasulye"
+      ],
+      "values": {
+        "his": 0.0422,
+        "ile": 0.0765,
+        "leu": 0.1205,
+        "lys": 0.1119,
+        "met": 0.0281,
+        "cys": 0.0202,
+        "phe": 0.0707,
+        "tyr": 0.0466,
+        "thr": 0.0862,
+        "trp": 0.022,
+        "val": 0.1015,
+        "protein": 2.06
+      },
+      "water": 90.5,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 4,
+        "maxSpread": 0.498,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for mext 06010 (water 92.2); nitrogen adjusted to 90.5 g water",
+          "ile: sources differ by 50% (usda 225, souci 307, dk 240, jp 191 mg/g N)",
+          "lys: sources differ by 33% (usda 301, souci 391, dk 380, jp 278 mg/g N)",
+          "cys: dk (25 mg/g N) left out as an outlier against usda 61, souci 67, jp 52",
+          "phe: sources differ by 27% (usda 229, souci 204, dk 170, jp 226 mg/g N)",
+          "val: sources differ by 29% (usda 307, souci 363, dk 310, jp 275 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 128,
+          "byOrigin": {
+            "usda": 116,
+            "souci": 137,
+            "dk": 120,
+            "jp": 143
+          },
+          "outliers": {},
+          "spread": 0.206
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 233,
+          "byOrigin": {
+            "usda": 225,
+            "souci": 307,
+            "dk": 240,
+            "jp": 191
+          },
+          "outliers": {},
+          "spread": 0.498
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 366,
+          "byOrigin": {
+            "usda": 383,
+            "souci": 391,
+            "dk": 350,
+            "jp": 310
+          },
+          "outliers": {},
+          "spread": 0.223
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 340,
+          "byOrigin": {
+            "usda": 301,
+            "souci": 391,
+            "dk": 380,
+            "jp": 278
+          },
+          "outliers": {},
+          "spread": 0.332
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 86,
+          "byOrigin": {
+            "usda": 75,
+            "souci": 95,
+            "dk": 91,
+            "jp": 80
+          },
+          "outliers": {},
+          "spread": 0.232
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 61,
+          "byOrigin": {
+            "usda": 61,
+            "souci": 67,
+            "jp": 52
+          },
+          "outliers": {
+            "dk": 25
+          },
+          "spread": 0.242
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 215,
+          "byOrigin": {
+            "usda": 229,
+            "souci": 204,
+            "dk": 170,
+            "jp": 226
+          },
+          "outliers": {},
+          "spread": 0.274
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 142,
+          "byOrigin": {
+            "usda": 143,
+            "souci": 140,
+            "dk": 130,
+            "jp": 150
+          },
+          "outliers": {},
+          "spread": 0.138
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 262,
+          "byOrigin": {
+            "usda": 270,
+            "souci": 260,
+            "dk": 260,
+            "jp": 264
+          },
+          "outliers": {},
+          "spread": 0.038
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "usda": 65,
+            "souci": 75,
+            "dk": 69,
+            "jp": 63
+          },
+          "outliers": {},
+          "spread": 0.191
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 309,
+          "byOrigin": {
+            "usda": 307,
+            "souci": 363,
+            "dk": 310,
+            "jp": 275
+          },
+          "outliers": {},
+          "spread": 0.286
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "169961",
+          "name": "Beans, snap, green, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Beans, snap, green, raw",
+          "water": 90.32,
+          "nitrogen": 0.293
+        },
+        {
+          "source": "bls",
+          "id": "G710100",
+          "name": "Bean green, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Green beans, raw",
+          "water": 90.39,
+          "nitrogen": 0.358
+        },
+        {
+          "source": "frida",
+          "id": "764",
+          "name": "Beans, green, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Beans, green, raw",
+          "water": 90.5230769230769,
+          "nitrogen": 0.304
+        },
+        {
+          "source": "mext",
+          "id": "06010",
+          "name": "いんげんまめ　さやいんげん　若ざや　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Green beans, immature pods, raw",
+          "water": 92.2,
+          "nitrogen": 0.287
+        }
+      ]
+    },
+    {
+      "id": "cauliflower-raw",
+      "name": "Cauliflower, raw",
+      "category": "Vegetables",
+      "aliases": [
+        "cauliflower",
+        "bloemkool",
+        "karnabahar",
+        "phool gobhi",
+        "gobi"
+      ],
+      "values": {
+        "his": 0.0486,
+        "ile": 0.0894,
+        "leu": 0.1399,
+        "lys": 0.1402,
+        "met": 0.0299,
+        "cys": 0.0253,
+        "phe": 0.0819,
+        "tyr": 0.0645,
+        "thr": 0.1007,
+        "trp": 0.0284,
+        "val": 0.145,
+        "protein": 2.43
+      },
+      "water": 91.7,
+      "quality": {
+        "origins": [
+          "dk",
+          "jp",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.427,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for mext 06054 (water 90.8); nitrogen adjusted to 91.7 g water",
+          "his: usda (182 mg/g N) left out as an outlier against souci 126, dk 110, jp 125",
+          "ile: sources differ by 28% (usda 231, souci 284, dk 220, jp 229 mg/g N)",
+          "leu: sources differ by 30% (usda 345, souci 438, dk 330, jp 375 mg/g N)",
+          "lys: usda (706 mg/g N) left out as an outlier against souci 361, dk 300, jp 396",
+          "lys: sources differ by 27% (souci 361, dk 300, jp 396 mg/g N)",
+          "met: souci (124 mg/g N) left out as an outlier against usda 65, dk 77, jp 98",
+          "met: sources differ by 43% (usda 65, dk 77, jp 98 mg/g N)",
+          "cys: sources differ by 62% (usda 65, dk 37, jp 77 mg/g N)",
+          "tyr: souci (90 mg/g N) left out as an outlier against usda 166, dk 130, jp 177",
+          "tyr: sources differ by 28% (usda 166, dk 130, jp 177 mg/g N)",
+          "thr: sources differ by 28% (usda 247, souci 284, dk 210, jp 271 mg/g N)",
+          "trp: sources differ by 31% (usda 65, souci 88, dk 71, jp 75 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 125,
+          "byOrigin": {
+            "souci": 126,
+            "dk": 110,
+            "jp": 125
+          },
+          "outliers": {
+            "usda": 182
+          },
+          "spread": 0.13
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 230,
+          "byOrigin": {
+            "usda": 231,
+            "souci": 284,
+            "dk": 220,
+            "jp": 229
+          },
+          "outliers": {},
+          "spread": 0.276
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 360,
+          "byOrigin": {
+            "usda": 345,
+            "souci": 438,
+            "dk": 330,
+            "jp": 375
+          },
+          "outliers": {},
+          "spread": 0.3
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 361,
+          "byOrigin": {
+            "souci": 361,
+            "dk": 300,
+            "jp": 396
+          },
+          "outliers": {
+            "usda": 706
+          },
+          "spread": 0.267
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 77,
+          "byOrigin": {
+            "usda": 65,
+            "dk": 77,
+            "jp": 98
+          },
+          "outliers": {
+            "souci": 124
+          },
+          "spread": 0.427
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 65,
+          "byOrigin": {
+            "usda": 65,
+            "dk": 37,
+            "jp": 77
+          },
+          "outliers": {},
+          "spread": 0.617
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 211,
+          "byOrigin": {
+            "usda": 212,
+            "souci": 198,
+            "dk": 210,
+            "jp": 250
+          },
+          "outliers": {},
+          "spread": 0.246
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 166,
+          "byOrigin": {
+            "usda": 166,
+            "dk": 130,
+            "jp": 177
+          },
+          "outliers": {
+            "souci": 90
+          },
+          "spread": 0.285
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 259,
+          "byOrigin": {
+            "usda": 247,
+            "souci": 284,
+            "dk": 210,
+            "jp": 271
+          },
+          "outliers": {},
+          "spread": 0.284
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 73,
+          "byOrigin": {
+            "usda": 65,
+            "souci": 88,
+            "dk": 71,
+            "jp": 75
+          },
+          "outliers": {},
+          "spread": 0.308
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 373,
+          "byOrigin": {
+            "usda": 407,
+            "souci": 387,
+            "dk": 360,
+            "jp": 334
+          },
+          "outliers": {},
+          "spread": 0.196
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "169986",
+          "name": "Cauliflower, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cauliflower, raw",
+          "water": 92.07,
+          "nitrogen": 0.307
+        },
+        {
+          "source": "bls",
+          "id": "G311100",
+          "name": "Cauliflower raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cauliflower, raw",
+          "water": 91.7,
+          "nitrogen": 0.388
+        },
+        {
+          "source": "frida",
+          "id": "14",
+          "name": "Cauliflower, all varieties, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cauliflower, all varieties, raw",
+          "water": 91.742987012987,
+          "nitrogen": 0.389
+        },
+        {
+          "source": "mext",
+          "id": "06054",
+          "name": "カリフラワー　花序　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Cauliflower florets, raw",
+          "water": 90.8,
+          "nitrogen": 0.48
+        }
+      ]
+    },
+    {
+      "id": "kale-raw",
+      "name": "Kale, raw",
+      "category": "Vegetables",
+      "aliases": [
+        "kale",
+        "curly kale",
+        "boerenkool",
+        "karalahana"
+      ],
+      "values": {
+        "his": 0.0886,
+        "ile": 0.1477,
+        "leu": 0.2544,
+        "lys": 0.2298,
+        "met": 0.0496,
+        "cys": 0.0438,
+        "phe": 0.1575,
+        "tyr": 0.1379,
+        "thr": 0.1428,
+        "trp": 0.0627,
+        "val": 0.2248,
+        "protein": 4.1
+      },
+      "water": 83.9,
+      "quality": {
+        "origins": [
+          "dk",
+          "souci"
+        ],
+        "independentSources": 2,
+        "maxSpread": 0.249,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for frida 23 (water 81.48), mext 06080 (water 90.2); nitrogen adjusted to 83.9 g water",
+          "cys: sources differ by 110% (souci 104, dk 30 mg/g N)",
+          "tyr: sources differ by 57% (souci 270, dk 150 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 135,
+          "byOrigin": {
+            "souci": 150,
+            "dk": 120
+          },
+          "outliers": {},
+          "spread": 0.223
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 225,
+          "byOrigin": {
+            "souci": 210,
+            "dk": 240
+          },
+          "outliers": {},
+          "spread": 0.132
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 388,
+          "byOrigin": {
+            "souci": 375,
+            "dk": 400
+          },
+          "outliers": {},
+          "spread": 0.064
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 350,
+          "byOrigin": {
+            "souci": 360,
+            "dk": 340
+          },
+          "outliers": {},
+          "spread": 0.058
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 76,
+          "byOrigin": {
+            "souci": 78,
+            "dk": 73
+          },
+          "outliers": {},
+          "spread": 0.067
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 67,
+          "byOrigin": {
+            "souci": 104,
+            "dk": 30
+          },
+          "outliers": {},
+          "spread": 1.102
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 240,
+          "byOrigin": {
+            "souci": 210,
+            "dk": 270
+          },
+          "outliers": {},
+          "spread": 0.249
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 210,
+          "byOrigin": {
+            "souci": 270,
+            "dk": 150
+          },
+          "outliers": {},
+          "spread": 0.572
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 218,
+          "byOrigin": {
+            "souci": 195,
+            "dk": 240
+          },
+          "outliers": {},
+          "spread": 0.206
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 96,
+          "byOrigin": {
+            "souci": 96,
+            "dk": 95
+          },
+          "outliers": {},
+          "spread": 0.011
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "dk",
+            "souci"
+          ],
+          "mgPerGramNitrogen": 343,
+          "byOrigin": {
+            "souci": 345,
+            "dk": 340
+          },
+          "outliers": {},
+          "spread": 0.016
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "168421",
+          "name": "Kale, raw",
+          "relation": "exact",
+          "status": "rejected",
+          "reason": "Kale, raw: histidine 368 and isoleucine 375 mg per g nitrogen, two to three times the other sources, a likely data error",
+          "water": 89.63,
+          "nitrogen": 0.467
+        },
+        {
+          "source": "bls",
+          "id": "G322100",
+          "name": "Curly kale raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Curly kale, raw",
+          "water": 83.932,
+          "nitrogen": 0.666
+        },
+        {
+          "source": "frida",
+          "id": "23",
+          "name": "Kale, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Kale, raw",
+          "water": 81.48,
+          "nitrogen": 0.745
+        },
+        {
+          "source": "mext",
+          "id": "06080",
+          "name": "ケール　葉　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Kale leaves, raw",
+          "water": 90.2,
+          "nitrogen": null
+        }
+      ]
+    },
+    {
+      "id": "sweet-potato-raw",
+      "name": "Sweet potato, raw",
+      "category": "Vegetables",
+      "aliases": [
+        "sweet potato",
+        "zoete aardappel",
+        "bataat",
+        "ubi jalar",
+        "tatlı patates",
+        "shakarkand",
+        "batata doce"
+      ],
+      "values": {
+        "his": 0.0308,
+        "ile": 0.0668,
+        "leu": 0.0989,
+        "lys": 0.0738,
+        "met": 0.0272,
+        "cys": 0.0243,
+        "phe": 0.0943,
+        "tyr": 0.0526,
+        "thr": 0.0824,
+        "trp": 0.0255,
+        "val": 0.0966,
+        "protein": 1.58
+      },
+      "water": 73.2,
+      "quality": {
+        "origins": [
+          "jp",
+          "souci",
+          "usda"
+        ],
+        "independentSources": 3,
+        "maxSpread": 0.43,
+        "estimated": [],
+        "flags": [
+          "dry matter differs more than 10% from the median for usda 168482 (water 77.28), bls K420100 (water 69.2), frida 714 (water 80.075), mext 02006 (water 65.6); nitrogen adjusted to 73.2 g water",
+          "met: sources differ by 34% (usda 138, souci 107, jp 101 mg/g N)",
+          "cys: sources differ by 28% (usda 69, souci 96, jp 96 mg/g N)",
+          "tyr: sources differ by 33% (usda 203, souci 272, jp 208 mg/g N)",
+          "thr: sources differ by 43% (usda 325, souci 261, jp 400 mg/g N)"
+        ]
+      },
+      "perAminoAcid": {
+        "his": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 122,
+          "byOrigin": {
+            "usda": 122,
+            "souci": 111,
+            "jp": 127
+          },
+          "outliers": {},
+          "spread": 0.128
+        },
+        "ile": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 263,
+          "byOrigin": {
+            "usda": 269,
+            "souci": 261,
+            "jp": 263
+          },
+          "outliers": {},
+          "spread": 0.034
+        },
+        "leu": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 390,
+          "byOrigin": {
+            "usda": 418,
+            "souci": 322,
+            "jp": 390
+          },
+          "outliers": {},
+          "spread": 0.247
+        },
+        "lys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 291,
+          "byOrigin": {
+            "usda": 291,
+            "souci": 253,
+            "jp": 309
+          },
+          "outliers": {},
+          "spread": 0.193
+        },
+        "met": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 107,
+          "byOrigin": {
+            "usda": 138,
+            "souci": 107,
+            "jp": 101
+          },
+          "outliers": {},
+          "spread": 0.339
+        },
+        "cys": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 96,
+          "byOrigin": {
+            "usda": 69,
+            "souci": 96,
+            "jp": 96
+          },
+          "outliers": {},
+          "spread": 0.282
+        },
+        "phe": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 372,
+          "byOrigin": {
+            "usda": 372,
+            "souci": 303,
+            "jp": 380
+          },
+          "outliers": {},
+          "spread": 0.208
+        },
+        "tyr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 208,
+          "byOrigin": {
+            "usda": 203,
+            "souci": 272,
+            "jp": 208
+          },
+          "outliers": {},
+          "spread": 0.334
+        },
+        "thr": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 325,
+          "byOrigin": {
+            "usda": 325,
+            "souci": 261,
+            "jp": 400
+          },
+          "outliers": {},
+          "spread": 0.43
+        },
+        "trp": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 101,
+          "byOrigin": {
+            "usda": 101,
+            "souci": 107,
+            "jp": 86
+          },
+          "outliers": {},
+          "spread": 0.21
+        },
+        "val": {
+          "basis": "measured",
+          "origins": [
+            "jp",
+            "souci",
+            "usda"
+          ],
+          "mgPerGramNitrogen": 381,
+          "byOrigin": {
+            "usda": 381,
+            "souci": 421,
+            "jp": 375
+          },
+          "outliers": {},
+          "spread": 0.122
+        }
+      },
+      "links": [
+        {
+          "source": "usda",
+          "id": "168482",
+          "name": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweet potato, raw",
+          "water": 77.28,
+          "nitrogen": 0.251
+        },
+        {
+          "source": "bls",
+          "id": "K420100",
+          "name": "Batata/sweet potato, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweet potato, raw",
+          "water": 69.2,
+          "nitrogen": 0.261
+        },
+        {
+          "source": "frida",
+          "id": "714",
+          "name": "Sweet potato, raw",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweet potato, raw (amino acids from USDA)",
+          "water": 80.075,
+          "nitrogen": 0.208
+        },
+        {
+          "source": "mext",
+          "id": "02006",
+          "name": "＜いも類＞　（さつまいも類）　さつまいも　塊根　皮なし　生",
+          "relation": "exact",
+          "status": "proposed",
+          "reason": "Sweet potato, peeled, raw",
+          "water": 65.6,
+          "nitrogen": 0.197
         }
       ]
     }

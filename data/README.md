@@ -4,9 +4,18 @@ The essential amino acids, cystine, tyrosine and protein of everyday foods, comb
 national food composition databases. For every value the dataset records which laboratories or
 databases measured it and how far they agree, so a reader can judge it.
 
-Version 0.1.0 (November 2026): 64 foods, 259 links to source entries. **A draft**: every link is
-proposed by the maintainer and still has to be confirmed by a second person
+Version 0.2.0 (11 November 2026): 91 foods, 370 links to source entries. **A draft**: every link
+is proposed by the maintainer and still has to be confirmed by a second person
 (`status` in `links.csv`).
+
+Since 0.2.0 the dataset is also what the site's search runs over, so `aliases` in `foods.csv`
+carry the names people type: English, Dutch, and names common in Turkish, Moroccan, Surinamese,
+Indonesian and Indian kitchens, plus plain group words ("fish", "vis", "nuts", "kaas").
+
+| Version | Change |
+|---|---|
+| 0.2.0 | 27 foods added (dairy, meat, fish, legumes, grains, seitan, vegetables). 11 candidates were left out because fewer than two independent origins measured them: skyr, ricotta, fried egg, strained yogurt, paneer, goat, cooked salmon, dried salted cod, brown beans, grey peas, couscous. USDA's kale entry is rejected as a likely data error. Dutch and other aliases wherever a food's name differs. |
+| 0.1.0 | 64 foods. |
 
 ## Files
 
