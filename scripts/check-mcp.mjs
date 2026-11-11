@@ -7,9 +7,11 @@
 // for an `initialize` on each older revision the server should still accept, and reads the
 // server card. Prints one line per check and exits 1 when any fails.
 
+import { readFileSync } from 'node:fs'
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client'
 
 const url = new URL(process.argv[2] ?? 'http://127.0.0.1:3000/mcp')
+const FOOD_COUNT = JSON.parse(readFileSync(new URL('../shared/foods.json', import.meta.url), 'utf8')).foods.length
 const results = []
 
 function check(name, ok, detail = '') {
@@ -39,8 +41,13 @@ async function checkTools(label, client) {
   check(`${label} search_foods "cheese"`, !search.isError && found.total >= 5 && ['cheese-gouda', 'cheese-cheddar', 'cottage-cheese'].every(id => cheeseIds.includes(id)),
     `${found?.total} matches: ${found?.foods.map(f => f.id).join(', ')}`)
 
-  const all = await client.callTool({ name: 'search_foods', arguments: { limit: 64 } })
-  check(`${label} search_foods empty query lists all`, all.structuredContent?.total === 64, `${all.structuredContent?.total} foods`)
+  const all = await client.callTool({ name: 'search_foods', arguments: { limit: FOOD_COUNT } })
+  check(`${label} search_foods empty query lists all`, all.structuredContent?.total === FOOD_COUNT && all.structuredContent?.foods.length === FOOD_COUNT,
+    `${all.structuredContent?.total} foods, ${all.structuredContent?.foods.length} listed, ${FOOD_COUNT} in the dataset`)
+
+  // A Dutch name finds the food through its alias.
+  const dutch = await client.callTool({ name: 'search_foods', arguments: { query: 'karnemelk' } })
+  check(`${label} search_foods Dutch alias "karnemelk"`, dutch.structuredContent?.foods[0]?.id === 'buttermilk', dutch.structuredContent?.foods.map(f => f.id).join(', '))
 
   const egg = await client.callTool({ name: 'get_food', arguments: { id: 'egg-whole-raw' } })
   const e = egg.structuredContent

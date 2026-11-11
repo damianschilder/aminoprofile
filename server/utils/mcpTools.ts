@@ -9,6 +9,7 @@
 
 import * as z from 'zod'
 import foodsData from '#shared/foods.json'
+import { matchFoods as matchFoodsIn, searchWords } from '#shared/foodSearch'
 import type { NutrientKey } from '#shared/nutrients'
 import { aminoAcidScores, SCORING_PATTERN } from '#shared/scoring'
 
@@ -83,38 +84,14 @@ function describePercent(percent: number | null, atLeast: boolean): string {
 
 // --- Searching -------------------------------------------------------------------------------
 
-// The same word rules as rankFoods in server/utils/foodData.ts: accents removed, lower case,
-// a trailing "s" dropped from words longer than three letters ("eggs" finds "egg"), and a
-// searched word matches the start of a word of the food.
-function searchWords(value: string): string[] {
-  return value
-    .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter(Boolean)
-    .map(w => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w))
-}
-
+// The word rules and the ranking are the home page's (shared/foodSearch.ts), so an agent finds
+// what a person would.
 const SEARCH_INDEX = FOODS.map(food => ({
   food,
-  nameWords: searchWords(food.name),
   allWords: searchWords([food.name, ...food.aliases, food.id].join(' ')),
 }))
 
-const hasAll = (have: string[], wanted: string[]) => wanted.every(w => have.some(h => h.startsWith(w)))
-
-/** Foods that have every word of the query, those matched on their name alone first. */
-function matchFoods(query: string, category?: string): Food[] {
-  const wanted = searchWords(query)
-  const wantedCategory = category?.trim().toLowerCase()
-  return SEARCH_INDEX
-    .filter(entry => !wantedCategory || entry.food.category.toLowerCase() === wantedCategory)
-    .filter(entry => hasAll(entry.allWords, wanted))
-    .map((entry, index) => ({ entry, index, onName: hasAll(entry.nameWords, wanted) ? 0 : 1 }))
-    .sort((a, b) => a.onName - b.onName || a.index - b.index)
-    .map(r => r.entry.food)
-}
+const matchFoods = (query: string, category?: string): Food[] => matchFoodsIn(FOODS, query, category)
 
 function editDistance(a: string, b: string): number {
   let previous = Array.from({ length: b.length + 1 }, (_, j) => j)
@@ -186,7 +163,7 @@ const overallScoreSchema = {
 export const searchFoodsInput = {
   query: z.string().max(100).optional().describe('Words to look for in the name, aliases and id, e.g. "cheese" or "red lentils". Empty lists all foods.'),
   category: z.string().max(100).optional().describe(`One of: ${CATEGORIES.join(', ')}`),
-  limit: z.number().int().min(1).max(64).optional().describe('Most foods to return, 1 to 64 (default 10)'),
+  limit: z.number().int().min(1).max(500).optional().describe('Most foods to return, 1 to 500 (default 10)'),
 }
 
 export const searchFoodsOutput = {

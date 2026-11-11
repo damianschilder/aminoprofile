@@ -23,16 +23,6 @@ export interface Reference {
 
 export const REFERENCES: readonly Reference[] = [
   {
-    id: 'usda-fdc',
-    short: 'USDA (2019)',
-    full: 'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. The search on the home page queries its Foundation Foods and SR Legacy data sets as you type.',
-    url: 'https://fdc.nal.usda.gov/',
-    urlLabel: 'fdc.nal.usda.gov',
-    kind: 'data',
-    licence: 'CC0 1.0',
-    read: '2026-11 (the citation the footer has carried since the site began; fdc.nal.usda.gov did not resolve from this machine on 2026-11-11)',
-  },
-  {
     id: 'usda-sr-legacy',
     short: 'USDA (2018)',
     full: 'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central: SR Legacy, 2018.',

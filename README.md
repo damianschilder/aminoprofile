@@ -3,9 +3,9 @@
 **[aminoprofile.com](https://aminoprofile.com)**: search for foods and compare their essential
 amino acids.
 
-Aminoprofile looks foods up in [USDA FoodData Central](https://fdc.nal.usda.gov/), shows which
-results have amino acid data, and adds up the nine essential amino acids and protein of the foods
-you pick.
+Aminoprofile searches its own dataset of everyday foods, each combined from four national food
+composition databases, and adds up the nine essential amino acids and protein of the foods you
+pick.
 
 Aminoprofile is a non-commercial, open-source project by Damian Schilder: no ads, no accounts, no
 paid features. Every source it rests on is listed at
@@ -28,15 +28,17 @@ profile of each food and adds them up across the foods you combine.
 
 ## What it does
 
-- **Search.** Type a food and press Enter. Results come from the *Foundation Foods* and
-  *SR Legacy* data sets of FoodData Central, the two that have amino acid data. Foods with amino
-  acid data are listed first and marked with a green sprout; the number next to it is how many
-  nutrients USDA has for that food.
+- **Search.** Type a food and the results follow as you type, from Aminoprofile's own dataset
+  (see [Data](#data)). English and Dutch names work, and so do names common in Turkish,
+  Moroccan, Surinamese, Indonesian and Indian kitchens ("kip", "linzen", "karnemelk", "kıyma").
+  Each result shows its food group, protein and amino acid score, with a link to its food page.
+  The search runs in the browser, so nothing typed is sent anywhere. A search that finds nothing
+  offers an email link to ask for the food.
 - **Compare.** Click a food (or press Enter on it) to add it to the *Essential amino acids*
   table. A message at the bottom confirms it, with a button that takes you to the table. The
   columns are histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine,
-  tryptophan, valine and protein, in grams; hover an abbreviation for its full name. A value
-  USDA does not have shows as a dash (—), which is not the same as 0.
+  tryptophan, valine and protein, in grams; hover an abbreviation for its full name. A value no
+  source has shows as a dash (—), which is not the same as 0.
 - **Combine.** Change the amount per food (100 g by default) and tick the foods to include. The
   *Total* row adds up the ticked rows, so you can see what a combination of foods gives you.
 - **Protein quality.** Under the total, *Per g protein* shows how many milligrams of each
@@ -77,13 +79,16 @@ fonts are faster, and Google Analytics and its cookies are gone. Four small addi
 Material 3 style: a favicon, full names on hover, a dash for missing values, and a message when a
 food is added. The details are under [Technical notes](#technical-notes).
 
+Since 11 November 2026 the search runs over Aminoprofile's own dataset instead of FoodData
+Central's API, in the browser. The USDA route, its API key and its caches are gone.
+
 ## Stack
 
 - [Nuxt 4](https://nuxt.com/) (Vue 3, Nitro), keeping the original root folder layout
 - [Pinia](https://pinia.vuejs.org/) for the search results and the selected foods
 - Pug templates and SCSS
 - [nuxt-icons](https://github.com/gitFoxCode/nuxt-icons) for the SVG icons
-- [USDA FoodData Central API](https://fdc.nal.usda.gov/api-guide) for the food data
+- Aminoprofile's own food dataset (`data/`), built from four national food composition databases
 - Hosted on [Cloudflare Workers](https://developers.cloudflare.com/workers/) (Nitro preset
   `cloudflare-module`)
 
@@ -101,9 +106,7 @@ npm run dev            # http://127.0.0.1:3000
 
 | Variable | Required | What it does |
 | --- | --- | --- |
-| `NUXT_FOODCENTRAL_API_KEY` | No | Your FoodData Central API key ([free sign-up](https://fdc.nal.usda.gov/api-key-signup)). Only the server uses it; it never reaches the browser. **When it is not set, the server falls back to USDA's shared `DEMO_KEY`**, which is heavily rate limited and only meant for trying things out. Set a real key for anything public. |
 | `NUXT_PUBLIC_CF_BEACON_TOKEN` | No | Cloudflare Web Analytics token. When it is not set, no analytics script is loaded at all. |
-| `NUXT_FOODCENTRAL_API_URL` | No | Only for testing against a local stand-in of the API. Default `https://api.nal.usda.gov/fdc/v1`. |
 
 To run a production build as a plain Node server instead of a Worker:
 
@@ -122,38 +125,27 @@ The default build targets Cloudflare Workers:
 2. `npx wrangler deploy` deploys the build (it finds the generated config through
    `.wrangler/deploy/config.json`). With Cloudflare's Git integration (Workers Builds), use
    `npm run build` as the build command and `npx wrangler deploy` as the deploy command.
-3. Set the variables as Worker secrets, so later deploys keep them:
-   `npx wrangler secret put NUXT_FOODCENTRAL_API_KEY --name aminoprofile` and, if you use
-   analytics, `npx wrangler secret put NUXT_PUBLIC_CF_BEACON_TOKEN --name aminoprofile`.
-   The server reads them on every request, so no rebuild is needed.
+3. If you use analytics, set the token as a Worker secret, so later deploys keep it:
+   `npx wrangler secret put NUXT_PUBLIC_CF_BEACON_TOKEN --name aminoprofile`. The server reads
+   it on every request, so no rebuild is needed.
 4. Attach the domain under the Worker's *Settings → Domains & Routes*. The domain has to use
    Cloudflare DNS.
-5. Add a WAF rate limiting rule for `/api/foods/search`, for example 10 requests per 10 seconds
-   per IP address. Every search that is not cached uses the FoodData Central quota of the API
-   key (1,000 requests per hour by default), so this keeps one visitor from using it all up.
-   Add a second one for `/mcp` (see [For AI agents (MCP)](#for-ai-agents-mcp)).
+5. Add a WAF rate limiting rule for `/mcp` (see [For AI agents (MCP)](#for-ai-agents-mcp)).
 
 ## Technical notes
 
 What the November 2026 work changed, in more detail.
 
-- **Search route.** `server/api/foods/search.get.ts` holds the API key, accepts only a search term
-  of 2 to 100 characters, has a 15 second timeout and passes on no upstream error details. Every
-  word typed must be in the food's name (if that finds nothing, any word will do), and the 25
-  best matches are shown. The server picks the twelve values the page uses out of USDA's answer:
-  the ten columns, plus cystine and tyrosine for the score.
-- **Nutrients.** One shared list in `shared/nutrients.ts` maps each column to USDA's nutrient id.
-  The score is worked out in `shared/scoring.ts`, with the FAO pattern written out there.
-  Foundation Foods has amino acids for 118 of its 424 foods, SR Legacy for about 5,100 of 7,793.
-  Removing a food no longer unticks another one, and a food cannot be added twice.
-- **Searching.** A newer search cancels an older one, and pressing Enter twice asks only once.
-  "Too many searches" shows the wait the server gives in `Retry-After`; "no internet connection"
-  and "database unavailable" come with a *Try again* button. What is on screen stays until the
-  next answer arrives, and the spinner only appears when an answer takes longer than 150 ms, so
-  cached answers do not flicker.
-- **Caching.** Answers are kept in the server's memory (an hour, at most 200 searches), in
-  Cloudflare's cache (`caches.default`, a day) and in the browser (`Cache-Control`, an hour).
-  Identical searches that arrive at the same time ask USDA once (`server/utils/searchCache.ts`).
+- **Search.** `npm run data:build` also writes `shared/food-index.json` (about 30 kB: names,
+  aliases, groups and values), which ships with the home page, so `stores/foods.ts` searches in
+  the browser. The word rules are in `shared/foodSearch.ts`, shared with the MCP tool
+  `search_foods`: accents and case don't matter, Turkish ı counts as i, every typed word must
+  start a word of the name or an alias, and whole words rank above word starts and names above
+  aliases. The food group itself is not searched ("Meat and fish" would make "fish" find the
+  chicken), so plain group words such as "fish", "vis", "nuts" and "kaas" are aliases.
+- **Nutrients.** One shared list in `shared/nutrients.ts` names the columns. The score is worked
+  out in `shared/scoring.ts`, with the FAO pattern written out there. Removing a food does not
+  untick another one, and a food cannot be added twice.
 - **Fonts.** Mulish and Young Serif are served as WOFF2 files with only the Latin characters, are
   preloaded, and use `font-display: swap`. Until they arrive, text shows in Arial and the name in
   Times New Roman, resized to take the same room (`size-adjust` and the metric overrides in
@@ -179,7 +171,7 @@ What the November 2026 work changed, in more detail.
   whom to contact. Each page has its own title, description and canonical link
   (`shared/site.ts`), Open Graph and Twitter card tags with a 1200x630 picture in the site's style
   (`public/og-image.png`, made from `docs/og-image.html`). In JSON-LD the home page describes
-  itself as a `WebApplication` based on FoodData Central and the Aminoprofile dataset, and `/data`
+  itself as a `WebApplication` based on the Aminoprofile dataset, and `/data`
   describes the dataset as a `Dataset` (with its downloads, sources, licence and measured
   values), for Google's dataset search. There is a `theme-color` and a web manifest with the app
   icons.
@@ -187,9 +179,8 @@ What the November 2026 work changed, in more detail.
   ring; the page has `lang="en"`, landmarks and a correct heading order. The few grey texts that
   measured below WCAG AA contrast were darkened by an invisible amount. Greyed-out results and
   unticked rows stay pale on purpose: they are inactive.
-- **Layout.** In the search results the nutrient count sits on the first line of a two-line
-  name, like the category; in the table a two-line name gets the same room above and below as
-  the amounts, so it no longer touches the next row.
+- **Layout.** In the table a two-line name gets the same room above and below as the amounts, so
+  it no longer touches the next row.
 - **Security headers.** `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
   `Permissions-Policy`, `Strict-Transport-Security` and a light `Content-Security-Policy`, set in
   `routeRules` in `nuxt.config.ts`. The two dataset files also get
@@ -231,18 +222,13 @@ To connect:
   with the URL `https://aminoprofile.com/mcp`.
 - **Other clients** that support remote MCP servers over Streamable HTTP: the same URL.
 
-Rate limiting: add a Cloudflare WAF rate limiting rule for `/mcp`, like the one for
-`/api/foods/search` (for example 10 requests per 10 seconds per IP address). The server does not
-call USDA, so there is no quota to protect, but the rule keeps one client from using up the
-Worker's requests.
+Rate limiting: add a Cloudflare WAF rate limiting rule for `/mcp` (for example 10 requests per
+10 seconds per IP address). The server calls no outside service, so there is no quota to
+protect, but the rule keeps one client from using up the Worker's requests.
 
 ## Data
 
-The site searches U.S. Department of Agriculture, Agricultural Research Service. FoodData
-Central, 2019. [fdc.nal.usda.gov](https://fdc.nal.usda.gov/). FoodData Central data is in the
-public domain.
-
-**Aminoprofile's own food dataset** (version 0.1.0, a draft). 64 everyday foods with plain
+**Aminoprofile's own food dataset** (version 0.2.0, a draft). 91 everyday foods with plain
 names, each combined from USDA FoodData Central, the German Bundeslebensmittelschlüssel 4.0, the
 Danish Frida 5.5 and the Japanese MEXT amino acid tables, with for every value which
 laboratories measured it and how far they agree. It is published at
@@ -251,8 +237,7 @@ laboratories measured it and how far they agree. It is published at
 [CSV](https://aminoprofile.com/data/aminoprofile-foods.csv) (the files are in `public/data/`),
 under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The curated lists are in
 `data/`, and the method, the checks, the known limits and the credits in
-[data/README.md](data/README.md). The MCP server answers from it. The search on the page still
-uses FoodData Central.
+[data/README.md](data/README.md). The search on the page and the MCP server both answer from it.
 
 Every food in it has its own page at `/foods/<id>`, with a list at
 [aminoprofile.com/foods](https://aminoprofile.com/foods): the amino acids, the score, what to
@@ -263,6 +248,6 @@ from the same list (`server/routes/sitemap.xml.ts`), so a new food needs no hand
 ## License
 
 The code is available under the [MIT License](LICENSE). The food data is not covered by this
-license: FoodData Central is in the public domain, and the Aminoprofile dataset (`data/` and
-`public/data/`) is under CC BY 4.0 with the credits in [data/README.md](data/README.md). The typefaces in `assets/fonts`, Mulish
+license: the Aminoprofile dataset (`data/` and `public/data/`) is under CC BY 4.0, with the
+credits of its four sources in [data/README.md](data/README.md). The typefaces in `assets/fonts`, Mulish
 and Young Serif, are under the SIL Open Font License 1.1; each folder holds its `OFL.txt`.

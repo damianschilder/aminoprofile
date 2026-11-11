@@ -1,33 +1,29 @@
-import {
-  ALL_NUTRIENTS,
-  hasAminoAcids,
-  normaliseQuery,
-  type FoodResult,
-  type NutrientKey,
-  type NutrientValues,
-  type SearchResponse,
-} from '#shared/nutrients'
+import foodIndex from '#shared/food-index.json'
+import { matchFoods } from '#shared/foodSearch'
+import { ALL_NUTRIENTS, QUERY_MIN_LENGTH, type IndexFood, type NutrientKey, type NutrientValues } from '#shared/nutrients'
 import { aminoAcidScores } from '#shared/scoring'
 
 /** A food in the "Essential amino acids" table. */
 export interface TableFood {
-  fdcId: number
-  description: string
-  /** Grams per 100 g, as USDA gives them. */
+  id: string
+  name: string
+  /** Grams per 100 g, as the dataset has them. */
   values: NutrientValues
   /** What is typed in the amount field; empty means the placeholder, 100 g. */
   amount: string
 }
-
-/** What the search area shows. A search on its way is `loading`, next to the previous status. */
-export type SearchStatus = 'idle' | 'done' | 'error'
-export type SearchError = 'too-short' | 'busy' | 'unavailable' | 'offline'
 
 export interface Total {
   /** Sum in grams over the ticked foods that have a value; null when none of them has one. */
   value: number | null
   /** False when at least one ticked food has no value, so the sum is a lower bound. */
   complete: boolean
+}
+
+/** A search result: a food of the dataset with its amino acid score on its own. */
+export interface FoodResult extends IndexFood {
+  /** Whole percent; null when an amino acid has no value. */
+  score: number | null
 }
 
 const DEFAULT_GRAMS = 100
@@ -38,156 +34,72 @@ export function parseGrams(amount: string): number {
   return Number.isFinite(grams) && grams >= 0 ? grams : DEFAULT_GRAMS
 }
 
-/** A nutrient value for the amount of a food in the table, or null when USDA has none. */
+/** A nutrient value for the amount of a food in the table, or null when the dataset has none. */
 export function valueFor(food: TableFood, key: NutrientKey): number | null {
   const per100 = food.values[key]
   return per100 === null ? null : (per100 * parseGrams(food.amount)) / 100
 }
 
-/** Seconds to wait after a 503 without a readable Retry-After (the server's own default). */
-const DEFAULT_RETRY_AFTER = 600
-
-/** The Retry-After of a 503 in seconds, from 1 second up to an hour. */
-function retryAfterSeconds(e: any): number {
-  const raw = Number(e?.response?.headers?.get?.('retry-after'))
-  return Number.isFinite(raw) && raw > 0 ? Math.min(Math.ceil(raw), 3600) : DEFAULT_RETRY_AFTER
+/** The score of 100 g of one food, as the food pages and /foods show it. */
+function scoreOf(values: NutrientValues): number | null {
+  const totals = Object.fromEntries(ALL_NUTRIENTS.map(({ key }) => [key, { value: values[key], complete: values[key] !== null }])) as Record<NutrientKey, Total>
+  const { percent } = aminoAcidScores(totals).overall
+  return percent === null ? null : Math.round(percent)
 }
 
+// The whole dataset ships with the page (shared/food-index.json, about 20 kB), so a search runs
+// in the browser: nothing typed leaves it, and there is nothing to wait for.
+const FOODS: FoodResult[] = (foodIndex.foods as IndexFood[]).map(food => ({ ...food, score: scoreOf(food.values) }))
+const FOODS_BY_ID = new Map(FOODS.map(food => [food.id, food]))
+
+export const FOOD_COUNT = FOODS.length
+
 export const useFoodsStore = defineStore('foods', () => {
-  const status = ref<SearchStatus>('idle')
-  /** A search is on its way; what is shown stays until its answer arrives. */
-  const loading = ref(false)
-  const errorReason = ref<SearchError | null>(null)
-  /** The normalised query of the results or message shown. */
+  /** What was searched for, as typed; results follow it as you type. */
   const searchQuery = ref('')
-  /** The normalised query of the search on its way. */
-  const pendingQuery = ref('')
-  const results = ref<FoodResult[]>([])
-  const responseHits = ref<number | null>(null)
-  /** After a 503: how long the server asked to wait, and whether that time has passed. */
-  const retryAfter = ref<number | null>(null)
-  const canRetry = ref(false)
+  const results = computed<FoodResult[]>(() => {
+    const query = searchQuery.value.trim()
+    return query.length < QUERY_MIN_LENGTH ? [] : matchFoods(FOODS, query)
+  })
+  /** A search long enough to run, whether or not it found anything. */
+  const searched = computed(() => searchQuery.value.trim().length >= QUERY_MIN_LENGTH)
+
   const shownFoods = ref<TableFood[]>([])
-  const selectedFoods = ref<Array<TableFood['fdcId']>>([])
+  const selectedFoods = ref<Array<TableFood['id']>>([])
 
-  const error = computed(() => status.value === 'error')
-
-  // Only the latest search may change the results: starting a new one aborts the previous one,
-  // and an answer that arrives for an older search is ignored.
-  let controller: AbortController | null = null
-  let retryTimer: ReturnType<typeof setTimeout> | undefined
-
-  function showError(reason: SearchError, query: string) {
-    clearTimeout(retryTimer)
-    status.value = 'error'
-    errorReason.value = reason
+  function search(query: string) {
     searchQuery.value = query
-    results.value = []
-    responseHits.value = null
-    retryAfter.value = null
-    // Trying again makes sense straight away when the connection or USDA failed; after "too many
-    // searches" only once the time the server asked for has passed.
-    canRetry.value = reason === 'unavailable' || reason === 'offline'
   }
 
-  /** `force`: search again even when the same search is shown (the "Try again" button). */
-  async function searchFoods(raw: string, { force = false } = {}) {
-    const query = normaliseQuery(raw)
-    if (!query) {
-      controller?.abort()
-      controller = null
-      loading.value = false
-      showError('too-short', '')
-      return
-    }
-    // Pressing Enter again on the same search does not ask the server again, nor does asking
-    // for a search that just hit the rate limit before the time the server asked for.
-    if (loading.value && query === pendingQuery.value) return
-    if (!force && !loading.value && query === searchQuery.value) {
-      if (status.value === 'done') return
-      if (errorReason.value === 'busy' && !canRetry.value) return
-    }
-
-    controller?.abort()
-    const own = new AbortController()
-    controller = own
-    pendingQuery.value = query
-    loading.value = true
-    // Give up after 25 s (the server itself waits at most 15 s for USDA). $fetch ignores its own
-    // `timeout` option when a signal is passed, so the timer aborts the same controller.
-    const timer = setTimeout(() => own.abort(), 25_000)
-    try {
-      // The server route asks FoodData Central with the private API key (server/api/foods/search.get.ts).
-      const response = await $fetch<SearchResponse>('/api/foods/search', {
-        query: { query },
-        signal: own.signal,
-        retry: 0,
-      })
-      if (controller !== own) return
-      clearTimeout(retryTimer)
-      results.value = Array.isArray(response?.foods) ? response.foods : []
-      responseHits.value = typeof response?.totalHits === 'number' ? response.totalHits : results.value.length
-      searchQuery.value = query
-      errorReason.value = null
-      retryAfter.value = null
-      status.value = 'done'
-    } catch (e: any) {
-      if (controller !== own) return
-      if (e?.statusCode === 400) showError('too-short', query)
-      else if (e?.statusCode === 503) {
-        showError('busy', query)
-        const seconds = retryAfterSeconds(e)
-        retryAfter.value = seconds
-        retryTimer = setTimeout(() => { canRetry.value = true }, seconds * 1000)
-      }
-      else showError(!e?.statusCode && import.meta.client && navigator.onLine === false ? 'offline' : 'unavailable', query)
-    } finally {
-      clearTimeout(timer)
-      if (controller === own) {
-        controller = null
-        loading.value = false
-      }
-    }
+  function isShown(id: string) {
+    return shownFoods.value.some(food => food.id === id)
   }
 
-  /** Search again for what failed. */
-  function retrySearch() {
-    if (status.value === 'error' && searchQuery.value && canRetry.value) searchFoods(searchQuery.value, { force: true })
+  function isSelected(id: string) {
+    return selectedFoods.value.includes(id)
   }
 
-  function isShown(fdcId: number) {
-    return shownFoods.value.some(food => food.fdcId === fdcId)
-  }
-
-  function isSelected(fdcId: number) {
-    return selectedFoods.value.includes(fdcId)
-  }
-
-  /** Add a search result to the table, ticked. A food that is already there is ticked again. */
-  function addFood(food: FoodResult): boolean {
-    if (!hasAminoAcids(food.values)) return false
-    if (!isShown(food.fdcId)) {
-      // A missing key is no data: answers the browser cached before cystine and tyrosine were
-      // added do not have them.
-      const values = Object.fromEntries(ALL_NUTRIENTS.map(({ key }) => [key, food.values[key] ?? null])) as NutrientValues
-      shownFoods.value.push({ fdcId: food.fdcId, description: food.description, values, amount: '' })
-    }
-    if (!isSelected(food.fdcId)) selectedFoods.value.push(food.fdcId)
+  /** Add a food to the table, ticked. A food that is already there is ticked again. */
+  function addFood(id: string): boolean {
+    const food = FOODS_BY_ID.get(id)
+    if (!food) return false
+    if (!isShown(id)) shownFoods.value.push({ id, name: food.name, values: { ...food.values }, amount: '' })
+    if (!isSelected(id)) selectedFoods.value.push(id)
     return true
   }
 
-  function removeFood(fdcId: number) {
-    shownFoods.value = shownFoods.value.filter(food => food.fdcId !== fdcId)
-    selectedFoods.value = selectedFoods.value.filter(id => id !== fdcId)
+  function removeFood(id: string) {
+    shownFoods.value = shownFoods.value.filter(food => food.id !== id)
+    selectedFoods.value = selectedFoods.value.filter(other => other !== id)
   }
 
-  function toggleFood(fdcId: number) {
-    if (isSelected(fdcId)) selectedFoods.value = selectedFoods.value.filter(id => id !== fdcId)
-    else if (isShown(fdcId)) selectedFoods.value.push(fdcId)
+  function toggleFood(id: string) {
+    if (isSelected(id)) selectedFoods.value = selectedFoods.value.filter(other => other !== id)
+    else if (isShown(id)) selectedFoods.value.push(id)
   }
 
-  function setAmount(fdcId: number, amount: string) {
-    const food = shownFoods.value.find(f => f.fdcId === fdcId)
+  function setAmount(id: string, amount: string) {
+    const food = shownFoods.value.find(f => f.id === id)
     if (food) food.amount = amount
   }
 
@@ -196,7 +108,7 @@ export const useFoodsStore = defineStore('foods', () => {
    * which are not columns but count in the score.
    */
   const totals = computed(() => {
-    const ticked = shownFoods.value.filter(food => selectedFoods.value.includes(food.fdcId))
+    const ticked = shownFoods.value.filter(food => selectedFoods.value.includes(food.id))
     return Object.fromEntries(ALL_NUTRIENTS.map(({ key }) => {
       let sum = 0
       let known = 0
@@ -214,9 +126,8 @@ export const useFoodsStore = defineStore('foods', () => {
   const scores = computed(() => aminoAcidScores(totals.value))
 
   return {
-    status, errorReason, searchQuery, pendingQuery, results, responseHits, retryAfter, canRetry, shownFoods,
-    selectedFoods, loading, error, totals, scores,
-    searchFoods, retrySearch, isShown, isSelected, addFood, removeFood, toggleFood, setAmount,
+    searchQuery, results, searched, shownFoods, selectedFoods, totals, scores,
+    search, isShown, isSelected, addFood, removeFood, toggleFood, setAmount,
   }
 })
 

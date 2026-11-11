@@ -21,26 +21,26 @@
         tbody
           tr.row(
             v-for="(food, index) in foodsStore.shownFoods"
-            :key="food.fdcId"
-            :class="{ 'active': foodsStore.isSelected(food.fdcId) }"
-            @click="toggleRow($event, food.fdcId)"
+            :key="food.id"
+            :class="{ 'active': foodsStore.isSelected(food.id) }"
+            @click="toggleRow($event, food.id)"
           )
             td
               .actions
                 button.remove.bare-button(
                   type="button"
-                  :aria-label="`Remove ${food.description}`"
-                  @click="removeFood(food.fdcId, index)"
+                  :aria-label="`Remove ${food.name}`"
+                  @click="removeFood(food.id, index)"
                 )
                   nuxt-icon.delete(name="delete" aria-hidden="true")
                 button.bare-button(
                   type="button"
                   role="checkbox"
-                  :aria-checked="foodsStore.isSelected(food.fdcId) ? 'true' : 'false'"
-                  :aria-label="`Include ${food.description} in the total`"
-                  @click="foodsStore.toggleFood(food.fdcId)"
+                  :aria-checked="foodsStore.isSelected(food.id) ? 'true' : 'false'"
+                  :aria-label="`Include ${food.name} in the total`"
+                  @click="foodsStore.toggleFood(food.id)"
                 )
-                  nuxt-icon.checkbox(:name="foodsStore.isSelected(food.fdcId) ? 'checkbox/checkbox checked' : 'checkbox/checkbox empty'" aria-hidden="true")
+                  nuxt-icon.checkbox(:name="foodsStore.isSelected(food.id) ? 'checkbox/checkbox checked' : 'checkbox/checkbox empty'" aria-hidden="true")
                 .amount
                   input(
                     :value="food.amount"
@@ -48,17 +48,17 @@
                     inputmode="decimal"
                     autocomplete="off"
                     placeholder="100"
-                    :aria-label="`Amount of ${food.description} in grams`"
-                    @input="updateAmount($event, food.fdcId)"
+                    :aria-label="`Amount of ${food.name} in grams`"
+                    @input="updateAmount($event, food.id)"
                   )
                   span(aria-hidden="true") g
-            td.name {{food.description}}
-            //- A value USDA does not have is a dash, as in Material data tables; the tooltip says why.
+            td.name {{ food.name }}
+            //- A value no source has is a dash, as in Material data tables; the tooltip says why.
             td.amino(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
               :class="{ 'tip': valueFor(food, nutrient.key) === null }"
-              :data-tip="valueFor(food, nutrient.key) === null ? `No ${nutrient.name.toLowerCase()} data in FoodData Central` : undefined"
+              :data-tip="valueFor(food, nutrient.key) === null ? `No source has ${nutrient.name.toLowerCase()} data for this food` : undefined"
             )
               template(v-if="valueFor(food, nutrient.key) === null")
                 span.no-data(aria-hidden="true") —
@@ -87,7 +87,7 @@
               | Per g protein #[span (mg)]
               UiInfo(label="About the Per g protein row" placement="above")
                 | {{ PER_PROTEIN_EXPLAINED }}
-                UiSource(cite="fao-2013: Table 5, p. 29 | moughan-lim-2024: section 6.7 | usda-fdc")
+                UiSource(cite="fao-2013: Table 5, p. 29 | moughan-lim-2024: section 6.7")
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
@@ -144,16 +144,16 @@ const table = ref<HTMLTableElement | null>(null);
 
 // A click on the row (not on its buttons or amount field) ticks or unticks the food, unless the
 // click ended a text selection.
-function toggleRow(event: MouseEvent, fdcId: number) {
+function toggleRow(event: MouseEvent, id: string) {
   if ((event.target as Element | null)?.closest('button, input')) return;
   if (window.getSelection()?.toString()) return;
-  foodsStore.toggleFood(fdcId);
+  foodsStore.toggleFood(id);
 }
 
 // After a removal, keyboard focus goes to the next food's remove button (or the heading when the
 // table is empty), instead of being lost.
-async function removeFood(fdcId: number, index: number) {
-  foodsStore.removeFood(fdcId);
+async function removeFood(id: string, index: number) {
+  foodsStore.removeFood(id);
   await nextTick();
   const buttons = table.value?.querySelectorAll<HTMLButtonElement>('button.remove') ?? [];
   const next = buttons[Math.min(index, buttons.length - 1)];
@@ -161,11 +161,11 @@ async function removeFood(fdcId: number, index: number) {
 }
 
 // Whole grams or one decimal, up to 3 characters: "100", "50", "2.5". Empty means 100 g.
-function updateAmount(event: Event, fdcId: number) {
+function updateAmount(event: Event, id: string) {
   const input = event.target as HTMLInputElement;
   const clean = input.value.replace(',', '.').replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
   if (clean !== input.value) input.value = clean;
-  foodsStore.setAmount(fdcId, clean);
+  foodsStore.setAmount(id, clean);
 }
 
 function totalText(key: NutrientKey) {

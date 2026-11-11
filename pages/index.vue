@@ -7,7 +7,7 @@
 import { SITE_NAME, SITE_URL } from '#shared/site';
 
 const title = `${SITE_NAME} - Compare the essential amino acids of foods`;
-const description = 'Search USDA FoodData Central and compare the essential amino acids and protein of foods side by side, for the amounts you choose. No account, no cookies.';
+const description = 'Search Aminoprofile\'s dataset of everyday foods and compare their essential amino acids and protein side by side, for any amount. No account, no cookies.';
 const url = `${SITE_URL}/`;
 
 useSeoMeta({ title, description, ogTitle: title, ogDescription: description, ogUrl: url });
@@ -36,8 +36,7 @@ useHead({
       isAccessibleForFree: true,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       isBasedOn: [
-        { '@type': 'Dataset', name: 'USDA FoodData Central', url: 'https://fdc.nal.usda.gov/' },
-        // Aminoprofile's own dataset; pages/data.vue describes it in full.
+        // Aminoprofile's own dataset, which the search runs over. pages/data.vue describes it in full.
         { '@type': 'Dataset', name: 'Aminoprofile foods', url: `${SITE_URL}/data`, license: 'https://creativecommons.org/licenses/by/4.0/' },
       ],
     }]),

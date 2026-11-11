@@ -3,89 +3,59 @@
   .element-wrapper
     .element-body
       h1#search-heading Search for foods
+      //- The search runs in the browser over Aminoprofile's own dataset (stores/foods.ts), so the
+      //- results follow what is typed and nothing is sent anywhere.
       form.search(
         role="search"
         aria-labelledby="search-heading"
-        :class="{ 'searchable': searchQuery.length > 0 }"
-        @submit.prevent="searchFoods()"
+        :class="{ 'searchable': query.length > 0 }"
+        @submit.prevent
       )
         label.visually-hidden(for="food-search") Food name
         input#food-search(
           ref="input"
-          v-model="searchQuery"
-          placeholder="Name..."
+          v-model="query"
+          :placeholder="`${FOOD_COUNT} foods, e.g. lentils or kip`"
           maxlength="100"
           autocomplete="off"
           enterkeyhint="search"
+          aria-describedby="search-status"
         )
-        //- Spinner and hidden button only show when an answer takes longer than 150 ms (see the
-        //- styles), so a cached answer does not make the icon flash.
-        UiLoader.loading( v-if="foodsStore.loading" aria-hidden="true")
-        //- The button stays while a search runs, so keyboard focus is not lost; the spinner covers it.
-        button.search-button.bare-button(type="submit" aria-label="Search" :class="{ 'busy': foodsStore.loading }")
-          nuxt-icon(name="search" aria-hidden="true")
-      //- Only shown when JavaScript is off (by the noscript style below), when searching would
-      //- just reload the page.
-      .needs-js(hidden) Search needs JavaScript.
-      //- While a new search is slow, the previous message keeps its place (so nothing below jumps)
-      //- but is no longer shown.
-      .error( v-if="foodsStore.error" :class="{ 'stale': slowLoading }")
-        span {{ errorText }}
-        button.retry.bare-button(v-if="showRetry" type="button" @click="retry") Try again
-      .error( v-else-if="noResults" :class="{ 'stale': slowLoading }") No foods found for "{{ foodsStore.searchQuery }}".
-      .results( v-if="showResults" role="table" aria-label="Search results" :aria-busy="foodsStore.loading ? 'true' : 'false'")
+        nuxt-icon.search-icon(name="search" aria-hidden="true")
+      //- Only shown when JavaScript is off (by the noscript style below).
+      .needs-js(hidden) Search needs JavaScript. All foods are also listed on #[a(href="/foods") the Foods page].
+      .error(v-if="noResults")
+        | No foods found for "{{ query.trim() }}".
+        a.missing(:href="missingHref") Missing a food? Tell us
+      .results(v-if="foodsStore.results.length" role="table" aria-label="Search results")
         .headers(role="row")
           span(role="columnheader") Name
-          span(role="columnheader") Category
-          .nutrients(role="columnheader")
-            span Nutrients
-            button.info-button.bare-button(
-              type="button"
-              aria-label="About the nutrients column"
-              aria-describedby="nutrients-info"
-              :aria-expanded="hover ? 'true' : 'false'"
-              @mouseenter="hover = true"
-              @mouseleave="hover = false"
-              @focus="hover = true"
-              @blur="hover = false"
-              @click="hover = true"
-              @keydown.esc="hover = false"
-            )
-              nuxt-icon( name="info" aria-hidden="true")
-            .info#nutrients-info( :class="{'show' : hover}" role="tooltip")
-              .row
-                span #
-                span Number of nutrients available.
-              .row
-                nuxt-icon.lacking(name="minerals" aria-hidden="true")
-                span Amino acids data not present.
-              .row
-                nuxt-icon.present(name="minerals" aria-hidden="true")
-                span Amino acids data present.
+          span(role="columnheader") Group
+          span.num(role="columnheader") Protein, g per 100 g
+          span.num(role="columnheader") Score
+          span(role="columnheader")
+            span.visually-hidden Food page
         .result(
           v-for="food in foodsStore.results"
-          :key="food.fdcId"
+          :key="food.id"
           role="row"
-          :class="{ 'clickable': hasAminoAcids(food.values), 'added': foodsStore.isShown(food.fdcId) }"
-          @click="hasAminoAcids(food.values) ? addFood(food) : null"
+          :class="{ 'added': foodsStore.isShown(food.id) }"
+          @click="addFood(food)"
         )
           span(role="cell")
             span.name(
-              v-if="hasAminoAcids(food.values)"
               role="button"
               tabindex="0"
-              :aria-label="foodsStore.isShown(food.fdcId) ? `${food.description} is in the amino acids table` : `Add ${food.description} to the amino acids table`"
+              :aria-label="foodsStore.isShown(food.id) ? `${food.name} is in the amino acids table` : `Add ${food.name} to the amino acids table`"
               @keydown.enter.prevent="addFood(food)"
               @keydown.space.prevent="addFood(food)"
-            ) {{ food.description }}
-            template(v-else) {{ food.description }}
+            ) {{ food.name }}
           span(role="cell") {{ food.category }}
-          .nutrients(role="cell" :class="{ 'acids': hasAminoAcids(food.values) }")
-            span {{ food.nutrientCount }}
-            //- nuxt-icon(name="acids")
-            nuxt-icon(name="minerals" aria-hidden="true")
-            span.visually-hidden {{ hasAminoAcids(food.values) ? 'Amino acids data present.' : 'Amino acids data not present.' }}
-      .total( v-if="showResults")
+          span.num(role="cell") {{ food.values.protein === null ? '—' : food.values.protein.toFixed(1) }}
+          span.num(role="cell") {{ food.score === null ? '—' : `${food.score}%` }}
+          span(role="cell")
+            NuxtLink.page(:to="`/foods/${food.id}`" :aria-label="`${food.name}: food page`" @click.stop) Details
+      .total(v-if="foodsStore.results.length")
         span {{ countText }}
       p#search-status.visually-hidden(role="status") {{ announcement }}
       //- Material snackbar after a click on a result: what happened, and a way to the table, which
@@ -94,81 +64,49 @@
         .snackbar(v-if="snackbar")
           span.text {{ snackbar }}
           button.action.bare-button(type="button" @click="viewTable") View
-  </template>
+</template>
 
 <script setup lang="ts">
-import { hasAminoAcids, type FoodResult } from '#shared/nutrients';
+import { FOOD_COUNT, type FoodResult } from '~/stores/foods';
 
 const foodsStore = useFoodsStore();
 
 // Browsers with JavaScript off apply this style and show the note that search needs it.
 useHead({ noscript: [{ innerHTML: '<style>.needs-js { display: block }</style>' }] });
 
-const searchQuery = ref<string>('');
-
 const input = ref<HTMLInputElement | null>(null);
 
-const hover = ref<boolean>(false);
+const query = computed({
+  get: () => foodsStore.searchQuery,
+  set: (value: string) => {
+    added.value = '';
+    foodsStore.search(value);
+  },
+});
 
 // The last food added, for screen readers; cleared by the next search.
 const added = ref<string>('');
 
-// "Searching…" is only announced when an answer takes longer than the spinner's 150 ms.
-const slow = ref<boolean>(false);
-let slowTimer: ReturnType<typeof setTimeout> | undefined;
-watch(() => foodsStore.loading, (loading) => {
-  clearTimeout(slowTimer);
-  slow.value = false;
-  if (loading) slowTimer = setTimeout(() => { slow.value = true; }, 150);
-});
-onBeforeUnmount(() => clearTimeout(slowTimer));
-const slowLoading = computed(() => foodsStore.loading && slow.value);
-
-/** "10 minutes", from the Retry-After the server sent with "too many searches". */
-function waitText(seconds: number) {
-  if (seconds <= 60) return 'a minute';
-  if (seconds >= 3600) return 'an hour';
-  return `${Math.ceil(seconds / 60)} minutes`;
-}
-
-const errorText = computed(() => {
-  switch (foodsStore.errorReason) {
-    case 'too-short': return 'Type at least 2 characters.';
-    case 'busy': return foodsStore.canRetry || !foodsStore.retryAfter
-      ? 'Too many searches right now.'
-      : `Too many searches right now. Please try again in ${waitText(foodsStore.retryAfter)}.`;
-    case 'offline': return 'No internet connection.';
-    case 'unavailable': return "Can't connect to the food database right now.";
-    default: return '';
-  }
-});
-
-const showRetry = computed(() => foodsStore.canRetry && !foodsStore.loading && foodsStore.errorReason !== 'too-short');
-
-// The button disappears once the answer is in, so keyboard focus goes back to the search field.
-function retry() {
-  input.value?.focus();
-  added.value = '';
-  foodsStore.retrySearch();
-}
-
-const showResults = computed(() => !foodsStore.error && foodsStore.results.length > 0);
-
-const noResults = computed(() => foodsStore.status === 'done' && foodsStore.results.length === 0);
+const noResults = computed(() => foodsStore.searched && foodsStore.results.length === 0);
 
 const countText = computed(() => {
-  const shown = foodsStore.results.length;
-  const total = foodsStore.responseHits ?? shown;
-  if (total > shown) return `${shown} of ${total.toLocaleString('en-US')} results`;
-  return `${shown} ${shown === 1 ? 'result' : 'results'}`;
+  const count = foodsStore.results.length;
+  return `${count} ${count === 1 ? 'food' : 'foods'}`;
 });
 
-const announcement = computed(() => {
-  if (slowLoading.value) return 'Searching…';
-  if (foodsStore.error) return errorText.value;
-  if (noResults.value) return `No foods found for "${foodsStore.searchQuery}".`;
-  if (foodsStore.status === 'done') return added.value || `${countText.value} for "${foodsStore.searchQuery}".`;
-  return '';
+const missingHref = computed(() => `mailto:parels.app@gmail.com?subject=${encodeURIComponent(`Missing food: ${query.value.trim()}`)}`);
+
+// Screen readers hear the count once typing pauses, not after every letter.
+const announcement = ref('');
+let announceTimer: ReturnType<typeof setTimeout> | undefined;
+watch(() => [foodsStore.results.length, foodsStore.searched, added.value] as const, () => {
+  clearTimeout(announceTimer);
+  announceTimer = setTimeout(() => {
+    if (added.value) announcement.value = added.value;
+    else if (noResults.value) announcement.value = `No foods found for "${query.value.trim()}".`;
+    else if (foodsStore.searched) announcement.value = `${countText.value} for "${query.value.trim()}".`;
+    else announcement.value = '';
+  }, 500);
 });
 
 // The snackbar's text; it hides itself after 4 seconds, or at the next search.
@@ -179,19 +117,16 @@ function showSnackbar(text: string) {
   clearTimeout(snackbarTimer);
   snackbarTimer = setTimeout(() => { snackbar.value = ''; }, 4000);
 }
-onBeforeUnmount(() => clearTimeout(snackbarTimer));
-
-function searchFoods() {
-  added.value = '';
-  snackbar.value = '';
-  foodsStore.searchFoods(searchQuery.value);
-}
+onBeforeUnmount(() => {
+  clearTimeout(snackbarTimer);
+  clearTimeout(announceTimer);
+});
 
 function addFood(food: FoodResult) {
-  const wasShown = foodsStore.isShown(food.fdcId);
-  if (!foodsStore.addFood(food)) return;
-  added.value = `${food.description} is in the amino acids table.`;
-  showSnackbar(wasShown ? `${food.description} is already in the table.` : `${food.description} added to the table.`);
+  const wasShown = foodsStore.isShown(food.id);
+  if (!foodsStore.addFood(food.id)) return;
+  added.value = `${food.name} is in the amino acids table.`;
+  showSnackbar(wasShown ? `${food.name} is already in the table.` : `${food.name} added to the table.`);
 }
 
 // "View" scrolls to the table and puts keyboard focus on its heading.
@@ -217,163 +152,67 @@ function viewTable() {
     border-bottom: 1px solid $colors--primary;
     width: 30rem;
     margin-bottom: 1rem;
+    padding-right: 2.25rem;
     &:focus {
       border-bottom: 2px solid $colors--primary;
       margin-bottom: 15px;
     }
   }
-  > .search-button {
+  > .search-icon {
     position: absolute;
     right: 0;
     top: 0;
-    &.busy {
-      opacity: 0;
-      // Hidden only when the answer takes longer than 150 ms; shown again at once.
-      transition: opacity 0s linear 150ms;
+    pointer-events: none;
+    &:deep(svg) {
+      display: block;
+      height: fit-content;
+      margin-bottom: 0;
+      width: 1.8rem;
+      color: $neutral-variant50;
     }
   }
-  > .search-button:deep(.nuxt-icon svg) {
-    display: block;
-    height: fit-content;
-    margin-bottom: 0;
-    width: 1.8rem;
-    color: $neutral-variant50;
-  }
-  > .loading {
-    position: absolute;
-    top: 3px;
-    right: 6px;
-    animation: show-after-150ms 0s linear 150ms backwards;
-  }
 }
 
-@keyframes show-after-150ms {
-  from { visibility: hidden; }
+.searchable > .search-icon:deep(svg) {
+  color: black;
 }
 
-.error.stale {
-  visibility: hidden;
-}
-
-.error > .retry {
-  display: inline;
+.error > .missing {
   margin-left: 0.5rem;
   color: $colors--primary;
-  text-decoration: underline;
-  cursor: pointer;
-  &:hover {
-    color: $primary20;
-  }
 }
 
-.searchable > .search-button {
-  &:deep(.nuxt-icon svg) {
-    cursor: pointer;
-    color: black;
-  }
+.needs-js > a {
+  color: $colors--primary;
 }
-
 
 .results {
   width: 80%;
-  > .error {
-    font-size: 24px;
-  }
-  > .headers {
+  > .headers, > .result {
     display: grid;
-    grid-template-columns: 400px max-content auto;
-    column-gap: 2rem;
-    font-size: 14px;
-    /* font-weight: bold; */
-    padding: 0 0.5rem;
-    color: $neutral-variant30;
-    margin-bottom: 1rem;
-    > .nutrients {
-      display: flex;
-      justify-content: flex-end;
-      position: relative;
-      column-gap: 0.25rem;
-      &:deep(.nuxt-icon svg) {
-        height: fit-content;
-        width: 1.2rem;
-        &:hover {
-          color: black;
-        }
-      }
-      > .info {
-        padding: 1rem;
-        border-radius: 5px;
-        top: 24px;
-        right: 8px;
-        position: absolute;
-        visibility: hidden;
-        opacity: 0;
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.5rem;
-        width: max-content;
-        background-color: white;
-        filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.15));
-        transition: visibility 0.2s, opacity 0.2s;
-        > .row {
-          display: grid;
-          grid-template-columns: 19.2px auto;
-          column-gap: 0.5rem;
-          align-items: center;
-          > span:first-child {
-            justify-self: center;
-          }
-        }
-        &:deep(.lacking.nuxt-icon svg) {
-          color: $neutral-variant80;
-        }
-        &:deep(.present.nuxt-icon svg) {
-          color: green;
-        }
-      }
-      > .show {
-        visibility: initial;
-        opacity: 1;
-      }
-    }
-  }
-  > .result {
-    display: grid;
-    grid-template-columns: 400px max-content auto;
+    grid-template-columns: minmax(0, 400px) max-content 9rem 4rem max-content;
     column-gap: 2rem;
     padding: 0.3rem 0.5rem;
-    border-radius: 5px;
-    text-decoration: none;
-    color: $neutral-variant80;
-    .nutrients {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      // On the first line, like the name and the category, also when the name takes two lines.
-      align-self: start;
-      column-gap: 0.75rem;
-      &:deep(.nuxt-icon svg) {
-        height: fit-content;
-        width: 1.5rem;
-        color: $neutral-variant80;
-      }
-      > span:not(.visually-hidden) {
-        text-align: right;
-        width: 28.8px;
-      }
-    }
-    .acids {
-      &:deep(.nuxt-icon svg) {
-        color: green;
-      }
-
+    > .num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
     }
   }
-  > .clickable {
+  > .headers {
+    font-size: 14px;
+    color: $neutral-variant30;
+    margin-bottom: 0.5rem;
+  }
+  > .result {
+    border-radius: 5px;
     color: $neutral-variant20;
     cursor: pointer;
     &:hover {
       background-color: $surfaces--light--surface2;
+    }
+    .page {
+      color: $colors--primary;
+      font-size: 14px;
     }
   }
   // A food that is in the amino acids table keeps the hover shade, so a click visibly did

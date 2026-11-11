@@ -15,7 +15,7 @@
             p Nothing that identifies you. Aminoprofile uses no cookies, has no accounts and uses no advertising or tracking services. The foods you add to the table stay in your browser tab and are gone when you close or reload it.
           .question
             h2 What happens to your searches?
-            p To find results, the text you type in the search box is sent to USDA FoodData Central, the food database of the U.S. Department of Agriculture, through the Aminoprofile server. Only the search text is sent, not your IP address or anything else about you. The server keeps the results of a search for at most a day, in its memory and in Cloudflare's cache, so a repeated search is faster, and does not store them anywhere else. Your browser may keep them for an hour.
+            p Nothing happens to them. The search runs in your browser, over Aminoprofile's own list of foods that comes with the page, so what you type is not sent anywhere.
           .question
             h2 The MCP server for AI agents
             p Aminoprofile has a public MCP server that AI assistants can use to look foods up (see #[NuxtLink(to="/data") Data]). When an assistant uses it, the server receives only what the assistant asks for: a search text, food ids and amounts in grams. There is no account. The server answers from Aminoprofile's own dataset, and Aminoprofile does not store the questions or the answers. Like the rest of the site, the requests pass through Cloudflare, as described under Hosting.
@@ -28,7 +28,7 @@
           .question
             h2 Your rights and complaints
             p You can ask which data about you is processed, or object to it, by sending an email to the address above. If we cannot resolve it together, you have the right to lodge a complaint with the Dutch Data Protection Authority, the #[a(href="https://autoriteitpersoonsgegevens.nl/") Autoriteit Persoonsgegevens].
-        p.updated Last updated: 10 November 2026
+        p.updated Last updated: 11 November 2026
 </template>
 
 <script setup lang="ts">

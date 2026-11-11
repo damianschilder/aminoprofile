@@ -24,7 +24,7 @@ export default defineNuxtConfig({
           { pattern: 'www.aminoprofile.com', custom_domain: true },
         ],
         vars: { NUXT_CANONICAL_HOST: new URL(SITE_URL).host },
-        // NUXT_FOODCENTRAL_API_KEY (a secret) and NUXT_PUBLIC_CF_BEACON_TOKEN are set in Cloudflare.
+        // NUXT_PUBLIC_CF_BEACON_TOKEN is set in Cloudflare.
         keep_vars: true,
       },
     },
@@ -45,12 +45,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // NUXT_CANONICAL_HOST: the one host the site answers on; set by the Worker config above.
     canonicalHost: '',
-    // NUXT_FOODCENTRAL_API_KEY: the USDA FoodData Central API key. Server-only, never sent to the
-    // browser. Empty means USDA's rate-limited DEMO_KEY (see server/api/foods/search.get.ts).
-    foodcentralApiKey: '',
-    // NUXT_FOODCENTRAL_API_URL: only for tests against a local stand-in of the API. Empty means
-    // https://api.nal.usda.gov/fdc/v1.
-    foodcentralApiUrl: '',
     public: {
       // NUXT_PUBLIC_CF_BEACON_TOKEN: Cloudflare Web Analytics (cookieless, no personal data).
       // Empty means no analytics script at all.

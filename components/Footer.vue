@@ -5,9 +5,7 @@ footer.footer-wrapper
       .footer-content
         span.title Aminoprofile
         .source 
-          span Source: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. 
-          a(href="https://fdc.nal.usda.gov/") fdc.nal.usda.gov
-          span .
+          span Data from the U.S., German, Danish and Japanese food composition tables, combined by Aminoprofile.
           span.separator ·
           NuxtLink(to="/foods") Foods
           span.separator ·

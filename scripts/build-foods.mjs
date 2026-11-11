@@ -8,6 +8,7 @@
 //   data/foods-report.md          checks for a person to review
 //   shared/foods.json             what the site and the agent endpoint load
 //   shared/richest-foods.json     per amino acid the foods richest in it, for the comparison table
+//   shared/food-index.json        the slim list the home page searches in the browser
 //
 // The method (data/README.md has the full text and the references):
 // 1. Only links that are exact or close and not rejected are used.
@@ -30,7 +31,7 @@ import { loadAll, sourceHashes } from './sources/index.mjs'
 // The site's own FAO pattern, so the build and the page cannot disagree (Node strips its types).
 import { SCORING_PATTERN } from '../shared/scoring.ts'
 
-export const DATASET_VERSION = '0.1.0'
+export const DATASET_VERSION = '0.2.0'
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 const write = (path, text) => writeFileSync(new URL(path, root), text)
@@ -241,6 +242,20 @@ const richest = Object.fromEntries(SCORING_PATTERN.map((item) => {
   return [item.key, picked.map(f => ({ id: f.id, name: f.name, mgPerG: Math.round(f.mgPerG) }))]
 }))
 write('shared/richest-foods.json', `${JSON.stringify({ version: DATASET_VERSION, byKey: richest }, null, 1)}\n`)
+
+// For the search on the home page (stores/foods.ts), which runs in the browser: what a result and
+// a table row need, nothing more, so it stays small enough to ship with the page.
+write('shared/food-index.json', `${JSON.stringify({
+  version: DATASET_VERSION,
+  foods: built.map(f => ({
+    id: f.id,
+    name: f.name,
+    category: f.category,
+    aliases: f.aliases,
+    values: f.values,
+    independentSources: f.quality.independentSources,
+  })),
+})}\n`)
 
 const csvCell = v => (v === null || v === undefined ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v))
 const columns = ['id', 'name', 'category', 'protein', ...AA_KEYS, 'independent_sources', 'origins', 'max_spread', 'estimated']

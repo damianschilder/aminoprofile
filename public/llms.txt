@@ -1,11 +1,12 @@
 # Aminoprofile
 
 > Aminoprofile is a free web page for comparing the essential amino acids of foods. You search
-> USDA FoodData Central by food name, add foods to a table, set the amount of each in grams, and
-> see the nine essential amino acids and protein per food and in total. Aminoprofile also
-> publishes its own open food dataset (CC BY 4.0) and a read-only MCP server for AI agents.
+> Aminoprofile's own open dataset of everyday foods by name (English, Dutch and other names), add
+> foods to a table, set the amount of each in grams, and see the nine essential amino acids and
+> protein per food and in total. The dataset (CC BY 4.0) is also published as files and through a
+> read-only MCP server for AI agents.
 
-- Values are in grams. USDA gives them per 100 g of food. Aminoprofile scales them to the
+- Values are in grams. The dataset gives them per 100 g of food. Aminoprofile scales them to the
   amount you set (100 g by default) and adds up the foods you tick.
 - The amino acids are histidine, isoleucine, leucine, lysine, methionine, phenylalanine,
   threonine, tryptophan and valine. A missing value shows as a dash (—), which is not the same as 0.
@@ -15,12 +16,10 @@
   ages 3 and up asks (methionine with cystine, phenylalanine with tyrosine). Values under the
   bar are red, and the page then names foods with more of that amino acid. Not corrected for
   digestibility, so not a DIAAS.
-- Results come from the Foundation Foods and SR Legacy data sets, the two with amino acid data.
-  Foods that have amino acid data are listed first.
-- There is no account, no cookies and no stored history: the table lives in the browser tab.
-  The page needs JavaScript and is made for desktop screens (1240 pixels wide or more).
+- The search runs in the browser over the dataset, so nothing typed is sent anywhere. There is
+  no account, no cookies and no stored history: the table lives in the browser tab. The page
+  needs JavaScript and is made for desktop screens (1240 pixels wide or more).
 - Agents: please use the MCP server or the dataset files below rather than scraping the pages.
-  The search endpoint (/api/) is for the page itself and is not meant for crawling.
 - Aminoprofile is a non-commercial, open-source project by Damian Schilder: no ads, no
   accounts, no paid features. The code is on [GitHub](https://github.com/damianschilder/aminoprofile)
   under the MIT licence.
@@ -38,13 +37,13 @@
   the licence of each database. Each (i) on the site links to its entries there.
 - [Data](https://aminoprofile.com/data): the open dataset, how it is combined, its licence, and how to
   connect to the MCP server.
-- [Privacy](https://aminoprofile.com/privacy): which data is involved (only the search text goes
-  to USDA, through the Aminoprofile server), who is responsible and what your rights are.
+- [Privacy](https://aminoprofile.com/privacy): which data is involved (searches stay in the
+  browser), who is responsible and what your rights are.
 
 ## Dataset
 
-Aminoprofile foods, version 0.1.0 (November 2026, a draft). The essential amino acids, cystine,
-tyrosine and protein of 64 everyday foods, in grams per 100 g edible portion, combined from four
+Aminoprofile foods, version 0.2.0 (November 2026, a draft). The essential amino acids, cystine,
+tyrosine and protein of 91 everyday foods, in grams per 100 g edible portion, combined from four
 national food composition databases. For every value it records which laboratories or databases
 measured it, how many independent sources there are and how far they agree. Protein is
 nitrogen x 6.25. Licence: CC BY 4.0. Credit Aminoprofile and the four sources.
@@ -80,10 +79,7 @@ nitrogen x 6.25. Licence: CC BY 4.0. Credit Aminoprofile and the four sources.
 The full list, with each database's prescribed credit, is on the
 [Sources page](https://aminoprofile.com/sources).
 
-The site's search uses [USDA FoodData Central](https://fdc.nal.usda.gov/) (CC0). Citation: U.S.
-Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. The
-[FoodData Central API guide](https://fdc.nal.usda.gov/api-guide) explains how to query it
-directly. The dataset combines four sources:
+The dataset, which the site's search and the MCP server answer from, combines four sources:
 
 - [USDA FoodData Central](https://fdc.nal.usda.gov/), SR Legacy (CC0). Citation: U.S.
   Department of Agriculture, Agricultural Research Service. FoodData Central: SR Legacy, 2018.
