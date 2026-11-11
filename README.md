@@ -228,7 +228,7 @@ protect, but the rule keeps one client from using up the Worker's requests.
 
 ## Data
 
-**Aminoprofile's own food dataset** (version 0.2.0, a draft). 91 everyday foods with plain
+**Aminoprofile's own food dataset** (version 0.3.0, a draft). 206 everyday foods with plain
 names, each combined from USDA FoodData Central, the German Bundeslebensmittelschlüssel 4.0, the
 Danish Frida 5.5 and the Japanese MEXT amino acid tables, with for every value which
 laboratories measured it and how far they agree. It is published at

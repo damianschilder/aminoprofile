@@ -3,22 +3,27 @@
  "byKey": {
   "his": [
    {
-    "id": "mackerel-raw",
-    "name": "Mackerel, raw",
+    "id": "tuna-raw",
+    "name": "Tuna, raw",
     "mgPerG": 63
-   },
-   {
-    "id": "black-eyed-peas-dry",
-    "name": "Black-eyed peas, dry",
-    "mgPerG": 33
    },
    {
     "id": "cheese-camembert",
     "name": "Cheese, Camembert",
     "mgPerG": 32
+   },
+   {
+    "id": "black-beans-dry",
+    "name": "Black beans, dry",
+    "mgPerG": 31
    }
   ],
   "ile": [
+   {
+    "id": "hake-raw",
+    "name": "Hake, raw",
+    "mgPerG": 62
+   },
    {
     "id": "egg-white-raw",
     "name": "Egg white, raw",
@@ -28,18 +33,13 @@
     "id": "black-beans-dry",
     "name": "Black beans, dry",
     "mgPerG": 56
-   },
-   {
-    "id": "haddock-raw",
-    "name": "Haddock, raw",
-    "mgPerG": 54
    }
   ],
   "leu": [
    {
-    "id": "cornflakes",
-    "name": "Cornflakes",
-    "mgPerG": 158
+    "id": "millet-raw",
+    "name": "Millet, raw",
+    "mgPerG": 124
    },
    {
     "id": "cheese-goat-soft",
@@ -54,13 +54,13 @@
   ],
   "lys": [
    {
-    "id": "haddock-raw",
-    "name": "Haddock, raw",
-    "mgPerG": 101
+    "id": "sole-raw",
+    "name": "Sole, raw",
+    "mgPerG": 102
    },
    {
-    "id": "milk-skimmed",
-    "name": "Milk, skimmed",
+    "id": "cheese-goat-soft",
+    "name": "Cheese, goat, soft",
     "mgPerG": 88
    },
    {
@@ -110,9 +110,9 @@
     "mgPerG": 72
    },
    {
-    "id": "trout-raw",
-    "name": "Trout, raw",
-    "mgPerG": 50
+    "id": "carp-raw",
+    "name": "Carp, raw",
+    "mgPerG": 52
    },
    {
     "id": "black-beans-dry",
@@ -132,8 +132,8 @@
     "mgPerG": 16
    },
    {
-    "id": "buckwheat-raw",
-    "name": "Buckwheat, raw",
+    "id": "buckwheat-flour",
+    "name": "Buckwheat flour",
     "mgPerG": 16
    }
   ],

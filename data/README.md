@@ -4,7 +4,7 @@ The essential amino acids, cystine, tyrosine and protein of everyday foods, comb
 national food composition databases. For every value the dataset records which laboratories or
 databases measured it and how far they agree, so a reader can judge it.
 
-Version 0.2.0 (11 November 2026): 91 foods, 370 links to source entries. **A draft**: every link
+Version 0.3.0 (11 November 2026): 206 foods, 849 links to source entries. **A draft**: every link
 is proposed by the maintainer and still has to be confirmed by a second person
 (`status` in `links.csv`).
 
@@ -14,6 +14,7 @@ Indonesian and Indian kitchens, plus plain group words ("fish", "vis", "nuts", "
 
 | Version | Change |
 |---|---|
+| 0.3.0 | 115 foods added from 203 candidates, among them a new Fruit group (20), cheeses, fish, offal, sausages, breads and flours, and vegetables. Three fixes to the build: a copy of a USDA estimate no longer counts as a measurement, outliers are judged against the median of all origins (with three origins a wild value used to stay in), and a 0 is left out as a data error. Not added for lack of a second measured origin, among others: Emmental, halloumi, kefir, quail egg, provolone, sheep milk, whey protein, Edam, cooked chicken thigh, cooked turkey, duck, squid, pangasius, sea bass, cooked cod, whiting, soybeans cooked, textured soy, lupin, lima, adzuki, urad, toor dal, black beans cooked, split peas cooked, pea protein, soy protein isolate, fava beans, oat bran, crispbread, pita, popcorn, rice cakes, cooked brown rice, quinoa, oats and barley, wholemeal pasta, rice noodles, amaranth, teff, sorghum, wild and glutinous rice, pecans, tahini, almond butter, poppy seeds, chestnuts, sauerkraut, courgette, endive, chicory, kohlrabi, savoy and Chinese cabbage, chard, rocket, fennel, garlic, artichoke, boiled potato, cassava, plantain, okra, bok choy, taro, yam, bitter gourd, kangkung, yardlong beans, cooked broccoli, mung bean sprouts, mango, raspberries, blueberries, blackberries, red currants, papaya, watermelon. Macadamia left out: USDA lysine of 12 mg per g nitrogen against 220. Rejected as data errors: USDA carrot, rye flour and one grapefruit entry, BLS celery and iceberg lettuce, and several Danish fruit and vegetable entries with zeros. |
 | 0.2.0 | 27 foods added (dairy, meat, fish, legumes, grains, seitan, vegetables). 11 candidates were left out because fewer than two independent origins measured them: skyr, ricotta, fried egg, strained yogurt, paneer, goat, cooked salmon, dried salted cod, brown beans, grey peas, couscous. USDA's kale entry is rejected as a likely data error. Dutch and other aliases wherever a food's name differs. |
 | 0.1.0 | 64 foods. |
 
@@ -72,7 +73,9 @@ Southgate, *Food Composition Data* (FAO, 2003), chapters 9 and 10.
    level for amino acids in Greenfield and Southgate.
 4. **One vote per origin.** Each measured value is attributed to its origin: the laboratory or
    database that measured it. A BLS or Frida value copied from USDA counts as USDA, so one
-   measurement never counts twice. Per origin the median, then the median over the origins.
+   measurement never counts twice. When the food's own USDA entry marks that value as an
+   estimate, the copy is an estimate too: BLS and Frida only say the value came from USDA, not
+   whether USDA measured it. Per origin the median, then the median over the origins.
 5. **Estimates only as a fallback.** Values a source borrowed from a similar food, scaled from
    another form, calculated or imputed are used only when no source measured that amino acid
    for the food, and the food is then marked as estimated for it.
@@ -87,8 +90,12 @@ out is named, with the reason.
   three or more amino acids is left out as a data error. This catches 10 of the 5,101 USDA
   SR Legacy foods, among them three cheeses: in `173414` (cheddar) histidine, methionine and
   tryptophan are all 0.547 g and lysine is half of what the other sources give.
-- **Outliers.** With three or more origins, an origin further than 40% from the median of the
-  others is left out of that amino acid, and named in the report.
+- **Zeros.** A 0 for an amino acid is left out as a data error: every protein contains every
+  amino acid. Some Danish fruit and vegetable entries have them, and USDA's soy milk has a 0 for
+  cystine.
+- **Outliers.** With three or more origins, an origin further than 40% from the median of all
+  origins is left out of that amino acid, and named in the report. When half of the origins or
+  more would be outliers, none is left out: then the sources simply disagree.
 - **Spread.** Where the remaining origins differ by more than 25% for an amino acid, the report
   says so.
 - **Water.** Linked entries whose dry matter differs more than 10% from the median are named.
@@ -98,9 +105,13 @@ out is named, with the reason.
 
 ### Known limits
 
-- **Non-protein nitrogen.** Vegetables (nitrate) and mushrooms (chitin) contain nitrogen that is
-  not protein. Nitrogen x 6.25 then overstates their protein, and their amino acid score comes
-  out low. The sources also differ in how they deal with it, so these foods disagree more.
+- **Non-protein nitrogen.** Vegetables (nitrate), mushrooms (chitin) and fruit (free amino acids
+  and other small nitrogen compounds) contain nitrogen that is not protein. Nitrogen x 6.25 then
+  overstates their protein, and their amino acid score comes out low: for most fruit and many
+  vegetables the essential amino acids add up to less than 1.6 g per gram of nitrogen, and the
+  report flags them. Their protein is also so low (often under 1 g per 100 g) that the sources
+  disagree a lot. They are in the dataset so people can find them, not for their protein
+  quality, and the site leaves them out of its suggestions.
 - **Histidine in meat and fish.** The MEXT values for poultry are about 40% higher than the
   others, probably because they include histidine from anserine and carnosine. Tuna and other
   scombroid fish contain much free histidine. The outlier check leaves the poultry values out.
@@ -108,8 +119,16 @@ out is named, with the reason.
   most on them. They are also often the limiting amino acids.
 - **Digestibility.** The values are total amino acids, not digestible ones, so a score from them
   is an amino acid score, not a DIAAS.
-- **Single sources.** Five foods have only one independent source for some essential amino acid
-  (`independentSources` is 1 or 0 in the dataset).
+- **Single sources.** Ten foods from 0.1.0 and 0.2.0 have only one independent source for some
+  essential amino acid (`independentSources` is 1 in the dataset): boiled egg, cooked chicken
+  breast, mackerel, cooked lentils, cooked kidney beans, tempeh, mung beans, black-eyed peas,
+  cooked white rice and bulgur. Five of them dropped to one in 0.3.0, when copies of USDA
+  estimates stopped counting as measurements. They stay, marked, because the site already
+  showed them. A food added since 0.2.0 needs at least two.
+- **Two sources that disagree.** With two origins, nothing tells which one is wrong. Leek and
+  parsnip differ by a factor of about 2 for every amino acid, which points to a nitrogen error in
+  one source. Gruyère methionine (365 against 180 mg per g nitrogen) and butter (very little
+  protein) disagree too. The report names every such spread.
 
 ## Rebuilding
 

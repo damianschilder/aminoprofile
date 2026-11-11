@@ -42,8 +42,8 @@
 
 ## Dataset
 
-Aminoprofile foods, version 0.2.0 (November 2026, a draft). The essential amino acids, cystine,
-tyrosine and protein of 91 everyday foods, in grams per 100 g edible portion, combined from four
+Aminoprofile foods, version 0.3.0 (November 2026, a draft). The essential amino acids, cystine,
+tyrosine and protein of 206 everyday foods, in grams per 100 g edible portion, combined from four
 national food composition databases. For every value it records which laboratories or databases
 measured it, how many independent sources there are and how far they agree. Protein is
 nitrogen x 6.25. Licence: CC BY 4.0. Credit Aminoprofile and the four sources.

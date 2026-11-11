@@ -1,7 +1,7 @@
 # Food dataset build report (version 0.3.0)
 
-174 foods, 717 links (0 confirmed, 704 proposed, 13 rejected).
-Foods with at least 2 independent measured sources for every essential amino acid: 164. With only estimates for some amino acid: 0. With flags: 148.
+206 foods, 849 links (0 confirmed, 825 proposed, 24 rejected).
+Foods with at least 2 independent measured sources for every essential amino acid: 196. With only estimates for some amino acid: 0. With flags: 179.
 
 | Food | Protein g/100 g | Independent sources | Largest disagreement | Origins |
 |---|---|---|---|---|
@@ -30,6 +30,15 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Milk powder, skimmed | 34.04 | 3 | 17% | dk, jp, souci |
 | Milk powder, whole | 25.58 | 2 | 20% | dk, souci |
 | Whey powder, sweet | 12.33 | 2 | 34% | de-literature, dk, jp |
+| Evaporated milk, unsweetened | 6.6 | 2 | 27% | de-literature, de-mri, mccance, souci |
+| Cream, whipping | 2.3 | 3 | 22% | dk, jp, souci, usda |
+| Sour cream | 2.77 | 2 | 51% | de-literature, dk, usda |
+| Crème fraîche | 2.14 | 2 | 55% | de-literature, de-mri, dk, fi |
+| Butter | 0.62 | 3 | 113% | dk, jp, souci, usda |
+| Goat milk | 3.49 | 2 | 31% | dk, souci |
+| Cheese, processed | 19.42 | 3 | 54% | de-literature, dk, jp, usda |
+| Cheese, Gruyère | 28.24 | 2 | 68% | dk, souci |
+| Condensed milk, sweetened | 7.75 | 2 | 33% | jp, souci |
 | Chicken breast, skinless, raw | 22.68 | 3 | 34% | de-mri, dk, jp, usda |
 | Chicken breast, skinless, cooked | 30.89 | 1 | – | jp |
 | Beef, minced, raw | 19.99 | 2 | 20% | dk, jp, usda |
@@ -73,6 +82,16 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Herring, pickled | 13.96 | 2 | 14% | dk, souci |
 | Mackerel, smoked | 18.79 | 2 | 12% | de-mri, dk |
 | Shrimp, cooked | 20.13 | 2 | 35% | dk, jp |
+| Pork belly, raw | 16.55 | 3 | 14% | de-mri, dk, jp |
+| Chicken wing, with skin, raw | 18.26 | 3 | 40% | de-mri, dk, jp, usda |
+| Pork liver, raw | 20.82 | 2 | 35% | de-mri, dk, jp |
+| Venison, raw | 22.51 | 2 | 51% | jp, usda |
+| Hake, raw | 17.15 | 2 | 39% | jp, souci |
+| Sole, raw | 17.31 | 3 | 50% | mccance, souci, usda |
+| Halibut, raw | 19.72 | 3 | 38% | dk, souci, usda |
+| Carp, raw | 18 | 2 | 36% | jp, souci |
+| Oysters, raw | 8.37 | 3 | 54% | jp, mccance, souci |
+| Crab, cooked | 17.71 | 3 | 24% | jp, mccance, usda |
 | Lentils, dry | 24.86 | 2 | 25% | dk, souci |
 | Lentils, cooked | 7.76 | 1 | – | dk |
 | Chickpeas, dry | 20.22 | 3 | 31% | de-literature, dk, usda |
@@ -124,7 +143,8 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Tortilla, wheat flour | 8.49 | 2 | 25% | de-mri, usda |
 | Egg noodles, dry | 14.22 | 2 | 79% | souci, usda |
 | Millet, raw | 11.67 | 2 | 35% | de-mri, dk, jp |
-| Peanuts, raw | 29.19 | 3 | 32% | dk, jp, souci |
+| Buckwheat flour | 12.19 | 4 | 34% | de-mri, dk, jp, souci |
+| Peanuts, raw | 29.53 | 2 | 24% | dk, jp |
 | Peanut butter | 24.79 | 3 | 38% | de-mri, jp, mccance, usda |
 | Almonds | 24.49 | 3 | 43% | dk, jp, souci, usda |
 | Walnuts | 16.85 | 4 | 22% | de-mri, dk, jp, usda |
@@ -141,6 +161,7 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Pine nuts | 16.38 | 3 | 30% | dk, jp, usda |
 | Coconut, desiccated | 7.67 | 2 | 17% | de-mri, dk |
 | Cocoa powder, unsweetened | 21.67 | 2 | 41% | de-mri, dk, jp |
+| Peanuts, roasted | 28.74 | 3 | 44% | jp, souci, usda |
 | Potato, raw | 1.98 | 2 | 18% | dk, jp, usda |
 | Broccoli, raw | 3.6 | 4 | 35% | jp, mccance, souci, usda |
 | Spinach, raw | 2.51 | 2 | 67% | dk, jp, souci |
@@ -165,6 +186,11 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Pumpkin, raw | 1 | 2 | 42% | jp, souci |
 | French fries, deep-fried | 2.9 | 2 | 32% | dk, jp |
 | Spinach, boiled | 2.98 | 2 | 65% | jp, usda |
+| Lettuce, iceberg, raw | 0.82 | 2 | 47% | dk, jp, usda |
+| Celery, raw | 0.53 | 2 | 49% | jp, mccance, usda |
+| Celeriac, raw | 1.38 | 2 | 35% | dk, souci |
+| Radish, raw | 0.82 | 2 | 51% | dk, jp, usda |
+| Parsnip, raw | 2.04 | 2 | 74% | dk, souci |
 | Banana, raw | 1.13 | 3 | 29% | dk, jp, souci, usda |
 | Apple, raw, with skin | 0.28 | 3 | 124% | dk, jp, souci, usda |
 | Orange, raw | 0.9 | 4 | 64% | dk, jp, souci, usda |
@@ -179,6 +205,12 @@ Foods with at least 2 independent measured sources for every essential amino aci
 | Apricots, dried | 3.37 | 2 | 44% | de-mri, dk, usda |
 | Figs, dried | 3.56 | 2 | 45% | de-mri, mccance, usda |
 | Melon, honeydew, raw | 0.57 | 2 | 42% | jp, usda |
+| Cherries, sweet, raw | 0.97 | 2 | 72% | souci, usda |
+| Plums, raw | 0.68 | 2 | 110% | jp, usda |
+| Peach, raw | 0.75 | 2 | 71% | jp, usda |
+| Mandarin, raw | 0.76 | 2 | 74% | jp, souci, usda |
+| Grapefruit, raw | 0.84 | 2 | 76% | jp, usda |
+| Prunes (dried plums) | 2.47 | 2 | 37% | de-mri, dk, usda |
 
 ## Flags
 
@@ -260,6 +292,83 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - lys: sources differ by 27% (de-literature 647, dk 510, jp 516 mg/g N)
 - trp: sources differ by 34% (de-literature 135, dk 98, jp 108 mg/g N)
 - val: sources differ by 26% (de-literature 441, dk 350, jp 356 mg/g N)
+
+### Evaporated milk, unsweetened (`evaporated-milk`)
+- dry matter differs more than 10% from the median for bls M182500 (water 61.3); nitrogen adjusted to 74 g water
+- ile: sources differ by 27% (souci 442, de-literature 405, de-mri 334 mg/g N)
+- cys: sources differ by 38% (souci 65, de-mri 44 mg/g N)
+
+### Cream, whipping (`cream-whipping`)
+- dry matter differs more than 10% from the median for bls M173800 (water 62), mext 13014 (water 48.2); nitrogen adjusted to 57.3 g water
+- lys: usda (279 mg/g N) left out as an outlier against souci 486, dk 523, jp 477
+- cys: jp (72 mg/g N) left out as an outlier against usda 34, souci 57, dk 45
+- cys: sources differ by 52% (usda 34, souci 57, dk 45 mg/g N)
+- trp: usda (148 mg/g N) left out as an outlier against souci 89, dk 80, jp 75
+
+### Sour cream (`sour-cream`)
+- dry matter differs more than 10% from the median for bls M172500 (water 82.1); nitrogen adjusted to 74.4 g water
+- his: sources differ by 40% (usda 241, dk 160 mg/g N)
+- leu: sources differ by 39% (usda 842, de-literature 644, dk 590 mg/g N)
+- lys: sources differ by 41% (usda 719, de-literature 507, dk 520 mg/g N)
+- met: sources differ by 37% (usda 204, dk 140 mg/g N)
+- cys: bls M172700, bls M172500 left out, 0 is a data error
+- cys: sources differ by 39% (usda 76, dk 51 mg/g N)
+- phe: sources differ by 31% (usda 411, dk 300 mg/g N)
+- tyr: sources differ by 38% (usda 397, dk 270 mg/g N)
+- thr: sources differ by 51% (usda 371, de-literature 316, dk 210 mg/g N)
+- trp: sources differ by 42% (usda 110, de-literature 95, dk 70 mg/g N)
+
+### Crème fraîche (`creme-fraiche`)
+- dry matter differs more than 10% from the median for bls M176800 (water 62.9), bls M172900 (water 51.3); nitrogen adjusted to 56.9 g water
+- ile: sources differ by 28% (de-mri 339, de-literature 433, dk 340 mg/g N)
+- met: bls M172900 left out, 0 is a data error
+- cys: bls M172900 left out, 0 is a data error
+- thr: sources differ by 55% (de-mri 286, de-literature 367, dk 210 mg/g N)
+- trp: sources differ by 31% (de-mri 96, fi 100, dk 70 mg/g N)
+
+### Butter (`butter`)
+- his: sources differ by 111% (usda 299, souci 100, dk 180, jp 181 mg/g N)
+- ile: usda (664 mg/g N) left out as an outlier against souci 237, dk 370, jp 298
+- ile: sources differ by 45% (souci 237, dk 370, jp 298 mg/g N)
+- leu: usda (1081 mg/g N) left out as an outlier against souci 389, dk 610, jp 585
+- leu: sources differ by 38% (souci 389, dk 610, jp 585 mg/g N)
+- lys: sources differ by 113% (usda 872, souci 284, dk 570, jp 468 mg/g N)
+- met: usda (273 mg/g N) left out as an outlier against souci 100, dk 160, jp 160
+- met: sources differ by 38% (souci 100, dk 160, jp 160 mg/g N)
+- cys: sources differ by 152% (usda 104, souci 26, dk 49, jp 53 mg/g N)
+- phe: usda (534 mg/g N) left out as an outlier against souci 189, dk 320, jp 287
+- phe: sources differ by 45% (souci 189, dk 320, jp 287 mg/g N)
+- tyr: usda (534 mg/g N) left out as an outlier against souci 189, dk 270, jp 255
+- tyr: sources differ by 32% (souci 189, dk 270, jp 255 mg/g N)
+- thr: usda (495 mg/g N) left out as an outlier against souci 179, dk 270, jp 298
+- thr: sources differ by 44% (souci 179, dk 270, jp 298 mg/g N)
+- trp: usda (156 mg/g N) left out as an outlier against souci 47, dk 86, jp 67
+- trp: sources differ by 58% (souci 47, dk 86, jp 67 mg/g N)
+- val: usda (742 mg/g N) left out as an outlier against souci 268, dk 440, jp 383
+- val: sources differ by 45% (souci 268, dk 440, jp 383 mg/g N)
+
+### Goat milk (`goat-milk`)
+- cys: sources differ by 55% (souci 144, dk 82 mg/g N)
+- tyr: sources differ by 26% (souci 415, dk 320 mg/g N)
+- thr: sources differ by 31% (souci 398, dk 290 mg/g N)
+
+### Cheese, processed (`cheese-processed`)
+- dry matter differs more than 10% from the median for usda 171290 (water 39.61); nitrogen adjusted to 46.7 g water
+- ile: sources differ by 31% (usda 330, de-literature 440, dk 350, jp 366 mg/g N)
+- leu: sources differ by 34% (usda 604, de-literature 800, dk 590, jp 647 mg/g N)
+- cys: sources differ by 47% (usda 39, dk 23, jp 34 mg/g N)
+- thr: sources differ by 54% (usda 272, de-literature 360, dk 220, jp 250 mg/g N)
+- trp: sources differ by 35% (usda 82, de-literature 112, dk 88, jp 84 mg/g N)
+- val: sources differ by 32% (usda 418, de-literature 560, dk 430, jp 450 mg/g N)
+
+### Cheese, Gruyère (`cheese-gruyere`)
+- met: sources differ by 68% (souci 365, dk 180 mg/g N)
+- cys: sources differ by 41% (souci 35, dk 23 mg/g N)
+- thr: sources differ by 45% (souci 349, dk 220 mg/g N)
+
+### Condensed milk, sweetened (`condensed-milk-sweetened`)
+- tyr: sources differ by 27% (souci 338, jp 257 mg/g N)
+- val: sources differ by 33% (souci 575, jp 414 mg/g N)
 
 ### Chicken breast, skinless, raw (`chicken-breast-raw`)
 - his: jp (320 mg/g N) left out as an outlier against usda 233, de-mri 213, dk 160
@@ -455,6 +564,66 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - ile: sources differ by 35% (dk 330, jp 233 mg/g N)
 - cys: sources differ by 44% (dk 42, jp 66 mg/g N)
 - val: sources differ by 33% (dk 330, jp 235 mg/g N)
+
+### Pork belly, raw (`pork-belly-raw`)
+- cys: sources differ by 43% (de-mri 66, dk 41, jp 69 mg/g N)
+
+### Chicken wing, with skin, raw (`chicken-wing-raw`)
+- his: sources differ by 40% (usda 233, de-mri 188, dk 160, jp 245 mg/g N)
+- cys: dk (40 mg/g N) left out as an outlier against usda 65, de-mri 80, jp 68
+- thr: de-mri (460 mg/g N) left out as an outlier against usda 280, dk 250, jp 292
+
+### Pork liver, raw (`liver-pork-raw`)
+- met: de-mri (229 mg/g N) left out as an outlier against dk 140, jp 153
+- cys: sources differ by 50% (de-mri 124, dk 69, jp 110 mg/g N)
+- phe: sources differ by 35% (de-mri 426, dk 310, jp 336 mg/g N)
+- tyr: sources differ by 40% (de-mri 321, dk 230, jp 229 mg/g N)
+
+### Venison, raw (`venison-raw`)
+- his: sources differ by 51% (usda 185, jp 312 mg/g N)
+- met: sources differ by 33% (usda 145, jp 203 mg/g N)
+- thr: sources differ by 36% (usda 235, jp 338 mg/g N)
+- trp: sources differ by 34% (usda 55, jp 78 mg/g N)
+
+### Hake, raw (`hake-raw`)
+- his: sources differ by 33% (souci 189, jp 136 mg/g N)
+- ile: sources differ by 39% (souci 461, jp 312 mg/g N)
+- cys: sources differ by 28% (souci 58, jp 77 mg/g N)
+
+### Sole, raw (`sole-raw`)
+- dry matter differs more than 10% from the median for usda 174196 (water 84.63); nitrogen adjusted to 80 g water
+- cys: souci (150 mg/g N) left out as an outlier against usda 75, mccance 70
+- thr: sources differ by 33% (usda 295, souci 393, mccance 300 mg/g N)
+- trp: sources differ by 50% (usda 81, souci 46, mccance 70 mg/g N)
+
+### Halibut, raw (`halibut-raw`)
+- dry matter differs more than 10% from the median for usda 174200 (water 80.34); nitrogen adjusted to 76.5 g water
+- his: sources differ by 38% (usda 206, souci 149, dk 150 mg/g N)
+- lys: sources differ by 27% (usda 644, souci 485, dk 590 mg/g N)
+- met: sources differ by 28% (usda 207, souci 249, dk 190 mg/g N)
+- cys: dk (44 mg/g N) left out as an outlier against usda 75, souci 75
+- phe: sources differ by 26% (usda 274, souci 211, dk 240 mg/g N)
+- trp: sources differ by 27% (usda 78, souci 81, dk 60 mg/g N)
+
+### Carp, raw (`carp-raw`)
+- dry matter differs more than 10% from the median for mext 10119 (water 71); nitrogen adjusted to 74.2 g water
+- his: sources differ by 36% (souci 146, jp 210 mg/g N)
+- ile: sources differ by 29% (souci 347, jp 260 mg/g N)
+- lys: sources differ by 31% (souci 733, jp 533 mg/g N)
+
+### Oysters, raw (`oysters-raw`)
+- dry matter differs more than 10% from the median for usda 174219 (water 82.06); nitrogen adjusted to 83.9 g water
+- ile: sources differ by 54% (souci 375, mccance 290, jp 217 mg/g N)
+- leu: sources differ by 42% (souci 569, mccance 540, jp 344 mg/g N)
+- lys: sources differ by 26% (souci 500, mccance 490, jp 371 mg/g N)
+- met: sources differ by 30% (souci 181, mccance 180, jp 127 mg/g N)
+- cys: sources differ by 36% (souci 104, mccance 80, jp 75 mg/g N)
+- phe: sources differ by 37% (souci 292, mccance 250, jp 199 mg/g N)
+- trp: sources differ by 25% (souci 56, mccance 70, jp 57 mg/g N)
+- val: sources differ by 39% (souci 361, mccance 300, jp 244 mg/g N)
+
+### Crab, cooked (`crab-cooked`)
+- dry matter differs more than 10% from the median for frida 800 (water 72.5); nitrogen adjusted to 79.7 g water
 
 ### Lentils, cooked (`lentils-cooked`)
 - dry matter differs more than 10% from the median for frida 1807 (water 74.86), mext 04094 (water 57.9); nitrogen adjusted to 70.6 g water
@@ -669,10 +838,11 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - trp: dk (49 mg/g N) left out as an outlier against de-mri 85, jp 83
 - val: sources differ by 35% (de-mri 296, dk 407, jp 315 mg/g N)
 
-### Peanuts, raw (`peanuts`)
-- ile: sources differ by 25% (dk 250, souci 273, jp 210 mg/g N)
-- cys: sources differ by 31% (dk 70, souci 96, jp 82 mg/g N)
-- trp: sources differ by 32% (dk 52, souci 71, jp 61 mg/g N)
+### Buckwheat flour (`buckwheat-flour`)
+- ile: sources differ by 31% (de-mri 215, souci 278, dk 209, jp 234 mg/g N)
+- cys: sources differ by 27% (de-mri 155, souci 123, dk 127, jp 161 mg/g N)
+- tyr: sources differ by 35% (de-mri 190, souci 134, dk 164, jp 161 mg/g N)
+- val: sources differ by 34% (de-mri 285, souci 390, dk 296, jp 328 mg/g N)
 
 ### Peanut butter (`peanut-butter`)
 - ile: sources differ by 37% (usda 151, de-mri 210, mccance 230, jp 219 mg/g N)
@@ -731,6 +901,16 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - tyr: sources differ by 40% (de-mri 158, dk 150, jp 213 mg/g N)
 - thr: sources differ by 31% (de-mri 188, dk 200, jp 251 mg/g N)
 - trp: sources differ by 41% (de-mri 69, dk 60, jp 88 mg/g N)
+
+### Peanuts, roasted (`peanuts-roasted`)
+- ile: sources differ by 40% (usda 191, souci 273, jp 207 mg/g N)
+- leu: sources differ by 25% (usda 353, souci 451, jp 392 mg/g N)
+- lys: sources differ by 30% (usda 184, souci 244, jp 200 mg/g N)
+- cys: sources differ by 30% (usda 73, souci 96, jp 74 mg/g N)
+- tyr: sources differ by 31% (usda 196, souci 264, jp 218 mg/g N)
+- thr: sources differ by 38% (usda 119, souci 189, jp 185 mg/g N)
+- trp: sources differ by 44% (usda 45, souci 71, jp 59 mg/g N)
+- val: sources differ by 38% (usda 223, souci 322, jp 261 mg/g N)
 
 ### Potato, raw (`potato-raw`)
 - cys: sources differ by 38% (usda 73, dk 51, jp 79 mg/g N)
@@ -976,6 +1156,75 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - cys: sources differ by 65% (usda 45, jp 89 mg/g N)
 - tyr: sources differ by 25% (usda 341, jp 265 mg/g N)
 
+### Lettuce, iceberg, raw (`lettuce-iceberg-raw`)
+- dry matter differs more than 10% from the median for frida 1394 (water 96.17); nitrogen adjusted to 95.6 g water
+- his: frida 1394, frida 1413 left out, 0 is a data error
+- his: sources differ by 31% (usda 91, jp 125 mg/g N)
+- ile: frida 1394, frida 1413 left out, 0 is a data error
+- leu: sources differ by 32% (usda 307, dk 286, jp 385 mg/g N)
+- lys: sources differ by 27% (usda 318, dk 247, jp 333 mg/g N)
+- met: frida 1394, frida 1413 left out, 0 is a data error
+- met: sources differ by 31% (usda 61, jp 83 mg/g N)
+- cys: dk (28 mg/g N) left out as an outlier against usda 61, jp 54
+- phe: frida 1394, frida 1413 left out, 0 is a data error
+- tyr: frida 1413 left out, 0 is a data error
+- tyr: sources differ by 125% (usda 114, dk 45, jp 187 mg/g N)
+- thr: sources differ by 47% (usda 252, dk 194, jp 313 mg/g N)
+- trp: frida 1394, frida 1413 left out, 0 is a data error
+- trp: sources differ by 31% (usda 56, jp 77 mg/g N)
+- val: sources differ by 25% (usda 278, dk 232, jp 302 mg/g N)
+
+### Celery, raw (`celery-raw`)
+- dry matter differs more than 10% from the median for usda 169988 (water 95.43), frida 13 (water 92.5); nitrogen adjusted to 94.7 g water
+- his: jp (153 mg/g N) left out as an outlier against usda 109, mccance 90
+- ile: sources differ by 29% (usda 190, mccance 240, jp 261 mg/g N)
+- leu: sources differ by 37% (usda 290, mccance 430, jp 375 mg/g N)
+- lys: mccance (130 mg/g N) left out as an outlier against usda 245, jp 342
+- lys: sources differ by 33% (usda 245, jp 342 mg/g N)
+- met: mccance (110 mg/g N) left out as an outlier against usda 45, jp 57
+- cys: jp (52 mg/g N) left out as an outlier against usda 36, mccance 30
+- phe: sources differ by 43% (usda 181, mccance 280, jp 228 mg/g N)
+- tyr: jp (195 mg/g N) left out as an outlier against usda 82, mccance 80
+- thr: sources differ by 46% (usda 181, mccance 210, jp 277 mg/g N)
+- val: sources differ by 49% (usda 245, mccance 300, jp 391 mg/g N)
+
+### Celeriac, raw (`celeriac-raw`)
+- dry matter differs more than 10% from the median for frida 46 (water 88.852), frida 1763 (water 91.8); nitrogen adjusted to 90.3 g water
+- met: frida 1485, frida 1763 left out, 0 is a data error
+- met: sources differ by 35% (souci 90, dk 63 mg/g N)
+- cys: sources differ by 111% (souci 20, dk 70 mg/g N)
+- phe: frida 1763 left out, 0 is a data error
+- phe: sources differ by 30% (souci 235, dk 174 mg/g N)
+- tyr: frida 1763 left out, 0 is a data error
+
+### Radish, raw (`radish-raw`)
+- dry matter differs more than 10% from the median for bls G691100 (water 94.05), frida 39 (water 95.9); nitrogen adjusted to 95.3 g water
+- his: sources differ by 51% (usda 119, dk 96, jp 157 mg/g N)
+- ile: sources differ by 30% (usda 184, dk 180, jp 235 mg/g N)
+- lys: sources differ by 27% (usda 303, dk 270, jp 353 mg/g N)
+- met: usda (92 mg/g N) left out as an outlier against dk 52, jp 61
+- cys: dk (7 mg/g N) left out as an outlier against usda 92, jp 78
+- phe: usda (331 mg/g N) left out as an outlier against dk 160, jp 227
+- phe: sources differ by 35% (dk 160, jp 227 mg/g N)
+- tyr: jp (188 mg/g N) left out as an outlier against usda 83, dk 74
+- thr: sources differ by 47% (usda 211, dk 190, jp 290 mg/g N)
+- val: sources differ by 33% (usda 322, dk 300, jp 408 mg/g N)
+
+### Parsnip, raw (`parsnip-raw`)
+- his: sources differ by 69% (souci 49, dk 100 mg/g N)
+- ile: sources differ by 54% (souci 121, dk 210 mg/g N)
+- leu: sources differ by 73% (souci 163, dk 350 mg/g N)
+- lys: sources differ by 65% (souci 181, dk 355 mg/g N)
+- met: frida 1752, frida 1762 left out, 0 is a data error
+- met: sources differ by 51% (souci 37, dk 63 mg/g N)
+- cys: sources differ by 161% (souci 9, dk 87 mg/g N)
+- phe: sources differ by 73% (souci 105, dk 224 mg/g N)
+- tyr: sources differ by 68% (souci 60, dk 123 mg/g N)
+- thr: sources differ by 73% (souci 114, dk 246 mg/g N)
+- trp: sources differ by 74% (souci 33, dk 71 mg/g N)
+- val: sources differ by 57% (souci 163, dk 292 mg/g N)
+- essential amino acids add up to 1.44 g per g nitrogen, outside 1.6-3.6
+
 ### Banana, raw (`banana`)
 - met: jp (80 mg/g N) left out as an outlier against usda 46, souci 43, dk 56
 - met: sources differ by 29% (usda 46, souci 43, dk 56 mg/g N)
@@ -1116,4 +1365,56 @@ Foods with at least 2 independent measured sources for every essential amino aci
 - phe: sources differ by 39% (usda 174, jp 117 mg/g N)
 - tyr: sources differ by 71% (usda 116, jp 55 mg/g N)
 - essential amino acids add up to 1.12 g per g nitrogen, outside 1.6-3.6
+
+### Cherries, sweet, raw (`cherries`)
+- met: sources differ by 72% (usda 59, souci 28 mg/g N)
+- cys: sources differ by 96% (usda 59, souci 21 mg/g N)
+- essential amino acids add up to 1.06 g per g nitrogen, outside 1.6-3.6
+
+### Plums, raw (`plums`)
+- dry matter differs more than 10% from the median for mext 07080 (water 88.6); nitrogen adjusted to 87.3 g water
+- leu: sources differ by 29% (usda 134, jp 179 mg/g N)
+- met: sources differ by 74% (usda 71, jp 33 mg/g N)
+- cys: sources differ by 74% (usda 18, jp 39 mg/g N)
+- thr: sources differ by 49% (usda 89, jp 148 mg/g N)
+- trp: sources differ by 110% (usda 80, jp 23 mg/g N)
+- essential amino acids add up to 1.02 g per g nitrogen, outside 1.6-3.6
+
+### Peach, raw (`peach`)
+- dry matter differs more than 10% from the median for mext 07184 (water 85.4); nitrogen adjusted to 88 g water
+- ile: sources differ by 26% (usda 117, jp 152 mg/g N)
+- met: sources differ by 52% (usda 69, jp 40 mg/g N)
+- cys: sources differ by 26% (usda 82, jp 64 mg/g N)
+- thr: sources differ by 41% (usda 110, jp 166 mg/g N)
+- trp: sources differ by 71% (usda 69, jp 33 mg/g N)
+- essential amino acids add up to 1.14 g per g nitrogen, outside 1.6-3.6
+
+### Mandarin, raw (`mandarin`)
+- dry matter differs more than 10% from the median for usda 169105 (water 85.17); nitrogen adjusted to 87 g water
+- his: sources differ by 38% (usda 102, souci 69, jp 89 mg/g N)
+- leu: souci (112 mg/g N) left out as an outlier against usda 188, jp 222
+- met: sources differ by 30% (usda 73, souci 69, jp 52 mg/g N)
+- cys: jp (82 mg/g N) left out as an outlier against usda 42, souci 56
+- cys: sources differ by 29% (usda 42, souci 56 mg/g N)
+- phe: sources differ by 27% (usda 174, souci 156, jp 133 mg/g N)
+- tyr: sources differ by 40% (usda 113, souci 88, jp 78 mg/g N)
+- thr: sources differ by 74% (usda 111, souci 69, jp 151 mg/g N)
+- trp: sources differ by 35% (usda 38, souci 25, jp 36 mg/g N)
+- val: sources differ by 30% (usda 216, souci 162, jp 177 mg/g N)
+- essential amino acids add up to 1.22 g per g nitrogen, outside 1.6-3.6
+
+### Grapefruit, raw (`grapefruit`)
+- met: sources differ by 56% (usda 57, jp 32 mg/g N)
+- trp: sources differ by 76% (usda 65, jp 29 mg/g N)
+- essential amino acids add up to 0.85 g per g nitrogen, outside 1.6-3.6
+
+### Prunes (dried plums) (`prunes`)
+- his: sources differ by 36% (usda 77, de-mri 54, dk 64 mg/g N)
+- met: usda (46 mg/g N) left out as an outlier against de-mri 32, dk 29
+- cys: sources differ by 132% (usda 32, de-mri 49, dk 7 mg/g N)
+- tyr: de-mri (86 mg/g N) left out as an outlier against usda 60, dk 51
+- thr: sources differ by 31% (usda 140, de-mri 130, dk 100 mg/g N)
+- trp: usda (72 mg/g N) left out as an outlier against de-mri 30, dk 22
+- trp: sources differ by 30% (de-mri 30, dk 22 mg/g N)
+- essential amino acids add up to 1.00 g per g nitrogen, outside 1.6-3.6
 

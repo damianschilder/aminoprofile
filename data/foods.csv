@@ -24,6 +24,15 @@ cheese-blue,"Cheese, blue",Eggs and dairy,blue cheese|roquefort|gorgonzola|stilt
 milk-powder-skimmed,"Milk powder, skimmed",Eggs and dairy,skimmed milk powder|nonfat dry milk|milk powder|magere melkpoeder|melkpoeder|süt tozu,milk dry nonfat skimmed powder,脱脂粉乳
 milk-powder-whole,"Milk powder, whole",Eggs and dairy,whole milk powder|dry whole milk|full-cream milk powder|volle melkpoeder|tam yağlı süt tozu,milk dry whole powder,全粉乳
 whey-powder,"Whey powder, sweet",Eggs and dairy,whey powder|sweet whey powder|dried whey|weipoeder|wei,whey sweet dried powder,ホエイパウダー
+evaporated-milk,"Evaporated milk, unsweetened",Eggs and dairy,evaporated milk|unsweetened condensed milk|koffiemelk|gecondenseerde melk ongezoet|ongezoete gecondenseerde melk|susu evaporasi,evaporated milk,無糖練乳
+cream-whipping,"Cream, whipping",Eggs and dairy,whipping cream|heavy cream|cream|fresh cream|slagroom|room|verse room|krema,whipping cream,クリーム 乳脂肪
+sour-cream,Sour cream,Eggs and dairy,sour cream|soured cream|zure room|schmand|ekşi krema,sour cream,サワークリーム
+creme-fraiche,Crème fraîche,Eggs and dairy,crème fraîche|creme fraiche|creme fraîche,creme fraiche,
+butter,Butter,Eggs and dairy,butter|boter|roomboter|tereyağı|zebda|makhan|mentega,butter,バター 有塩
+goat-milk,Goat milk,Eggs and dairy,goat milk|goat's milk|geitenmelk|keçi sütü,goat milk,やぎ乳
+cheese-processed,"Cheese, processed",Eggs and dairy,processed cheese|process cheese|cheese slices|melted cheese spread|smeltkaas|cheese|kaas,cheese processed,プロセスチーズ
+cheese-gruyere,"Cheese, Gruyère",Eggs and dairy,gruyère|gruyere|greyerzer|cheese|kaas,gruyere,グリュイエール
+condensed-milk-sweetened,"Condensed milk, sweetened",Eggs and dairy,sweetened condensed milk|condensed milk|gecondenseerde melk|gezoete gecondenseerde melk|susu kental manis,condensed milk sweetened,加糖練乳
 chicken-breast-raw,"Chicken breast, skinless, raw",Meat and fish,chicken|chicken fillet|kipfilet|kip|kippenborst|tavuk|ayam|meat|vlees,chicken breast meat only raw,若どり むね 皮なし 生
 chicken-breast-cooked,"Chicken breast, skinless, cooked",Meat and fish,grilled chicken|roasted chicken breast|gebakken kipfilet|gegrilde kip|meat|vlees,chicken breast meat only roasted,若どり むね 皮なし 焼き
 beef-mince-raw,"Beef, minced, raw",Meat and fish,ground beef|minced beef|hamburger meat|rundergehakt|gehakt|kıyma|meat|vlees,beef ground raw,牛 ひき肉 生
@@ -42,17 +51,17 @@ chicken-thigh-raw,"Chicken thigh, skinless, raw",Meat and fish,chicken thigh|bon
 herring-raw,"Herring, Atlantic, raw",Meat and fish,herring|raw herring|maatjes|haring|hollandse nieuwe|fish|vis,herring atlantic raw,にしん 生
 sardines-canned,"Sardines, canned in oil, drained",Meat and fish,sardines|canned sardines|sardines in oil|sardines in blik|sardientjes|fish|vis,sardine canned oil drained,いわし 缶詰 油漬
 trout-raw,"Trout, raw",Meat and fish,trout|rainbow trout|forel|fish|vis,trout raw,にじます 生
-liver-beef-raw,"Beef liver, raw",Meat and fish,beef liver|ox liver|runderlever|ciğer|dana ciğeri|kebda|hati sapi,beef liver raw,うし 肝臓 生
-liver-chicken-raw,"Chicken liver, raw",Meat and fish,chicken liver|chicken livers|kippenlever|kippenlevertjes|tavuk ciğeri|hati ayam|kip,chicken liver raw,にわとり 肝臓 生
-pork-mince-raw,"Pork mince, raw",Meat and fish,pork mince|ground pork|minced pork|varkensgehakt|meat|vlees,pork ground raw,ぶた ひき肉 生
+liver-beef-raw,"Beef liver, raw",Meat and fish,beef liver|ox liver|runderlever|ciğer|dana ciğeri|kebda|hati sapi|lever,beef liver raw,うし 肝臓 生
+liver-chicken-raw,"Chicken liver, raw",Meat and fish,chicken liver|chicken livers|kippenlever|kippenlevertjes|tavuk ciğeri|hati ayam|kip|lever,chicken liver raw,にわとり 肝臓 生
+pork-mince-raw,"Pork mince, raw",Meat and fish,pork mince|ground pork|minced pork|varkensgehakt|meat|vlees|gehakt,pork ground raw,ぶた ひき肉 生
 veal-raw,"Veal, lean, raw",Meat and fish,veal|lean veal|veal cutlet|kalfsvlees|kalfsoester|kalfsschnitzel|meat|vlees,veal leg lean raw,うし 子牛肉 もも 生
 beef-lean-cooked,"Beef, lean, cooked",Meat and fish,cooked beef|grilled steak|roast beef|rundvlees gebakken|gebakken rundvlees|biefstuk gebakken|gebakken biefstuk|meat|vlees,beef round lean cooked roasted,乳用肥育牛肉 もも 焼き
 pork-loin-cooked,"Pork loin, lean, cooked",Meat and fish,cooked pork|cooked pork chop|grilled pork chop|karbonade gebakken|gebakken karbonade|varkenshaas gebakken|meat|vlees,pork loin lean cooked broiled,ぶた 大型種肉 ロース 焼き
 lamb-cooked,"Lamb, lean, cooked",Meat and fish,roast lamb|cooked lamb|lamsvlees gebraden|lamsbout gebraden|meat|vlees,lamb leg lean roasted,めんよう ラム もも 焼き
 bacon,"Bacon, raw",Meat and fish,bacon|streaky bacon|bacon rashers|spek|ontbijtspek|spekreepjes,bacon unprepared,ぶた ばらベーコン
 frankfurter,Frankfurter sausage,Meat and fish,frankfurter|hot dog sausage|wiener|vienna sausage|knakworst|knakworstje|hotdog worstje,frankfurter,フランクフルトソーセージ
-salami,Salami,Meat and fish,salami|salame|hard salami,salami dry pork,ドライソーセージ
-smoked-sausage,Smoked sausage,Meat and fish,smoked sausage|kielbasa|rookworst|gelderse rookworst,sausage smoked pork,ソーセージ
+salami,Salami,Meat and fish,salami|salame|hard salami|worst,salami dry pork,ドライソーセージ
+smoked-sausage,Smoked sausage,Meat and fish,smoked sausage|kielbasa|rookworst|gelderse rookworst|worst,sausage smoked pork,ソーセージ
 sausage-pork-raw,"Pork sausage, fresh, raw",Meat and fish,pork sausage|fresh sausage|bratwurst|braadworst|verse worst|saucijs|saucijzen,pork sausage raw,生ソーセージ
 corned-beef,"Corned beef, canned",Meat and fish,corned beef|cornedbeef|canned corned beef|corned beef in blik,corned beef canned,コンビーフ缶詰
 rabbit-raw,"Rabbit, raw",Meat and fish,rabbit|rabbit meat|konijn|konijnenvlees|tavşan|meat|vlees,rabbit domesticated raw,うさぎ 肉 生
@@ -67,6 +76,16 @@ tilapia-raw,"Tilapia, raw",Meat and fish,tilapia|tilapiafilet|ikan nila|fish|vis
 herring-pickled,"Herring, pickled",Meat and fish,pickled herring|rollmops|zure haring|rolmops|haring in zuur|fish|vis,herring pickled,
 mackerel-smoked,"Mackerel, smoked",Meat and fish,smoked mackerel|gerookte makreel|makreel gerookt|füme uskumru|fish|vis,mackerel smoked,さば くん製
 shrimp-cooked,"Shrimp, cooked",Meat and fish,cooked shrimp|boiled shrimp|cooked prawns|gekookte garnalen|gepelde garnalen|seafood|zeevruchten,shrimp boiled,えび ゆで
+pork-belly-raw,"Pork belly, raw",Meat and fish,pork belly|streaky pork|fresh pork belly|buikspek|speklappen|samcan|babi samcan|meat|vlees,pork belly raw,ぶた 大型種肉 ばら 脂身つき 生
+chicken-wing-raw,"Chicken wing, with skin, raw",Meat and fish,chicken wing|chicken wings|wings|kippenvleugel|kippenvleugels|sayap ayam|tavuk kanat|kip|meat|vlees,chicken wing meat and skin raw,若どり 手羽 皮つき 生
+liver-pork-raw,"Pork liver, raw",Meat and fish,pork liver|pig liver|varkenslever|hati babi|lever,pork liver raw,ぶた 肝臓 生
+venison-raw,"Venison, raw",Meat and fish,venison|deer|deer meat|hert|hertenvlees|hertenbiefstuk|meat|vlees,deer venison raw,しか にほんじか 赤肉 生
+hake-raw,"Hake, raw",Meat and fish,hake|heek|merluza|merlu|fish|vis,hake raw,メルルーサ 生
+sole-raw,"Sole, raw",Meat and fish,sole|common sole|dover sole|tong|zeetong|dil balığı|fish|vis,sole flatfish raw,したびらめ 生
+halibut-raw,"Halibut, raw",Meat and fish,halibut|heilbot|fish|vis,halibut raw,おひょう 生
+carp-raw,"Carp, raw",Meat and fish,carp|common carp|karper|sazan|ikan mas|fish|vis,carp raw,こい 養殖 生
+oysters-raw,"Oysters, raw",Meat and fish,oyster|oysters|oesters|oester|tiram|seafood|zeevruchten,oyster raw,かき 養殖 生
+crab-cooked,"Crab, cooked",Meat and fish,crab|crab meat|cooked crab|krab|krabvlees|kepiting|yengeç|seafood|zeevruchten,crab cooked boiled,かに ゆで
 lentils-dry,"Lentils, dry",Legumes and soy,lentils|linzen|mercimek|adas|dal,lentils raw,レンズまめ 乾
 lentils-cooked,"Lentils, cooked",Legumes and soy,cooked lentils|gekookte linzen,lentils boiled,レンズまめ ゆで
 chickpeas-dry,"Chickpeas, dry",Legumes and soy,chickpeas|garbanzo beans|kikkererwten|nohut,chickpeas garbanzo raw,ひよこまめ 乾
@@ -85,14 +104,14 @@ white-beans-dry,"White beans, dry",Legumes and soy,white beans|navy beans|harico
 mung-beans-dry,"Mung beans, dry",Legumes and soy,mung beans|green gram|mungbonen|katjang idjo|kacang hijau|moong dal|beans|bonen,mung beans mature raw,りょくとう 全粒 乾
 red-lentils-dry,"Red lentils, dry",Legumes and soy,red lentils|rode linzen|kırmızı mercimek|masoor dal,lentils red raw,レンズまめ 乾
 black-eyed-peas-dry,"Black-eyed peas, dry",Legumes and soy,black-eyed peas|black-eyed beans|cowpeas|zwartoogbonen|blackeye|lobia|börülce|beans|bonen,cowpeas blackeyes common mature raw,ささげ 全粒 乾
-chickpea-flour,Chickpea flour,Legumes and soy,gram flour|besan|kikkererwtenmeel|chickpea flour|nohut unu,chickpea flour besan,ひよこまめ 粉
+chickpea-flour,Chickpea flour,Legumes and soy,gram flour|besan|kikkererwtenmeel|chickpea flour|nohut unu|meel,chickpea flour besan,ひよこまめ 粉
 tofu-silken,"Tofu, silken",Legumes and soy,silken tofu|soft tofu|kinu tofu|kinugoshi|zijden tofu|zachte tofu,tofu silken soft,絹ごし豆腐
-soy-flour,Soy flour,Legumes and soy,soya flour|sojameel|sojabloem|kinako,soy flour full fat,きな粉 黄大豆 全粒大豆
+soy-flour,Soy flour,Legumes and soy,soya flour|sojameel|sojabloem|kinako|meel,soy flour full fat,きな粉 黄大豆 全粒大豆
 white-beans-cooked,"White beans, cooked",Legumes and soy,cooked white beans|canned white beans|cooked navy beans|gekookte witte bonen|witte bonen uit blik|beans|bonen,beans navy white haricot boiled,いんげんまめ 全粒 ゆで
 baked-beans,Baked beans in tomato sauce,Legumes and soy,baked beans|beans in tomato sauce|witte bonen in tomatensaus|beans|bonen,baked beans canned tomato sauce,
 oats-rolled,"Oats, rolled",Grains,oats|oatmeal|porridge oats|havermout|haver|yulaf,oats rolled,オートミール
-wheat-flour-white,"Wheat flour, white",Grains,flour|plain flour|all-purpose flour|bloem|tarwebloem|patentbloem|un,wheat flour white all-purpose,小麦粉 中力粉
-wheat-flour-wholemeal,"Wheat flour, wholemeal",Grains,whole wheat flour|wholegrain flour|volkorenmeel|tarwemeel,wheat flour whole-grain,小麦粉 全粒粉
+wheat-flour-white,"Wheat flour, white",Grains,flour|plain flour|all-purpose flour|bloem|tarwebloem|patentbloem|un|meel,wheat flour white all-purpose,小麦粉 中力粉
+wheat-flour-wholemeal,"Wheat flour, wholemeal",Grains,whole wheat flour|wholegrain flour|volkorenmeel|tarwemeel|meel,wheat flour whole-grain,小麦粉 全粒粉
 bread-white,"Bread, white",Grains,white bread|toast|witbrood|wit brood|ekmek,bread white,食パン
 bread-wholemeal,"Bread, wholemeal",Grains,whole wheat bread|wholegrain bread|volkorenbrood|volkoren brood,bread whole-wheat,全粒粉パン
 rice-white-raw,"Rice, white, raw",Grains,rice|white rice|rijst|witte rijst|pirinç|beras,rice white long-grain raw,精白米 うるち米
@@ -101,9 +120,9 @@ rice-brown-raw,"Rice, brown, raw",Grains,brown rice|wholegrain rice|zilvervliesr
 pasta-dry,"Pasta, dry",Grains,pasta|spaghetti|macaroni|deegwaren|makarna,pasta dry,マカロニ スパゲッティ 乾
 quinoa-raw,"Quinoa, raw",Grains,quinoa,quinoa uncooked,キヌア
 buckwheat-raw,"Buckwheat, raw",Grains,buckwheat|boekweit|karabuğday,buckwheat,そば粉
-bread-rye,"Bread, rye, wholemeal",Grains,rye bread|wholegrain rye bread|pumpernickel|roggebrood,bread rye,ライ麦パン
+bread-rye,"Bread, rye, wholemeal",Grains,rye bread|wholegrain rye bread|pumpernickel|roggebrood|brood,bread rye,ライ麦パン
 sweet-corn-raw,"Sweet corn, raw",Grains,sweet corn|corn on the cob|maize|maïs|suikermaïs|jagung|mısır|makai,corn sweet raw,スイートコーン 生
-spelt-wholemeal-flour,"Spelt flour, wholemeal",Grains,spelt|spelt flour|dinkel|speltmeel,spelt,スペルト
+spelt-wholemeal-flour,"Spelt flour, wholemeal",Grains,spelt|spelt flour|dinkel|speltmeel|meel,spelt,スペルト
 barley-pearl-raw,"Barley, pearl, raw",Grains,pearl barley|barley|parelgort|gerst|gort|arpa|jau,barley pearled raw,おおむぎ 押麦
 bulgur-dry,"Bulgur, dry",Grains,bulgur|bulghur|burghul|cracked wheat,bulgur dry,ブルグル
 pasta-cooked,"Pasta, cooked",Grains,cooked pasta|boiled spaghetti|pasta gekookt|makaroni,pasta cooked,マカロニ スパゲッティ ゆで
@@ -111,13 +130,14 @@ seitan,"Seitan (wheat gluten)",Grains,seitan|wheat gluten|vital wheat gluten|tar
 wheat-germ,Wheat germ,Grains,wheat germ|tarwekiemen|tarwekiem|buğday ruşeymi,wheat germ,小麦はいが
 wheat-bran,Wheat bran,Grains,bran|wheat bran|tarwezemelen|zemelen|kepek|buğday kepeği,wheat bran,ふすま
 semolina,"Semolina, durum wheat",Grains,semolina|durum semolina|griesmeel|durumgries|smida|irmik|sooji|suji|rava,semolina durum,セモリナ
-cornmeal,Cornmeal (maize flour),Grains,cornmeal|maize flour|maize meal|polenta|maismeel|maïsmeel|mısır unu|makki atta,cornmeal maize flour,コーンミール
-rye-flour,"Rye flour, wholemeal",Grains,rye flour|wholemeal rye flour|whole rye flour|roggemeel|volkoren roggemeel|çavdar unu,rye flour wholemeal,ライむぎ 全粒粉
+cornmeal,Cornmeal (maize flour),Grains,cornmeal|maize flour|maize meal|polenta|maismeel|maïsmeel|mısır unu|makki atta|meel,cornmeal maize flour,コーンミール
+rye-flour,"Rye flour, wholemeal",Grains,rye flour|wholemeal rye flour|whole rye flour|roggemeel|volkoren roggemeel|çavdar unu|meel,rye flour wholemeal,ライむぎ 全粒粉
 cornflakes,Cornflakes,Grains,cornflakes|corn flakes,corn flakes,コーンフレーク
 rusk,Rusk,Grains,rusk|rusks|beschuit|zwieback,rusk,ラスク
 flour-tortilla,"Tortilla, wheat flour",Grains,tortilla|flour tortilla|wrap|wraps,tortilla flour,トルティーヤ
 egg-noodles-dry,"Egg noodles, dry",Grains,egg noodles|noodles|mie|eiermie|bami|bakmi,noodles egg dry,中華めん 干し
 millet-raw,"Millet, raw",Grains,millet|gierst|darı|bajra,millet raw,あわ きび ひえ
+buckwheat-flour,Buckwheat flour,Grains,buckwheat flour|boekweitmeel|boekweitbloem|karabuğday unu|kuttu atta|soba flour,buckwheat flour,そば粉
 peanuts,"Peanuts, raw",Nuts and seeds,peanuts|groundnuts|pinda|pinda's|apenootjes|kacang tanah|nuts|noten,peanuts all types raw,落花生 乾
 peanut-butter,Peanut butter,Nuts and seeds,peanut butter|pindakaas,peanut butter smooth,ピーナッツバター
 almonds,Almonds,Nuts and seeds,almonds|amandelen|badem|nuts|noten,nuts almonds,アーモンド 乾
@@ -135,6 +155,7 @@ brazil-nuts,Brazil nuts,Nuts and seeds,brazil nuts|paranoten|nuts|noten,nuts bra
 pine-nuts,Pine nuts,Nuts and seeds,pine nuts|pignoli|pijnboompitten|çam fıstığı|nuts|noten,nuts pine nut dried,まつ
 coconut-desiccated,"Coconut, desiccated",Nuts and seeds,desiccated coconut|grated coconut|shredded coconut|geraspte kokos|kokosrasp|kokos|kelapa|kelapa parut|nuts|noten,coconut meat desiccated dried,ココナッツパウダー
 cocoa-powder,"Cocoa powder, unsweetened",Nuts and seeds,cocoa powder|cocoa|cacaopoeder|cacao,cocoa powder,ココア ピュアココア
+peanuts-roasted,"Peanuts, roasted",Nuts and seeds,roasted peanuts|dry roasted peanuts|geroosterde pinda's|geroosterde pinda|kavrulmuş yer fıstığı|nuts|noten,peanuts dry-roasted,落花生 いり
 potato-raw,"Potato, raw",Vegetables,potato|potatoes|aardappel|aardappelen|patates,potatoes flesh raw,じゃがいも 皮なし 生
 broccoli-raw,"Broccoli, raw",Vegetables,broccoli|vegetables|groente|groenten,broccoli raw,ブロッコリー 花序 生
 spinach-raw,"Spinach, raw",Vegetables,spinach|spinazie|ıspanak|vegetables|groente|groenten,spinach raw,ほうれんそう 葉 生
@@ -159,6 +180,11 @@ cabbage-red-raw,"Cabbage, red, raw",Vegetables,red cabbage|rode kool|kırmızı 
 pumpkin-raw,"Pumpkin, raw",Vegetables,pumpkin|pumpkins|winter squash|pompoen|pompoenen|balkabağı|kabak|kaddu|labu|vegetables|groente|groenten,pumpkin raw,かぼちゃ 果実 生
 french-fries,"French fries, deep-fried",Vegetables,french fries|fries|chips|patat|patatje|friet|frieten|pommes frites|patates kızartması,french fries deepfried,じゃがいも 皮なし フライドポテト 生を揚げた
 spinach-cooked,"Spinach, boiled",Vegetables,boiled spinach|cooked spinach|gekookte spinazie|vegetables|groente|groenten,spinach boiled,ほうれんそう 葉 通年平均 ゆで
+lettuce-iceberg-raw,"Lettuce, iceberg, raw",Vegetables,iceberg lettuce|iceberg|crisphead lettuce|ijsbergsla|ijsberg|aysberg marul|marul|vegetables|groente|groenten|sla,lettuce iceberg raw,レタス 土耕栽培 結球葉 生
+celery-raw,"Celery, raw",Vegetables,celery|stalk celery|celery stalks|bleekselderij|selderij|selderie|sap kerevizi|vegetables|groente|groenten,celery raw,セロリ 葉柄 生
+celeriac-raw,"Celeriac, raw",Vegetables,celeriac|celery root|knolselderij|selderijknol|kereviz|vegetables|groente|groenten,celeriac raw,セルリアック
+radish-raw,"Radish, raw",Vegetables,radish|radishes|red radish|radijs|radijsjes|kırmızı turp|turp|vegetables|groente|groenten,radish raw,はつかだいこん 根 生
+parsnip-raw,"Parsnip, raw",Vegetables,parsnip|parsnips|pastinaak|pastinaken|yaban havucu|vegetables|groente|groenten,parsnip raw,パースニップ
 banana,"Banana, raw",Fruit,banana|bananas|banaan|bananen|muz|pisang|kela|fruit,bananas raw,バナナ 生
 apple,"Apple, raw, with skin",Fruit,apple|apples|appel|appels|elma|apel|seb|fruit,apples raw with skin,りんご 皮つき 生
 orange,"Orange, raw",Fruit,orange|oranges|sinaasappel|sinaasappels|portakal|jeruk|appelsien|santra|fruit,oranges raw,オレンジ 生
@@ -173,3 +199,9 @@ raisins,Raisins,Fruit,raisins|sultanas|currants|rozijnen|krenten|kuru üzüm|zbi
 apricots-dried,"Apricots, dried",Fruit,dried apricots|gedroogde abrikozen|abrikozen|kuru kayısı|kayısı|mishmish|dried fruit|gedroogd fruit,apricots dried,あんず 乾
 figs-dried,"Figs, dried",Fruit,dried figs|gedroogde vijgen|vijgen|kuru incir|incir|karmous|anjeer|dried fruit|gedroogd fruit,figs dried,いちじく 乾
 melon,"Melon, honeydew, raw",Fruit,melon|honeydew|honeydew melon|meloen|honingmeloen|kavun|kharbooza|fruit,melons honeydew raw,メロン 露地メロン 緑肉種 生
+cherries,"Cherries, sweet, raw",Fruit,cherries|cherry|sweet cherries|kersen|kers|kiraz|ceri|fruit,cherries sweet raw,さくらんぼ 生
+plums,"Plums, raw",Fruit,plums|plum|pruimen|pruim|erik|barqouq|aloo bukhara|fruit,plums raw,すもも 生
+peach,"Peach, raw",Fruit,peach|peaches|perzik|perziken|şeftali|khoukh|persik|aadoo|fruit,peaches raw,もも 生
+mandarin,"Mandarin, raw",Fruit,mandarin|mandarins|clementine|clementines|tangerine|tangerines|satsuma|mandarijn|mandarijnen|mandalina|jeruk keprok|fruit,mandarin raw,みかん 生
+grapefruit,"Grapefruit, raw",Fruit,grapefruit|grapefruits|pompelmoes|greyfurt|fruit,grapefruit raw,グレープフルーツ 生
+prunes,"Prunes (dried plums)",Fruit,prunes|prune|dried plums|gedroogde pruimen|kuru erik|dried fruit|gedroogd fruit,plums dried prunes,プルーン 乾
