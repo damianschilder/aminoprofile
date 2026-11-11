@@ -165,7 +165,7 @@ export interface FoodPage {
     spread: number | null
   }[]
   /** Per amino acid of the FAO pattern: mg per g protein (with its partner) and the share. */
-  pattern: { name: string, mgPerG: number | null, needed: number, percent: number | null }[]
+  pattern: { key: string, partner: string | null, name: string, mgPerG: number | null, needed: number, percent: number | null }[]
   score: { percent: number, limiting: string[] } | null
   origins: string[]
   independentSources: number
@@ -258,6 +258,8 @@ export function foodPage(id: string): FoodPage | null {
     pattern: SCORING_PATTERN.map((item) => {
       const s = scores.byKey[item.key]
       return {
+        key: item.key,
+        partner: 'partner' in item ? item.partner : null,
         name: item.name,
         mgPerG: s.mgPerG === null ? null : Math.round(s.mgPerG),
         needed: item.mgPerG,

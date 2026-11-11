@@ -83,7 +83,9 @@
           //- phenylalanine with tyrosine, as in the pattern. Under Protein: complete or not.
           tr.per-protein
             td
-            td.tip.wide.start.above(:data-tip="PER_PROTEIN_EXPLAINED") Per g protein #[span (mg)]
+            td.label
+              | Per g protein #[span (mg)]
+              UiInfo(label="About the Per g protein row" placement="above") {{ PER_PROTEIN_EXPLAINED }}
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
@@ -98,27 +100,25 @@
                 span.visually-hidden(v-if="isShort(nutrient.key)")  (below what is needed)
           tr.needed
             td
-            td.tip.wide.start.above(:data-tip="NEEDED_EXPLAINED") Needed #[span (mg)]
+            td.label
+              | Needed #[span (mg)]
+              UiInfo(label="About the Needed row" placement="above") {{ NEEDED_EXPLAINED }}
             td.amino.wide.above(
               v-for="nutrient in NUTRIENTS"
               :key="nutrient.key"
               :class="{ 'tip': !!pairNote(nutrient.key) }"
               :data-tip="pairNote(nutrient.key)"
             ) {{ neededText(nutrient.key) }}
-      //- What the two rows above add up to, and what to add when the protein falls short: the
-      //- foods of Aminoprofile's dataset with the most of that amino acid per gram of protein.
-      p.verdict(v-if="verdict" aria-live="polite")
-        template(v-if="verdict.complete")
-          strong.complete Complete protein.
-          |  Every essential amino acid reaches what the FAO pattern asks per gram of protein. The lowest is {{ verdict.lowest }}.
-        template(v-else)
-          strong.short Short in {{ verdict.shortNames }}.
-          |  Combine it with foods that have more {{ verdict.first.name }} per gram of protein, such as
-          template(v-for="(food, i) in verdict.suggestions" :key="food.id")
-            | {{ i === 0 ? ' ' : i === verdict.suggestions.length - 1 ? ' or ' : ', ' }}
-            NuxtLink(:to="`/foods/${food.id}`") {{ food.name.toLowerCase() }}
-            |  ({{ food.mgPerG }} mg)
-          | .
+      //- Only when the protein falls short: what, and foods of Aminoprofile's dataset with the most
+      //- of it per gram of protein. "Complete" needs no line: the Protein column says it.
+      p.verdict(v-if="verdict && !verdict.complete")
+        strong.short Short in {{ verdict.shortNames }}.
+        |  Add for example
+        template(v-for="(food, i) in verdict.suggestions" :key="food.id")
+          | {{ i === 0 ? ' ' : ' · ' }}
+          NuxtLink(:to="`/foods/${food.id}`") {{ food.name }}
+        UiInfo(label="About these foods" placement="above")
+          | The foods of Aminoprofile's dataset with the most {{ verdict.first.name }} per gram of protein, one per food group: {{ verdict.suggestions.map(f => f.mgPerG).join(', ') }} mg, against the {{ verdict.first.needed }} needed. Amino acids from foods eaten together add up, as the Total row does.
 </template>
 
 <script setup lang="ts">
@@ -126,8 +126,8 @@ import { NUTRIENTS, formatGrams, type ColumnKey, type NutrientKey } from '#share
 import { SCORING_PATTERN, formatPercent, type ScoredKey } from '#shared/scoring';
 import richestFoods from '#shared/richest-foods.json';
 
-const PER_PROTEIN_EXPLAINED = 'How many milligrams of each essential amino acid one gram of the ticked foods\' protein holds, together. Red: less than needed, so combine it with other foods. Met includes cystine and Phe includes tyrosine, as in the pattern. Not corrected for digestibility.';
-const NEEDED_EXPLAINED = 'What one gram of protein should hold, in milligrams, by the FAO (2013) pattern for ages 3 and up: enough protein then also gives enough of each essential amino acid.';
+const PER_PROTEIN_EXPLAINED = 'Milligrams of each essential amino acid in one gram of the ticked foods\' protein, together. Red is below what is needed: combine it with other foods. Met includes cystine and Phe tyrosine, as in the pattern. Hover a value for its share. Not corrected for digestibility.';
+const NEEDED_EXPLAINED = 'What one gram of protein should hold by the FAO (2013) pattern for ages 3 and up. Protein that reaches it for every amino acid is complete.';
 
 const SCORED_NAME = Object.fromEntries(SCORING_PATTERN.map(item => [item.key, item.name])) as Record<ScoredKey, string>;
 const RICHEST = richestFoods.byKey as Record<ScoredKey, { id: string, name: string, mgPerG: number }[]>;
@@ -272,13 +272,13 @@ const verdict = computed(() => {
     // "Complete" needs every amino acid, and with a missing value the lowest is only a lower
     // bound, so it is not certain yet.
     if (overall.percent === null || overall.percent < 100) return null;
-    return { complete: true as const, lowest: listOf(overall.limiting.map(k => SCORED_NAME[k])) };
+    return { complete: true as const };
   }
   const first = short[0]!;
   return {
     complete: false as const,
     shortNames: listOf(short.map(item => SCORED_NAME[item.key])),
-    first: { key: first.key, name: SCORED_NAME[first.key] },
+    first: { key: first.key, name: SCORED_NAME[first.key], needed: first.mgPerG },
     suggestions: RICHEST[first.key] ?? [],
   };
 });
@@ -300,9 +300,6 @@ h2 {
 .verdict {
   margin-top: 1.5rem;
   color: $neutral-variant30;
-  > .complete {
-    color: $colors--primary;
-  }
   > .short {
     color: $error40;
   }

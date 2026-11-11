@@ -5,8 +5,10 @@
       .content(v-if="list")
         UiBack
         h1 Amino acids of everyday foods
-        p.intro The protein and amino acid score of {{ list.count }} everyday foods, from Aminoprofile's own dataset. Each food combines up to four national food composition databases (USDA, Germany's BLS, Denmark's Frida and Japan's MEXT tables), and its page shows all the amino acids and how far the sources agree.
-        p.intro The score compares the protein with the FAO (2013) amino acid pattern for ages 3 and up. The amino acid that falls shortest decides it, and a score of 100% or more means every essential amino acid meets the pattern. It is not corrected for digestibility, so it is not a DIAAS.
+        p.intro
+          | Protein and amino acid score of {{ list.count }} everyday foods, each combined from up to four national food composition databases.
+          UiInfo(label="About the score and the sources")
+            | The score is the essential amino acid that falls shortest per gram of protein, as a share of the FAO (2013) pattern for ages 3 and up. 100% or more means a complete protein. Not corrected for digestibility, so not a DIAAS. The sources are USDA, Germany's BLS, Denmark's Frida and Japan's MEXT tables.
         nav.categories(aria-label="Food groups")
           a(v-for="c in list.categories" :key="c.name" :href="`#${categoryAnchor(c.name)}`") {{ c.name }}
         section(v-for="c in list.categories" :key="c.name" :id="categoryAnchor(c.name)")

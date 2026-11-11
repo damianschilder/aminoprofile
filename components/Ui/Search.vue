@@ -48,7 +48,7 @@
               @mouseleave="hover = false"
               @focus="hover = true"
               @blur="hover = false"
-              @click="hover = !hover"
+              @click="hover = true"
               @keydown.esc="hover = false"
             )
               nuxt-icon( name="info" aria-hidden="true")
