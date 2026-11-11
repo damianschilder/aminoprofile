@@ -1,21 +1,21 @@
 {
- "version": "0.2.0",
+ "version": "0.3.0",
  "byKey": {
   "his": [
    {
     "id": "mackerel-raw",
     "name": "Mackerel, raw",
-    "mgPerG": 51
+    "mgPerG": 63
    },
    {
     "id": "black-eyed-peas-dry",
     "name": "Black-eyed peas, dry",
-    "mgPerG": 32
+    "mgPerG": 33
    },
    {
-    "id": "cheese-gouda",
-    "name": "Cheese, Gouda",
-    "mgPerG": 31
+    "id": "cheese-camembert",
+    "name": "Cheese, Camembert",
+    "mgPerG": 32
    }
   ],
   "ile": [
@@ -30,33 +30,33 @@
     "mgPerG": 56
    },
    {
-    "id": "turkey-breast-raw",
-    "name": "Turkey breast, raw",
-    "mgPerG": 51
+    "id": "haddock-raw",
+    "name": "Haddock, raw",
+    "mgPerG": 54
    }
   ],
   "leu": [
    {
-    "id": "sweet-corn-raw",
-    "name": "Sweet corn, raw",
-    "mgPerG": 107
+    "id": "cornflakes",
+    "name": "Cornflakes",
+    "mgPerG": 158
    },
    {
-    "id": "cottage-cheese",
-    "name": "Cottage cheese",
-    "mgPerG": 102
+    "id": "cheese-goat-soft",
+    "name": "Cheese, goat, soft",
+    "mgPerG": 106
    },
    {
-    "id": "black-beans-dry",
-    "name": "Black beans, dry",
-    "mgPerG": 89
+    "id": "liver-beef-raw",
+    "name": "Beef liver, raw",
+    "mgPerG": 97
    }
   ],
   "lys": [
    {
-    "id": "herring-raw",
-    "name": "Herring, Atlantic, raw",
-    "mgPerG": 97
+    "id": "haddock-raw",
+    "name": "Haddock, raw",
+    "mgPerG": 101
    },
    {
     "id": "milk-skimmed",
@@ -71,14 +71,14 @@
   ],
   "met": [
    {
+    "id": "brazil-nuts",
+    "name": "Brazil nuts",
+    "mgPerG": 89
+   },
+   {
     "id": "egg-white-raw",
     "name": "Egg white, raw",
     "mgPerG": 67
-   },
-   {
-    "id": "chia-seeds",
-    "name": "Chia seeds",
-    "mgPerG": 50
    },
    {
     "id": "oats-rolled",
@@ -98,16 +98,16 @@
     "mgPerG": 95
    },
    {
-    "id": "peanuts",
-    "name": "Peanuts, raw",
-    "mgPerG": 93
+    "id": "millet-raw",
+    "name": "Millet, raw",
+    "mgPerG": 94
    }
   ],
   "thr": [
    {
-    "id": "egg-whole-raw",
-    "name": "Egg, whole, raw",
-    "mgPerG": 52
+    "id": "whey-powder",
+    "name": "Whey powder, sweet",
+    "mgPerG": 72
    },
    {
     "id": "trout-raw",
@@ -122,6 +122,11 @@
   ],
   "trp": [
    {
+    "id": "whey-powder",
+    "name": "Whey powder, sweet",
+    "mgPerG": 17
+   },
+   {
     "id": "pumpkin-seeds",
     "name": "Pumpkin seeds",
     "mgPerG": 16
@@ -129,11 +134,6 @@
    {
     "id": "buckwheat-raw",
     "name": "Buckwheat, raw",
-    "mgPerG": 16
-   },
-   {
-    "id": "egg-whole-boiled",
-    "name": "Egg, whole, boiled",
     "mgPerG": 16
    }
   ],
@@ -149,9 +149,9 @@
     "mgPerG": 63
    },
    {
-    "id": "rice-brown-raw",
-    "name": "Rice, brown, raw",
-    "mgPerG": 60
+    "id": "liver-beef-raw",
+    "name": "Beef liver, raw",
+    "mgPerG": 61
    }
   ]
  }
