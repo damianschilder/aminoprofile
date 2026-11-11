@@ -186,12 +186,18 @@ function viewTable() {
   color: $colors--primary;
 }
 
+// One grid for the whole list, and every row a subgrid of it, so a column is as wide as its
+// widest cell in any row. With a grid per row, "max-content" was measured per row, and a row with
+// "Fruit" put its numbers elsewhere than a row with "Meat and fish".
 .results {
   width: 80%;
+  display: grid;
+  grid-template-columns: minmax(0, 400px) max-content 9rem 4rem max-content;
+  column-gap: 2rem;
   > .headers, > .result {
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: minmax(0, 400px) max-content 9rem 4rem max-content;
-    column-gap: 2rem;
+    grid-template-columns: subgrid;
     padding: 0.3rem 0.5rem;
     > .num {
       text-align: right;

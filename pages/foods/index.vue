@@ -16,6 +16,11 @@
           h2 {{ c.name }}
           .table-scroll
             table
+              colgroup
+                col
+                col.protein
+                col.score
+                col.limited
               thead
                 tr
                   th(scope="col") Food
@@ -87,14 +92,29 @@ section {
   overflow-x: auto;
 }
 
+// Every food group has its own table. Fixed column widths make the columns of all groups line up,
+// where automatic widths followed each group's own longest name. Phones keep automatic widths, so
+// the columns fit the screen.
 table {
   border-collapse: collapse;
   width: 100%;
   font-variant-numeric: tabular-nums;
+  table-layout: fixed;
+  .protein { width: 11rem; }
+  .score { width: 5.5rem; }
+  .limited { width: 13rem; }
+  @include tablet-small {
+    table-layout: auto;
+    .protein, .score, .limited { width: auto; }
+  }
   th, td {
     padding: 0.375rem 0.75rem 0.375rem 0;
     text-align: left;
     border-bottom: 1px solid $neutral-variant90;
+  }
+  // Room between the score and the limiting amino acid next to it.
+  th:last-child, td:last-child {
+    padding-left: 1rem;
   }
   thead th {
     font-weight: bold;

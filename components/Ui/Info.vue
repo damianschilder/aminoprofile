@@ -83,8 +83,8 @@ function onPointerDown(event: PointerEvent) {
   if (!wrapper.value?.contains(event.target as Node)) close();
 }
 
-// On a phone an (i) near the right edge would open its panel off the screen. The hidden panel is
-// laid out all the time, so on opening it is measured and moved sideways to stay 16 px inside.
+// On a phone an (i) near the right edge would open its panel off the screen. On opening, once the
+// panel is laid out, it is measured and moved sideways to stay 16 px inside.
 const panel = ref<HTMLElement | null>(null);
 const shift = ref(0);
 const MARGIN = 16;
@@ -147,9 +147,12 @@ onBeforeUnmount(() => {
   letter-spacing: normal;
   text-align: left;
   white-space: normal;
-  visibility: hidden;
+  // Closed, the panel takes no space: hidden with visibility it was still laid out, and one near
+  // the right edge made the whole page wider than a phone screen. The fade in and out stays,
+  // through allow-discrete and @starting-style; browsers without them show it without a fade.
+  display: none;
   opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s;
+  transition: opacity 0.2s, display 0.2s allow-discrete;
   &.end {
     left: auto;
     right: -8px;
@@ -159,8 +162,11 @@ onBeforeUnmount(() => {
     bottom: calc(100% + 4px);
   }
   &.show {
-    visibility: visible;
+    display: block;
     opacity: 1;
+    @starting-style {
+      opacity: 0;
+    }
   }
 }
 
